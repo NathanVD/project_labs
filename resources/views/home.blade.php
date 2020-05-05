@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+{{-- <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
@@ -19,5 +19,26 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
+
+@include('templates.preloader')
+
+@include('templates.nav')
+
+@include('templates.intro')
+
+@include('templates.about')
+
+@include('templates.testimonials')
+
+@include('templates.services')
+
+@include('templates.team')
+
+@include('templates.ready')
+
+@include('templates.contact')
+
+@include('templates.footer')
+
 @endsection

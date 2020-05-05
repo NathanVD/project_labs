@@ -1,8 +1,18 @@
 // Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
+@import url("https://fonts.googleapis.com/css?family=Oswald:300,400,500,700|Roboto:300,400,700");
 
-// Variables
-@import 'variables';
+// Modules
+@import "~@fortawesome/fontawesome-free/scss/fontawesome";
+@import "~@fortawesome/fontawesome-free/scss/solid";
+@import "~@fortawesome/fontawesome-free/scss/regular";
+@import "~@fortawesome/fontawesome-free/scss/brands";
 
-// Bootstrap
-@import '~bootstrap/scss/bootstrap';
+// @import "~magnific-popup/src/css/main";
+
+// @import "~owl.carousel/src/scss/owl.carousel";
+// @import "~owl.carousel/src/scss/owl.theme.green";
+
+// @import "~bootstrap/scss/bootstrap";
+
+// Custom
+@import "./style";
