@@ -4,7 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Navlinks;
 use App\Logo;
 use App\Footer;
-
+use App\Carousel;
+use App\Tagline;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,8 +25,10 @@ Route::get('/', function () {
     $navlinks = Navlinks::find(1);
     $logo = Logo::find(1);
     $footer = Footer::find(1);
+    $carousel = Carousel::all();
+    $tagline = Tagline::find(1);
 
-    return view('home',compact('navlinks','logo','footer'));
+    return view('home',compact('navlinks','logo','footer','carousel','tagline'));
 });
 Route::get('/services', function () {
 
@@ -73,6 +76,11 @@ Route::post('/admin/logo/update', 'LogoController@update')->name('logo.update');
 //Footer 
 Route::get('/admin/footer', 'FooterController@edit')->name('footer');
 Route::post('/admin/footer/update', 'FooterController@update')->name('footer.update');
+
+//Carousel 
+Route::get('/admin/home_banner/tagline', 'TaglineController@edit')->name('tagline');
+Route::post('/admin/home_banner/tagline/update', 'TaglineController@update')->name('tagline.update');
+Route::resource('admin/home_banner', 'CarouselController');
 /*
 | End admin
 */

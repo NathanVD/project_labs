@@ -249,7 +249,19 @@ return [
                 [
                     'text' => 'Bannière',
                     'url' => '#',
-                    'icon' => 'fas fa-heading'
+                    'icon' => 'fas fa-heading',
+                    'submenu' => [
+                        [
+                            'text' => 'Carousel',
+                            'url' => '/admin/home_banner',
+                            'icon' => 'far fa-images'
+                        ],
+                        [
+                            'text' => 'Slogan',
+                            'url' => '/admin/home_banner/tagline',
+                            'icon' => 'far fa-comment-dots'
+                        ],
+                    ],
                 ],
                 [
                     'text' => 'Présentation',

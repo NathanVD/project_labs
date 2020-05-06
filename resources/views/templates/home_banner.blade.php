@@ -3,15 +3,20 @@
   <div class="hero-content">
     <div class="hero-center">
       <img src="{{$logo ? asset('storage/'.$logo->logo_path) : "img/big-logo.png"}}" class="big_logo" alt="logo"><!-- Logo -->
-      {{-- <img src="img/big-logo.png" alt=""> --}}
-      <p>Get your freebie template now!</p>
+      <p>{{$tagline ? $tagline->line : "Get your freebie template now!"}}</p>
     </div>
   </div>
 
   <!-- slider -->
   <div id="hero-slider" class="owl-carousel">
-    <div class="item  hero-item" data-bg="img/01.jpg"></div>
-    <div class="item  hero-item" data-bg="img/02.jpg"></div>
+    @if ($carousel->isEmpty())
+      <div class="item  hero-item" data-bg="img/01.jpg"></div>
+      <div class="item  hero-item" data-bg="img/02.jpg"></div>    
+    @else
+      @foreach ($carousel as $img)
+        <div class="item  hero-item" data-bg="{{asset('storage/'.$img->img_path)}}"></div>
+      @endforeach   
+    @endif
   </div>
 
 </div>
