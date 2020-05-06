@@ -237,7 +237,7 @@ return [
         ],
         [
             'text' => 'Footer',
-            'url' => '#',
+            'url' => '/admin/footer',
             'icon' => 'far fa-copyright',
         ],
 

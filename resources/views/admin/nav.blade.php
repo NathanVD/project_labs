@@ -17,19 +17,19 @@
         <div class="card-body">
           <div class="form-group">
             <label for="link_1">Section 1 :</label>
-            <input name="link_1" class="form-control" id="link_1" value="{{$links ? $links->link_1 : ''}}" required>
+            <input name="link_1" class="form-control" id="link_1" value="{{$links ? $links->link_1 : 'Home'}}" required>
           </div>
           <div class="form-group">
             <label for="link_2">Section 2 :</label>
-            <input name="link_2" class="form-control" id="link_2" value="{{$links ? $links->link_2 : ''}}" required>
+            <input name="link_2" class="form-control" id="link_2" value="{{$links ? $links->link_2 : 'Services'}}" required>
           </div>
           <div class="form-group">
             <label for="link_3">Section 3 :</label>
-            <input name="link_3" class="form-control" id="link_3" value="{{$links ? $links->link_3 : ''}}" required>
+            <input name="link_3" class="form-control" id="link_3" value="{{$links ? $links->link_3 : 'Blog'}}" required>
           </div>
           <div class="form-group">
             <label for="link_4">Section 4 :</label>
-            <input name="link_4" class="form-control" id="link_4" value="{{$links ? $links->link_4 : ''}}" required>
+            <input name="link_4" class="form-control" id="link_4" value="{{$links ? $links->link_4 : 'Contact'}}" required>
           </div>
         </div>
 
