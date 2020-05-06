@@ -21,10 +21,9 @@
     </div>
 </div> --}}
 
-@include('templates.preloader')
+{{-- @include('templates.preloader') --}}
 
-@include('templates.nav')
-{{-- /!\ onglet pas highligté, eut-être nécessaire de faire une blade nav par page --}}
+@include('templates.services_nav')
 
 @include('templates.services_banner')
 

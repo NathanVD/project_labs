@@ -220,14 +220,14 @@ return [
         ],
         [
             'text' => 'Dashboard',
-            'url' => '#',
+            'url' => '/admin',
             'icon' => 'fas fa-tachometer-alt'
         ],
 
         ['header' => 'Général'],
         [
-            'text' => 'Navbar',
-            'url' => '#',
+            'text' => 'Sections',
+            'url' => '/admin/nav',
             'icon' => 'fas fa-bars'
         ],
         [

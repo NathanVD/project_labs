@@ -21,9 +21,9 @@
     </div>
 </div> --}}
 
-@include('templates.preloader')
+{{-- @include('templates.preloader') --}}
 
-@include('templates.nav')
+@include('templates.home_nav')
 
 @include('templates.intro')
 

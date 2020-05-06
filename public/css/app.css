@@ -7826,3 +7826,15 @@ ul {
   }
 }
 
+.d-flex {
+  display: flex !important;
+}
+
+.flex-column {
+  flex-direction: column !important;
+}
+
+.justify-content-end {
+  justify-content: flex-end !important;
+}
+

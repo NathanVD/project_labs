@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Navlinks;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,12 +15,28 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('home');
-    // return view('services');
-    // return view('blog');
-    // return view('blog_post');
-    // return view('contact');
 
+    $navlinks = Navlinks::find(1);
+
+    return view('home',compact('navlinks'));
+});
+Route::get('/services', function () {
+
+    $navlinks = Navlinks::find(1);
+
+    return view('services',compact('navlinks'));
+});
+Route::get('/blog', function () {
+
+    $navlinks = Navlinks::find(1);
+
+    return view('blog',compact('navlinks'));
+});
+Route::get('/contact', function () {
+
+    $navlinks = Navlinks::find(1);
+
+    return view('contact',compact('navlinks'));
 });
 
 Route::get('/admin', function () {
@@ -28,4 +45,8 @@ Route::get('/admin', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+// Route::get('/home', 'HomeController@index')->name('home');
+
+//Subscribe (admin)
+Route::get('/admin/nav', 'NavlinksController@edit')->name('nav');
+Route::post('/admin/nav/update', 'NavlinksController@update')->name('nav.update');

@@ -23,9 +23,9 @@ se
     </div>
 </div> --}}
 
-@include('templates.preloader')
+{{-- @include('templates.preloader') --}}
 
-@include('templates.nav')
+@include('templates.contact_nav')
 
 @include('templates.contact_banner')
 
@@ -34,5 +34,10 @@ se
 @include('templates.contact')
 
 @include('templates.footer')
+
+{{-- map scripts --}}
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB0YyDTa0qqOjIerob2VTIwo_XVMhrruxo"></script>
+    <script src="js/map.js"></script>
+{{-- / map scripts --}}
 
 @endsection
