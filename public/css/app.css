@@ -7838,3 +7838,11 @@ ul {
   justify-content: flex-end !important;
 }
 
+.little_logo {
+  max-height: 33px;
+}
+
+.big_logo {
+  max-height: 148px;
+}
+

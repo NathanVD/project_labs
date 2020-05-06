@@ -1,6 +1,6 @@
 <div id="preloder">
   <div class="loader">
-    <img src="img/logo.png" alt="">
-    <h2>Loading.....</h2>
+    <img src="{{$logo ? asset('storage/'.$logo->logo_path) : "img/big-logo.png"}}" class="little_logo" alt="logo">
+    <h2>Chargement.....</h2>
   </div>
 </div>

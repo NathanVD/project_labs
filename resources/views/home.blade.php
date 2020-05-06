@@ -21,11 +21,11 @@
     </div>
 </div> --}}
 
-{{-- @include('templates.preloader') --}}
+@include('templates.preloader')
 
 @include('templates.home_nav')
 
-@include('templates.intro')
+@include('templates.home_banner')
 
 @include('templates.about')
 

@@ -30,7 +30,7 @@ return [
     |
     */
 
-    'use_ico_only' => false,
+    'use_ico_only' => true,
     'use_full_favicon' => false,
 
     /*
@@ -45,12 +45,12 @@ return [
     |
     */
 
-    'logo' => '<b>Labs</b>Digital',
-    'logo_img' => '',
-    'logo_img_class' => '',
+    'logo' => 'Digital',
+    'logo_img' => 'vendor/adminlte/dist/img/logo.png',
+    'logo_img_class' => 'brand-image elevation-3',
     'logo_img_xl' => null,
-    'logo_img_xl_class' => '',
-    'logo_img_alt' => '',
+    'logo_img_xl_class' => 'brand-image-xs',
+    'logo_img_alt' => 'LABS',
     // 'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
     // 'logo_img_class' => 'brand-image img-circle elevation-3',
     // 'logo_img_xl' => null,
@@ -225,6 +225,11 @@ return [
         ],
 
         ['header' => 'Général'],
+        [
+            'text' => 'Logo',
+            'url' => '/admin/logo',
+            'icon' => 'fas fa-camera'
+        ],
         [
             'text' => 'Sections',
             'url' => '/admin/nav',

@@ -2,7 +2,8 @@
   
   <div class="hero-content">
     <div class="hero-center">
-      <img src="img/big-logo.png" alt="">
+      <img src="{{$logo ? asset('storage/'.$logo->logo_path) : "img/big-logo.png"}}" class="big_logo" alt="logo"><!-- Logo -->
+      {{-- <img src="img/big-logo.png" alt=""> --}}
       <p>Get your freebie template now!</p>
     </div>
   </div>
