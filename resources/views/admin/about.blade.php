@@ -14,21 +14,6 @@
         @csrf
 
         <div class="card-body">
-
-          {{-- <div class="form-group">
-            <label for="line">Titre <small>(part 1)</small> :</label>
-            <input name="line" class="form-control" id="line" value="{{$footer ? $footer->line : '2017 All rights reserved.'}}" required>
-          </div>
-
-          <div class="form-group">
-            <label for="line">Mots à surligener :</label>
-            <input name="line" class="form-control" id="line" value="{{$footer ? $footer->line : '2017 All rights reserved.'}}" required>
-          </div>
-
-          <div class="form-group">
-            <label for="line">Titre <small>(part 2)</small> :</label>
-            <input name="line" class="form-control" id="line" value="{{$footer ? $footer->line : '2017 All rights reserved.'}}" required>
-          </div> --}}
           <div class="row">
             <div class="col-5">
               <div class="form-group">

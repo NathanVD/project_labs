@@ -270,7 +270,7 @@ return [
                 ],
                 [
                     'text' => 'Vidéo',
-                    'url' => '#',
+                    'url' => '/admin/video',
                     'icon' => 'fas fa-video'
                 ],
                 [

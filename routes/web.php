@@ -7,6 +7,7 @@ use App\Footer;
 use App\Carousel;
 use App\Tagline;
 use App\About;
+use App\Video;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,8 +31,9 @@ Route::get('/', function () {
     $carousel = Carousel::all();
     $tagline = Tagline::find(1);
     $about = About::find(1);
+    $video = Video::find(1);
 
-    return view('home',compact('navlinks','logo','footer','carousel','tagline','about'));
+    return view('home',compact('navlinks','logo','footer','carousel','tagline','about','video'));
 });
 Route::get('/services', function () {
 
@@ -88,6 +90,11 @@ Route::resource('admin/home_banner', 'CarouselController');
 //About 
 Route::get('/admin/about', 'AboutController@edit')->name('about');
 Route::post('/admin/about/update', 'AboutController@update')->name('about.update');
+
+//About 
+Route::get('/admin/video', 'VideoController@edit')->name('video');
+Route::post('/admin/video/update', 'VideoController@update')->name('video.update');
+
 /*
 | End admin
 */

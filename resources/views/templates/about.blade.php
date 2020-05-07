@@ -69,8 +69,8 @@
       <div class="intro-video">
         <div class="row">
           <div class="col-md-8 col-md-offset-2">
-            <img src="img/video.jpg" alt="">
-            <a href="https://www.youtube.com/watch?v=JgHfx2v9zOU" class="video-popup">
+            <img src="{{$video ? $video->img_path === 'img/video.jpg' ? asset($video->img_path) : asset('storage/'.$video->img_path) : 'img/video.jpg'}}" alt="">
+            <a href="{{$video ? $video->video_link : 'https://www.youtube.com/watch?v=JgHfx2v9zOU'}}" class="video-popup">
               <i class="fas fa-play"></i>
             </a>
           </div>
