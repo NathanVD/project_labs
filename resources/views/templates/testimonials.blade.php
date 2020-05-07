@@ -10,7 +10,24 @@
         </div>
         <div class="owl-carousel" id="testimonial-slide">
 
-          <!-- single testimonial -->
+          @foreach ($testimonials as $testimonial)
+            <div class="testimonial">
+              <span>‘​‌‘​‌</span>
+              <p>{{$testimonial->testimony}}</p>
+              <div class="client-info">
+                <div class="avatar">
+                  <img src="{{$testimonial->profile_picture_path}}" alt="">
+                </div>
+                <div class="client-name">
+                  <h2>{{$testimonial->first_name}} {{$testimonial->last_name}}</h2>
+                  <p>{{$testimonial->job_title}}</p>
+                </div>
+              </div>
+            </div>
+          @endforeach
+
+        {{-- testimonials --}}
+          {{-- <!-- single testimonial -->
           <div class="testimonial">
             <span>‘​‌‘​‌</span>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur leo est, feugiat nec elementum id, suscipit id nulla. Nulla sit amet luctus dolor. Etiam finibus consequa.</p>
@@ -98,7 +115,8 @@
                 <p>CEO Company</p>
               </div>
             </div>
-          </div>
+          </div> --}}
+        {{-- testimonials end --}}
           
         </div>
       </div>

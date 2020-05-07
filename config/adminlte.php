@@ -275,7 +275,7 @@ return [
                 ],
                 [
                     'text' => 'Testimonials',
-                    'url' => '#',
+                    'url' => '/admin/testimonials',
                     'icon' => 'fas fa-quote-right'
                 ],
                 [

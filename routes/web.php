@@ -8,6 +8,7 @@ use App\Carousel;
 use App\Tagline;
 use App\About;
 use App\Video;
+use App\Testimonial;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,8 +33,9 @@ Route::get('/', function () {
     $tagline = Tagline::find(1);
     $about = About::find(1);
     $video = Video::find(1);
+    $testimonials = Testimonial::all();
 
-    return view('home',compact('navlinks','logo','footer','carousel','tagline','about','video'));
+    return view('home',compact('navlinks','logo','footer','carousel','tagline','about','video','testimonials'));
 });
 Route::get('/services', function () {
 
@@ -94,6 +96,9 @@ Route::post('/admin/about/update', 'AboutController@update')->name('about.update
 //About 
 Route::get('/admin/video', 'VideoController@edit')->name('video');
 Route::post('/admin/video/update', 'VideoController@update')->name('video.update');
+
+//Testimonials
+Route::resource('admin/testimonials', 'TestimonialController');
 
 /*
 | End admin
