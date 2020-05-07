@@ -6,6 +6,8 @@ use App\Logo;
 use App\Footer;
 use App\Carousel;
 use App\Tagline;
+use App\About;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -27,8 +29,9 @@ Route::get('/', function () {
     $footer = Footer::find(1);
     $carousel = Carousel::all();
     $tagline = Tagline::find(1);
+    $about = About::find(1);
 
-    return view('home',compact('navlinks','logo','footer','carousel','tagline'));
+    return view('home',compact('navlinks','logo','footer','carousel','tagline','about'));
 });
 Route::get('/services', function () {
 
@@ -81,6 +84,10 @@ Route::post('/admin/footer/update', 'FooterController@update')->name('footer.upd
 Route::get('/admin/home_banner/tagline', 'TaglineController@edit')->name('tagline');
 Route::post('/admin/home_banner/tagline/update', 'TaglineController@update')->name('tagline.update');
 Route::resource('admin/home_banner', 'CarouselController');
+
+//About 
+Route::get('/admin/about', 'AboutController@edit')->name('about');
+Route::post('/admin/about/update', 'AboutController@update')->name('about.update');
 /*
 | End admin
 */

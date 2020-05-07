@@ -265,7 +265,7 @@ return [
                 ],
                 [
                     'text' => 'Présentation',
-                    'url' => '#',
+                    'url' => '/admin/about',
                     'icon' => 'fas fa-columns'
                 ],
                 [
