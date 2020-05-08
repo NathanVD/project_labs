@@ -283,7 +283,7 @@ return [
                 ],
                 [
                     'text' => 'Infos de contact',
-                    'url' => '#',
+                    'url' => '/admin/contact',
                     'icon' => 'far fa-question-circle'
                 ],
             ],

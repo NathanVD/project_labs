@@ -11,6 +11,7 @@ use App\Video;
 use App\Testimonial;
 use App\TestiTitle;
 use App\Ready;
+use App\Contact;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,8 +39,9 @@ Route::get('/', function () {
     $testimonials = Testimonial::all()->sortByDesc('created_at')->chunk(6)->first();
     $testiTitle = TestiTitle::find(1);
     $ready = Ready::find(1);
+    $contact = Contact::find(1);
 
-    return view('home',compact('navlinks','logo','footer','carousel','tagline','about','video','testimonials','testiTitle','ready'));
+    return view('home',compact('navlinks','logo','footer','carousel','tagline','about','video','testimonials','testiTitle','ready','contact'));
 });
 Route::get('/services', function () {
 
@@ -114,6 +116,8 @@ Route::get('/admin/ready', 'ReadyController@edit')->name('ready');
 Route::post('/admin/ready/update', 'ReadyController@update')->name('ready.update');
 
 //Infos contact
+Route::get('/admin/contact', 'ContactController@edit')->name('contact');
+Route::post('/admin/contact/update', 'ContactController@update')->name('contact.update');
 
 /*
 | End admin

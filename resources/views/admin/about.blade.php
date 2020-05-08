@@ -3,15 +3,13 @@
 @section('content')
 
   <div class="container">
-    <div class="card card-info">
+    <form action="{{route('about.update')}}" method="POST">
+    @csrf
+      <div class="card card-info">
 
-      <div class="card-header">
-        <h3 class="card-title">Présentation</h3>
-      </div>
-
-      <form action="{{route('about.update')}}" method="POST">
-
-        @csrf
+        <div class="card-header">
+          <h3 class="card-title">Présentation</h3>
+        </div>
 
         <div class="card-body">
           <div class="row">
@@ -29,7 +27,7 @@
             </div>
             <div class="col-5">
               <div class="form-group">
-                <label for="line">Titre <small>(partie 2)</small> :</label>
+                <label for="title_2">Titre <small>(partie 2)</small> :</label>
                 <input name="title_2" class="form-control" id="title_2" value="{{$about ? $about->title_2 : 'and discover the world'}}">
               </div>
             </div>
@@ -56,6 +54,7 @@
           </div>
 
         </div>
+
         <div class="card-footer">
           <div class="btn-group">
             <button type="submit" class="btn btn-success">Valider</button>
@@ -63,9 +62,9 @@
           </div>
         </div>
 
-      </form>
 
-    </div>
+      </div>
+    </form>
   </div>
 
 @endsection
