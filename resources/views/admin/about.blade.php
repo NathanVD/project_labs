@@ -4,7 +4,7 @@
 
   <div class="container">
     <form action="{{route('about.update')}}" method="POST">
-    @csrf
+      @csrf
       <div class="card card-info">
 
         <div class="card-header">

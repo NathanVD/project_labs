@@ -50,7 +50,15 @@
 
       <!-- présentation -->
       <div class="section-title">
-        <h2>{{$about ? $about->title_1 : 'get in'}} <span>{{$about ? $about->highlight : 'the lab'}}</span> {{$about ? $about->title_2 : 'and discover the world'}}</h2>
+        @if (!$about)
+          <h2>Get in <span>the Lab</span> and discover the world</h2>
+        @else
+          @if ($about->highlight)
+            <h2>{{$about->title_1}} <span>{{$about->highlight}}</span> {{$about->title_2}}</h2>
+          @else
+            <h2>{{$about->title_1}} {{$about->title_2}}</h2>
+          @endif
+        @endif
       </div>
       <div class="row">
         <div class="col-md-6">

@@ -4,12 +4,12 @@
 
   <div class="container">
     <form action="{{route('logo.update')}}" method="POST" enctype="multipart/form-data">
-    @csrf
-    @method('post')
+      @csrf
+      @method('post')
       <div class="card card-info">
 
         <div class="card-header">
-          <h3 class="card-title">Logo du site</h3>
+          <h3 class="card-title">Logo du site :</h3>
           <p class="card-text"><small>Cette image apparaîtra dans : l'écran de préchargement', la navbar, la bannière de la page d'accueil.</small></p>
         </div>
 

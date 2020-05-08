@@ -4,39 +4,17 @@
   left: 10px;
 }
 
-.mini-frame {
-  position: relative;
+.mini {
   width: 40px;
   height: 40px;
-  overflow: hidden;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
-.mini-frame .mini {
-  position: absolute;
-  top: 0;
-  right: -100%;
-  left: -100%;
-  margin-right: auto;
-  margin-left: auto;
-  display: block;
-  width: 100px;
-}
-
-.thumbnail-frame {
-  position: relative;
+.thumbnail {
   width: 100px;
   height: 100px;
-  overflow: hidden;
-}
-
-.thumbnail-frame .thumbnail {
-  position: absolute;
-  top: 0;
-  right: -100%;
-  left: -100%;
-  margin-right: auto;
-  margin-left: auto;
-  display: block;
-  width: 300px;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 

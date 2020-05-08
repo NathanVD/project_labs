@@ -4,8 +4,8 @@
 
   <div class="container">
     <form action="{{route('video.update')}}" method="POST" enctype="multipart/form-data">
-    @csrf
-    @method('post')
+      @csrf
+      @method('post')
       <div class="card card-info">
 
         <div class="card-header">
@@ -16,7 +16,7 @@
 
           @if ($video)
             <div class="d-flex flex-column">
-              <b>Miniature actuelle :</b>
+              <b>Miniature actuelle</b>
               <img src="{{$video->img_path === 'img/video.jpg' ? asset($video->img_path) : asset('storage/'.$video->img_path)}}" class="img-thumbnail w-50" alt="Current Picture">
             </div>
           @endif

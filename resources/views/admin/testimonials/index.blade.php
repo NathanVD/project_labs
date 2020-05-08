@@ -67,9 +67,7 @@
               @foreach ($testimonials as $testimonial)
                 <tr>
                   <td>
-                    <div class="mini-frame img-thumbnail rounded-circle">
-                      <img src="{{substr( $testimonial->profile_picture_path, 0, 4 ) === "http" ? $testimonial->profile_picture_path : asset('storage/'.$testimonial->profile_picture_path)}}" class="mini" alt="img">
-                    </div>
+                    <img src="{{substr( $testimonial->profile_picture_path, 0, 4 ) === "http" ? $testimonial->profile_picture_path : asset('storage/'.$testimonial->profile_picture_path)}}" class="mini rounded-circle" alt="img">
                   </td>
                   <td class="text-capitalize">{{$testimonial->first_name}}</td>
                   <td class="text-capitalize">{{$testimonial->last_name}}</td>

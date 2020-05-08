@@ -3,18 +3,18 @@
 @section('content')
 
   <div class="container">
-    <form action="{{route('testimonials.store')}}" method="POST" enctype="multipart/form-data">
+    <form action="{{route('team.store')}}" method="POST" enctype="multipart/form-data">
       @csrf
       <div class="card card-success">
 
         <div class="card-header">
-          <h3 class="card-title">Nouveau témoignage</h3>
+          <h3 class="card-title">Nouveau membre</h3>
         </div>
 
         <div class="card-body">
 
           <div class="form-group">
-            <label for="picture">Photo de profil :</label>
+            <label for="picture">Photo :</label>
             <input type="file" name="picture" id="picture" class="form-control-file" required>
           </div>
 
@@ -29,22 +29,17 @@
           </div>
 
           <div class="form-group">
-            <label for="job_title">Poste :</label>
-            <input type="text" name="job_title" id="job_title" class="form-control" required>
-          </div>
-
-          <div class="form-group">
-            <label for="testimony">Témoignage :</label>
-            <textarea name="testimony" id="testimony" class="form-control" rows="4" maxlength="175" required></textarea>
+            <label for="role">Poste :</label>
+            <input type="text" name="role" id="role" class="form-control">
           </div>
 
         </div>
 
         <div class="card-footer">
-            <div class="btn-group">
-              <button type="submit" class="btn btn-success">Valider</button>
-              <a href="{{route('testimonials.index')}}" class="btn btn-secondary">Annuler</a>
-            </div>
+          <div class="btn-group">
+            <button type="submit" class="btn btn-success">Valider</button>
+            <a href="{{route('team.index')}}" class="btn btn-secondary">Annuler</a>
+          </div>
         </div>
 
       </div>

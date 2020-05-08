@@ -12,6 +12,8 @@ use App\Testimonial;
 use App\TestiTitle;
 use App\Ready;
 use App\Contact;
+use App\Team;
+use App\Team_Title;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,8 +42,10 @@ Route::get('/', function () {
     $testiTitle = TestiTitle::find(1);
     $ready = Ready::find(1);
     $contact = Contact::find(1);
+    $team = Team::all()->shuffle()->where('role')->chunk(3)->first();
+    $team_title = Team_Title::find(1);
 
-    return view('home',compact('navlinks','logo','footer','carousel','tagline','about','video','testimonials','testiTitle','ready','contact'));
+    return view('home',compact('navlinks','logo','footer','carousel','tagline','about','video','testimonials','testiTitle','ready','contact','team','team_title'));
 });
 Route::get('/services', function () {
 
@@ -110,6 +114,8 @@ Route::post('/admin/testimonials/title/update', 'TestimonialController@titleUpda
 Route::resource('admin/testimonials', 'TestimonialController');
 
 //Team
+Route::post('/admin/team/title/update', 'TeamController@titleUpdate')->name('team.title.update');
+Route::resource('admin/team', 'TeamController');
 
 //Ready 
 Route::get('/admin/ready', 'ReadyController@edit')->name('ready');
