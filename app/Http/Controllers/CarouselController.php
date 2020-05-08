@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Carousel;
+use App\Tagline;
 
 class CarouselController extends Controller
 {
@@ -15,10 +16,32 @@ class CarouselController extends Controller
      */
     public function index()
     {
+        $tagline = Tagline::find(1);
         $carousels = Carousel::all();
 
-        return view('admin.home_banner.index', compact('carousels'));
+        return view('admin.carousel.index', compact('carousels','tagline'));
     }
+
+    /*
+    / Partie Slogan
+    */
+    public function taglineUpdate() {
+
+        $tagline = Tagline::find(1);
+
+        if (!$tagline) {
+            $tagline = new Tagline;
+        }
+
+        $tagline->line = request('line');
+
+        $tagline->save();
+
+        return redirect()->route('carousel.index');
+    }
+    /*
+    /Fin partie Slogan
+    */
 
     /**
      * Show the form for creating a new resource.
@@ -27,7 +50,7 @@ class CarouselController extends Controller
      */
     public function create()
     {
-        return view('admin.home_banner.create');
+        return view('admin.carousel.create');
     }
 
     /**
@@ -44,7 +67,7 @@ class CarouselController extends Controller
 
         $carousel->save();
 
-        return redirect()->route('home_banner.index');
+        return redirect()->route('carousel.index');
     }
 
     /**
@@ -68,7 +91,7 @@ class CarouselController extends Controller
     {
         $image = Carousel::find($id);
 
-        return view('admin.home_banner.edit', compact('image'));
+        return view('admin.carousel.edit', compact('image'));
     }
 
     /**
@@ -89,7 +112,7 @@ class CarouselController extends Controller
 
         $carousel->save();
 
-        return redirect()->route('home_banner.index');
+        return redirect()->route('carousel.index');
     }
 
     /**
@@ -106,6 +129,6 @@ class CarouselController extends Controller
 
         $carousel->delete();
 
-        return redirect()->route('home_banner.index');
+        return redirect()->route('carousel.index');
     }
 }

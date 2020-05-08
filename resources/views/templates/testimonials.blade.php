@@ -6,7 +6,7 @@
     <div class="row">
       <div class="col-md-8 col-md-offset-4">
         <div class="section-title left">
-          <h2>What our clients say</h2>
+          <h2>{{$testiTitle ? $testiTitle->title : 'What our clients say'}}</h2>
         </div>
         <div class="owl-carousel" id="testimonial-slide">
 
@@ -16,7 +16,7 @@
               <p>{{$testimonial->testimony}}</p>
               <div class="client-info">
                 <div class="avatar">
-                  <img src="{{$testimonial->profile_picture_path}}" alt="">
+                  <img src="{{substr( $testimonial->profile_picture_path, 0, 4 ) === "http" ? $testimonial->profile_picture_path : asset('storage/'.$testimonial->profile_picture_path)}}" alt="">
                 </div>
                 <div class="client-name">
                   <h2>{{$testimonial->first_name}} {{$testimonial->last_name}}</h2>

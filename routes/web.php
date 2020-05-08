@@ -9,6 +9,7 @@ use App\Tagline;
 use App\About;
 use App\Video;
 use App\Testimonial;
+use App\TestiTitle;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,9 +34,10 @@ Route::get('/', function () {
     $tagline = Tagline::find(1);
     $about = About::find(1);
     $video = Video::find(1);
-    $testimonials = Testimonial::all();
+    $testimonials = Testimonial::all()->sortByDesc('created_at')->chunk(6)->first();
+    $testiTitle = TestiTitle::find(1);
 
-    return view('home',compact('navlinks','logo','footer','carousel','tagline','about','video','testimonials'));
+    return view('home',compact('navlinks','logo','footer','carousel','tagline','about','video','testimonials','testiTitle'));
 });
 Route::get('/services', function () {
 
@@ -69,7 +71,10 @@ Route::get('/contact', function () {
 | Admin
 */
 Route::get('/admin', function () {
-    return view('admin.index');
+    $testimonials_count = Testimonial::count();
+    $last_testimonial = Testimonial::latest('created_at')->first();
+
+    return view('admin.index', compact('testimonials_count','last_testimonial'));
 })->name('admin');
 
 //Subscribe 
@@ -85,9 +90,8 @@ Route::get('/admin/footer', 'FooterController@edit')->name('footer');
 Route::post('/admin/footer/update', 'FooterController@update')->name('footer.update');
 
 //Carousel 
-Route::get('/admin/home_banner/tagline', 'TaglineController@edit')->name('tagline');
-Route::post('/admin/home_banner/tagline/update', 'TaglineController@update')->name('tagline.update');
-Route::resource('admin/home_banner', 'CarouselController');
+Route::post('/admin/carousel/tagline/update', 'CarouselController@taglineUpdate')->name('carousel.tagline.update');
+Route::resource('admin/carousel', 'CarouselController');
 
 //About 
 Route::get('/admin/about', 'AboutController@edit')->name('about');
@@ -98,6 +102,7 @@ Route::get('/admin/video', 'VideoController@edit')->name('video');
 Route::post('/admin/video/update', 'VideoController@update')->name('video.update');
 
 //Testimonials
+Route::post('/admin/testimonials/title/update', 'TestimonialController@titleUpdate')->name('testimonial.title.update');
 Route::resource('admin/testimonials', 'TestimonialController');
 
 /*

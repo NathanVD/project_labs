@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use App\TestiTitle;
 use App\Testimonial;
 
 class TestimonialController extends Controller
@@ -15,9 +16,32 @@ class TestimonialController extends Controller
      */
     public function index()
     {
+        $title = TestiTitle::find(1);
         $testimonials = Testimonial::all();
 
-        return view('admin.testimonials.index', compact('testimonials'));    }
+        return view('admin.testimonials.index', compact('title','testimonials'));
+    }
+
+    /*
+    / Partie Titre
+    */
+    public function titleUpdate() {
+
+        $title = TestiTitle::find(1);
+
+        if (!$title) {
+            $title = new TestiTitle;
+        }
+
+        $title->title = request('title');
+
+        $title->save();
+
+        return redirect()->route('testimonials.index');
+    }
+    /*
+    /Fin partie Titre
+    */
 
     /**
      * Show the form for creating a new resource.

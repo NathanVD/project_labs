@@ -29,7 +29,7 @@
             
             <div class="col">
               <div class="thumbnail-frame img-thumbnail float-right">
-                <img src="{{asset('storage/'.$testimonial->profile_picture_path)}}" class="thumbnail" alt="Current Picture">
+                <img src="{{substr( $testimonial->profile_picture_path, 0, 4 ) === "http" ? $testimonial->profile_picture_path : asset('storage/'.$testimonial->profile_picture_path)}}" class="thumbnail" alt="Current Picture">
               </div>
             </div>
             
