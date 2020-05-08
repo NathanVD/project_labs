@@ -3,16 +3,14 @@
 @section('content')
 
   <div class="container">
-    <div class="card card-info">
+    <form action="{{route('video.update')}}" method="POST" enctype="multipart/form-data">
+    @csrf
+    @method('post')
+      <div class="card card-info">
 
-      <div class="card-header">
-        <h3 class="card-title">Vidéo</h3>
-      </div>
-
-      <form action="{{route('video.update')}}" method="POST" enctype="multipart/form-data">
-
-        @csrf
-        @method('post')
+        <div class="card-header">
+          <h3 class="card-title">Vidéo</h3>
+        </div>
 
         <div class="card-body">
 
@@ -42,9 +40,8 @@
           </div>
         </div>
 
-      </form>
-
-    </div>
+      </div>
+    </form>
   </div>
 
 @endsection

@@ -3,17 +3,15 @@
 @section('content')
 
   <div class="container">
-    <div class="card card-success">
+    <form action="{{route('testimonials.store')}}" method="POST" enctype="multipart/form-data">
+    @csrf
+      <div class="card card-success">
 
-      <div class="card-header">
-        <h3 class="card-title">Nouveau témoignage</h3>
-      </div>
-
-      <form action="{{route('testimonials.store')}}" method="POST" enctype="multipart/form-data">
+        <div class="card-header">
+          <h3 class="card-title">Nouveau témoignage</h3>
+        </div>
 
         <div class="card-body">
-
-          @csrf
 
           <div class="form-group">
             <label for="picture">Photo de profil</label>
@@ -49,9 +47,8 @@
             </div>
         </div>
 
-      </form>
-
-    </div>
+      </div>
+    </form>
   </div>
   
 
