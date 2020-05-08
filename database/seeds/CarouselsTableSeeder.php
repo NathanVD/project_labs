@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Carousel;
 
 class CarouselsTableSeeder extends Seeder
 {
@@ -11,6 +12,7 @@ class CarouselsTableSeeder extends Seeder
      */
     public function run()
     {
-        //
+        Carousel::truncate();
+        factory(Carousel::class,5)->create();
     }
 }

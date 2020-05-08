@@ -13,6 +13,6 @@ class TestimonialsTableSeeder extends Seeder
     public function run()
     {
         Testimonial::truncate();
-        factory(Testimonial::class,6)->create();
+        factory(Testimonial::class,10)->create();
     }
 }

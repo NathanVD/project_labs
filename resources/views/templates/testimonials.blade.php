@@ -10,21 +10,52 @@
         </div>
         <div class="owl-carousel" id="testimonial-slide">
 
-          @foreach ($testimonials as $testimonial)
+          @if ($testimonials)
+            @foreach ($testimonials as $testimonial)
+              <div class="testimonial">
+                <span>‘​‌‘​‌</span>
+                <p>{{$testimonial->testimony}}</p>
+                <div class="client-info">
+                  <div class="avatar">
+                    <img src="{{substr( $testimonial->profile_picture_path, 0, 4 ) === "http" ? $testimonial->profile_picture_path : asset('storage/'.$testimonial->profile_picture_path)}}" alt="">
+                  </div>
+                  <div class="client-name">
+                    <h2>{{$testimonial->first_name}} {{$testimonial->last_name}}</h2>
+                    <p>{{$testimonial->job_title}}</p>
+                  </div>
+                </div>
+              </div>
+            @endforeach
+          @else
             <div class="testimonial">
               <span>‘​‌‘​‌</span>
-              <p>{{$testimonial->testimony}}</p>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur leo est, feugiat nec elementum id, suscipit id nulla. Nulla sit amet luctus dolor. Etiam finibus consequa.</p>
               <div class="client-info">
                 <div class="avatar">
-                  <img src="{{substr( $testimonial->profile_picture_path, 0, 4 ) === "http" ? $testimonial->profile_picture_path : asset('storage/'.$testimonial->profile_picture_path)}}" alt="">
+                  <img src="img/avatar/01.jpg" alt="">
                 </div>
                 <div class="client-name">
-                  <h2>{{$testimonial->first_name}} {{$testimonial->last_name}}</h2>
-                  <p>{{$testimonial->job_title}}</p>
+                  <h2>Michael Smith</h2>
+                  <p>CEO Company</p>
                 </div>
               </div>
             </div>
-          @endforeach
+
+            <div class="testimonial">
+              <span>‘​‌‘​‌</span>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur leo est, feugiat nec elementum id, suscipit id nulla. Nulla sit amet luctus dolor. Etiam finibus consequa.</p>
+              <div class="client-info">
+                <div class="avatar">
+                  <img src="img/avatar/02.jpg" alt="">
+                </div>
+                <div class="client-name">
+                  <h2>Michael Smith</h2>
+                  <p>CEO Company</p>
+                </div>
+              </div>
+            </div> 
+          @endif
+
 
         {{-- testimonials --}}
           {{-- <!-- single testimonial -->

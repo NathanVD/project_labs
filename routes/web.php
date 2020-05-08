@@ -97,13 +97,21 @@ Route::resource('admin/carousel', 'CarouselController');
 Route::get('/admin/about', 'AboutController@edit')->name('about');
 Route::post('/admin/about/update', 'AboutController@update')->name('about.update');
 
-//About 
+//Video 
 Route::get('/admin/video', 'VideoController@edit')->name('video');
 Route::post('/admin/video/update', 'VideoController@update')->name('video.update');
 
 //Testimonials
 Route::post('/admin/testimonials/title/update', 'TestimonialController@titleUpdate')->name('testimonial.title.update');
 Route::resource('admin/testimonials', 'TestimonialController');
+
+//Team
+
+//Ready 
+Route::get('/admin/ready', 'ReadyController@edit')->name('ready');
+Route::post('/admin/ready/update', 'ReadyController@update')->name('ready.update');
+
+//Infos contact
 
 /*
 | End admin

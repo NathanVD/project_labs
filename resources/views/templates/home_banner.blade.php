@@ -10,11 +10,11 @@
   <!-- slider -->
   <div id="hero-slider" class="owl-carousel">
     @if ($carousel->isEmpty())
-      <div class="item  hero-item" data-bg="img/01.jpg"></div>
+      <div class="item  hero-item" data-bg="https://loremflickr.com/1920/1080?random=1"></div>
       <div class="item  hero-item" data-bg="img/02.jpg"></div>    
     @else
       @foreach ($carousel as $img)
-        <div class="item  hero-item" data-bg="{{asset('storage/'.$img->img_path)}}"></div>
+        <div class="item  hero-item" data-bg="{{substr( $img->img_path, 0, 4 ) === "http" ? $img->img_path : asset('storage/'.$img->img_path)}}"></div>
       @endforeach   
     @endif
   </div>

@@ -50,7 +50,7 @@
                     @foreach ($carousels as $image)
                         <div class="col-sm-2 position-relative">
 
-                            <img src="{{asset('storage/'.$image->img_path)}}" class="img-fluid mb-2" alt="carousel_item {{$image->id}}">
+                            <img src="{{substr( $image->img_path, 0, 4 ) === "http" ? $image->img_path : asset('storage/'.$image->img_path)}}" class="img-fluid mb-2" alt="carousel_item {{$image->id}}">
 
                             <div class="carousel_list_actions">
                                 <a href="{{route('carousel.edit',$image->id)}}" class="btn btn-info">
