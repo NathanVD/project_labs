@@ -10,6 +10,7 @@ use App\About;
 use App\Video;
 use App\Testimonial;
 use App\TestiTitle;
+use App\Ready;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,8 +37,9 @@ Route::get('/', function () {
     $video = Video::find(1);
     $testimonials = Testimonial::all()->sortByDesc('created_at')->chunk(6)->first();
     $testiTitle = TestiTitle::find(1);
+    $ready = Ready::find(1);
 
-    return view('home',compact('navlinks','logo','footer','carousel','tagline','about','video','testimonials','testiTitle'));
+    return view('home',compact('navlinks','logo','footer','carousel','tagline','about','video','testimonials','testiTitle','ready'));
 });
 Route::get('/services', function () {
 

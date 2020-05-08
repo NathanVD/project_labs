@@ -278,7 +278,7 @@ return [
                 ],
                 [
                     'text' => 'Ready ?',
-                    'url' => '#',
+                    'url' => '/admin/ready',
                     'icon' => 'fas fa-link'
                 ],
                 [

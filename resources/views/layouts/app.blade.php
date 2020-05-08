@@ -7,7 +7,7 @@
 	<meta name="keywords" content="lab, onepage, creative, html">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<!-- Favicon -->
-	<link href="img/favicons/favicon.ico" rel="shortcut icon"/>
+	<link href="./favicons/favicon.ico" rel="shortcut icon"/>
 
     <!-- Stylesheets -->
 	<link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}"/>
