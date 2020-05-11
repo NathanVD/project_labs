@@ -14,6 +14,7 @@ use App\Ready;
 use App\Contact;
 use App\Team;
 use App\Team_Title;
+use App\Starred;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,7 +43,17 @@ Route::get('/', function () {
     $testiTitle = TestiTitle::find(1);
     $ready = Ready::find(1);
     $contact = Contact::find(1);
-    $team = Team::all()->shuffle()->where('role')->chunk(3)->first();
+    $starred = Starred::find(1);
+    $team1 = Team::all()->where('role');
+    if ($starred && $team1->count() <= 1) {
+        $team  = $team1->replace([0 => $starred]);
+    } else if ($starred) {
+        $team = $team1->whereNotIn('id',$starred->member_id)->shuffle();
+        $team_2 = $team[1];
+        $team = $team->replace([1 => $starred])->push($team_2)->chunk(3)->first();
+    } else {
+        $team = $team1->shuffle()->chunk(3)->first();
+    };
     $team_title = Team_Title::find(1);
 
     return view('home',compact('navlinks','logo','footer','carousel','tagline','about','video','testimonials','testiTitle','ready','contact','team','team_title'));
@@ -114,6 +125,8 @@ Route::post('/admin/testimonials/title/update', 'TestimonialController@titleUpda
 Route::resource('admin/testimonials', 'TestimonialController');
 
 //Team
+Route::post('/admin/team/{id}/starred_member/update', 'TeamController@starredUpdate')->name('team.starred_member.update');
+Route::delete('/admin/team/starred_member/remove', 'TeamController@starredRemove')->name('team.starred_member.remove');
 Route::post('/admin/team/title/update', 'TeamController@titleUpdate')->name('team.title.update');
 Route::resource('admin/team', 'TeamController');
 

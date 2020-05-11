@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Team_Title;
 use App\Team;
+use App\Starred;
 
 class TeamController extends Controller
 {
@@ -18,8 +19,9 @@ class TeamController extends Controller
     {
         $team_title = Team_Title::find(1);
         $team = Team::all();
+        $starred = Starred::find(1);
 
-        return view('admin.team.index', compact('team_title','team'));
+        return view('admin.team.index', compact('team_title','team','starred'));
     }
 
     /*
@@ -109,7 +111,7 @@ class TeamController extends Controller
     public function update(Request $request, $id)
     {
         $team = Team::find($id);
-
+        $starred = Starred::find(1);
         if (request('picture')) {
             Storage::delete($team->pic_path);
             $team->pic_path = request('picture')->store('img');
@@ -117,6 +119,15 @@ class TeamController extends Controller
         $team->first_name = request('first_name');
         $team->last_name = request('last_name');
         $team->role = request('role');
+
+        if ($starred && $team->id === $starred->member_id) {
+            $starred->pic_path = $team->pic_path;
+            $starred->first_name = $team->first_name;
+            $starred->last_name = $team->last_name;
+            $starred->role = $team->role;
+
+            $starred->save();
+        };
 
         $team->save();
 
@@ -132,10 +143,46 @@ class TeamController extends Controller
     public function destroy($id)
     {
         $team = Team::find($id);
+        $starred = Starred::find(1);
 
         Storage::delete($team->pic_path);
 
+        if ($starred && $team->id === $starred->member_id) {
+            $starred->delete();
+        }
+
         $team->delete();
+
+        return redirect()->route('team.index');
+    }
+
+    public function starredUpdate($id)
+    {
+        $team = Team::find($id);
+        $starred = Starred::find(1);
+
+        if (!$starred) {
+            $starred = new Starred;
+            $starred->id = 1;
+        }
+
+
+        $starred->pic_path = $team->pic_path;
+        $starred->first_name = $team->first_name;
+        $starred->last_name = $team->last_name;
+        $starred->role = $team->role;
+        $starred->member_id = $team->id;
+
+        $starred->save();
+
+        return redirect()->route('team.index');
+    }
+
+    public function starredRemove()
+    {
+        $starred = Starred::find(1);
+
+        $starred->delete();
 
         return redirect()->route('team.index');
     }

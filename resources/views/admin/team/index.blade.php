@@ -54,6 +54,67 @@
     </form>
   {{-- Titre fin --}}
 
+  {{-- Membre vedette --}}
+    <div class="card card-warning">
+      <div class="card-header">
+        <h3 class="card-title">Équipier vedette </h3>
+      </div>
+
+      <div class="card-body table-responsive p-0">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Photo</th>
+              <th>Prénom</th>
+              <th>Nom</th>
+              <th>Poste</th>
+              <th>Vedette</th>
+              <th class="text-center">Actions</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            @if (!$starred)
+                <tr>
+                  <td colspan="6" class="text-center"><b>Aucun équipier en vedette</b></td>
+                </tr>
+            @else 
+              <tr>
+                <td>
+                  <img src="{{substr( $starred->pic_path, 0, 4 ) === "http" ? $starred->pic_path : asset('storage/'.$starred->pic_path)}}" class="mini rounded-circle" alt="img">
+                </td>
+                <td class="text-capitalize">{{$starred->first_name}}</td>
+                <td class="text-capitalize">{{$starred->last_name}}</td>
+                <td class="text-capitalize">{{$starred->role}}</td>
+                <td class="text-capitalize">
+                  <form action="{{route('team.starred_member.remove')}}" method="POST" class="d-inline-block">
+                    @csrf
+                    @method('delete')
+                    <button class="btn btn-outline-warning border-0">
+                      <i class="fas fa-star"></i>
+                    </button>
+                  </form>
+                </td>
+                <td class="text-center text-nowrap">
+                  <a href="{{route('team.edit',$starred->member_id)}}" class="btn btn-info">
+                    <i class="fas fa-edit"></i>
+                  </a>
+                  <form action="{{route('team.destroy',$starred->member_id)}}" method="POST" class="d-inline-block">
+                    @csrf
+                    @method('delete')
+                    <button class="btn btn-danger">
+                      <i class="fas fa-trash-alt"></i>
+                    </button>
+                  </form>
+                </td>
+              </tr>
+            @endif
+          </tbody>
+        </table>
+      </div>
+    </div>
+  {{-- Starred member end --}}
+
   {{-- Index --}}
     <div class="card card-primary">
       <div class="card-header">
@@ -62,13 +123,13 @@
 
       <div class="card-body table-responsive p-0">
         <table class="table table-hover">
-
           <thead>
             <tr>
               <th>Photo</th>
               <th>Prénom</th>
               <th>Nom</th>
               <th>Poste</th>
+              <th>Vedette ?</th>
               <th class="text-center">Actions</th>
             </tr>
           </thead>
@@ -87,6 +148,24 @@
                   <td class="text-capitalize">{{$team_member->first_name}}</td>
                   <td class="text-capitalize">{{$team_member->last_name}}</td>
                   <td class="text-capitalize">{{$team_member->role}}</td>
+                  <td class="text-capitalize">
+                    @if ($starred && $team_member->id === $starred->member_id)
+                      <form action="{{route('team.starred_member.remove')}}" method="POST" class="d-inline-block">
+                        @csrf
+                        @method('delete')
+                        <button class="btn btn-outline-warning border-0">
+                          <i class="fas fa-star"></i>
+                        </button>
+                      </form>
+                    @else
+                      <form action="{{route('team.starred_member.update',$team_member->id)}}" method="POST" class="d-inline-block">
+                        @csrf
+                        <button class="btn btn-outline-warning border-0">
+                          <i class="far fa-star"></i>
+                        </button>
+                      </form>
+                    @endif
+                  </td>
                   <td class="text-center text-nowrap">
                     <a href="{{route('team.edit',$team_member->id)}}" class="btn btn-info">
                       <i class="fas fa-edit"></i>
