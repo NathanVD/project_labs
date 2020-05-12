@@ -7842,6 +7842,10 @@ ul {
   justify-content: flex-end !important;
 }
 
+.mb-3 {
+  margin-bottom: 1rem !important;
+}
+
 .hero-item {
   background-position: center !important;
 }

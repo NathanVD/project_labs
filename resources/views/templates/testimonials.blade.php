@@ -9,7 +9,6 @@
           <h2>{{$testiTitle ? $testiTitle->title : 'What our clients say'}}</h2>
         </div>
         <div class="owl-carousel" id="testimonial-slide">
-
           @if (!$testimonials)
             <div class="testimonial">
               <span>‘​‌‘​‌</span>
@@ -55,7 +54,6 @@
               </div>
             @endforeach
           @endif
-
         {{-- testimonials --}}
           {{-- <!-- single testimonial -->
           <div class="testimonial">

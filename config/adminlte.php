@@ -267,11 +267,6 @@ return [
                     'icon' => 'fas fa-quote-right'
                 ],
                 [
-                    'text' => 'Services',
-                    'url' => '#',
-                    'icon' => 'fas fa-concierge-bell'
-                ],
-                [
                     'text' => 'Team',
                     'url' => '/admin/team',
                     'icon' => 'fas fa-users'
@@ -281,11 +276,6 @@ return [
                     'url' => '/admin/ready',
                     'icon' => 'fas fa-link'
                 ],
-                [
-                    'text' => 'Infos de contact',
-                    'url' => '/admin/contact',
-                    'icon' => 'far fa-question-circle'
-                ],
             ],
         ],
         
@@ -294,24 +284,14 @@ return [
             'icon' => 'fas fa-concierge-bell',
             'submenu' => [
                 [
-                    'text' => 'Bannière',
-                    'url' => '#',
-                    'icon' => 'fas fa-heading'
-                ],
-                [
-                    'text' => 'Services',
-                    'url' => '#',
-                    'icon' => 'fas fa-concierge-bell'
+                    'text' => 'Tous les services',
+                    'url' => '/admin/services',
+                    'icon' => 'fas fa-clipboard-list'
                 ],
                 [
                     'text' => 'Services primés',
                     'url' => '#',
                     'icon' => 'fas fa-award'
-                ],
-                [
-                    'text' => 'Infos de contact',
-                    'url' => '#',
-                    'icon' => 'far fa-question-circle'
                 ],
             ],
         ],
@@ -320,11 +300,6 @@ return [
             'text' => 'Blog',
             'icon' => 'fas fa-rss',
             'submenu' => [
-                [
-                    'text' => 'Bannière',
-                    'url' => '#',
-                    'icon' => 'fas fa-heading'
-                ],
                 [
                     'text' => 'Articles',
                     'url' => '#',
@@ -343,18 +318,13 @@ return [
             'icon' => 'far fa-id-card',
             'submenu' => [
                 [
-                    'text' => 'Bannière',
-                    'url' => '#',
-                    'icon' => 'fas fa-heading'
-                ],
-                [
                     'text' => 'Map',
                     'url' => '#',
                     'icon' => 'fas fa-map-marked-alt'
                 ],
                 [
-                    'text' => 'Infos',
-                    'url' => '#',
+                    'text' => 'Infos de contact',
+                    'url' => '/admin/contact',
                     'icon' => 'far fa-question-circle'
                 ],
             ],

@@ -18,3 +18,8 @@
      object-fit: cover;
 }
 
+[type=radio]:checked + label {
+  outline: 2px dashed #28a745;
+  border-radius: 5px;
+}
+

@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 use App\Testimonial;
 
-class TestimonialsTableSeeder extends Seeder
+class TestimonialSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,7 +12,8 @@ class TestimonialsTableSeeder extends Seeder
      */
     public function run()
     {
-        Testimonial::truncate();
-        factory(Testimonial::class,10)->create();
+    Testimonial::truncate();
+
+    factory(Testimonial::class,10)->create();
     }
 }

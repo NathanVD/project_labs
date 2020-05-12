@@ -15,6 +15,8 @@ use App\Contact;
 use App\Team;
 use App\Team_Title;
 use App\Starred;
+use App\Service;
+use App\Services_Title;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,6 +43,8 @@ Route::get('/', function () {
     $video = Video::find(1);
     $testimonials = Testimonial::all()->sortByDesc('created_at')->chunk(6)->first();
     $testiTitle = TestiTitle::find(1);
+    $services_chunks = Service::all()->sortByDesc('created_at')->chunk(9);
+    $services_title = Services_Title::find(1);
     $ready = Ready::find(1);
     $contact = Contact::find(1);
     $starred = Starred::find(1);
@@ -56,15 +60,21 @@ Route::get('/', function () {
     };
     $team_title = Team_Title::find(1);
 
-    return view('home',compact('navlinks','logo','footer','carousel','tagline','about','video','testimonials','testiTitle','ready','contact','team','team_title'));
+    return view('home',compact('navlinks','logo','footer','carousel',
+    'tagline','about','video','testimonials','testiTitle','ready','contact',
+    'team','team_title','services_chunks','services_title' ));
 });
 Route::get('/services', function () {
 
     $navlinks = Navlinks::find(1);
     $logo = Logo::find(1);
     $footer = Footer::find(1);
+    $contact = Contact::find(1);
+    $services = Service::paginate(9);
+    $services_title = Services_Title::find(1);
 
-    return view('services',compact('navlinks','logo','footer'));
+    return view('services',compact('navlinks','logo','footer','contact',
+    'services','services_title'));
 });
 Route::get('/blog', function () {
 
@@ -137,6 +147,10 @@ Route::post('/admin/ready/update', 'ReadyController@update')->name('ready.update
 //Infos contact
 Route::get('/admin/contact', 'ContactController@edit')->name('contact');
 Route::post('/admin/contact/update', 'ContactController@update')->name('contact.update');
+
+//Services
+Route::post('/admin/services/title/update', 'ServiceController@titleUpdate')->name('services.title.update');
+Route::resource('admin/services', 'ServiceController');
 
 /*
 | End admin

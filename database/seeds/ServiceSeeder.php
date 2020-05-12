@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Team;
+use App\Service;
 
-class TeamsSeeder extends Seeder
+class ServiceSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,7 +12,8 @@ class TeamsSeeder extends Seeder
      */
     public function run()
     {
-        Team::truncate();
-        factory(Team::class,10)->create();
+    Service::truncate();
+
+    factory(Service::class,20)->create();
     }
 }
