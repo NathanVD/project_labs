@@ -302,12 +302,12 @@ return [
             'submenu' => [
                 [
                     'text' => 'Articles',
-                    'url' => '/admin/articles',
+                    'url' => '/admin/blog/articles',
                     'icon' => 'far fa-newspaper'
                 ],
                 [
                     'text' => 'Catégories',
-                    'url' => '#',
+                    'url' => '/admin/blog/categories',
                     'icon' => 'fas fa-list'
                 ],
             ],
@@ -375,6 +375,17 @@ return [
 
     'plugins' => [
         [
+            'name' => 'bs-custom-file-input',
+            'active' => true,
+            'files' => [
+                [
+                    'type' => 'js',
+                    'asset' => false,
+                    'location' => '//cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.js',
+                ],
+            ],
+        ],
+        [
             'name' => 'Datatables',
             'active' => false,
             'files' => [
@@ -397,7 +408,7 @@ return [
         ],
         [
             'name' => 'Select2',
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',

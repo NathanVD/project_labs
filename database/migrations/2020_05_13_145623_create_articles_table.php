@@ -20,6 +20,7 @@ class CreateArticlesTable extends Migration
             $table->foreignId('author_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('category_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->text('content');
+            $table->boolean('approved')->default(false);
             $table->timestamps();
         });
     }

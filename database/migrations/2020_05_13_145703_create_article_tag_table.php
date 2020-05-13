@@ -14,6 +14,7 @@ class CreateArticleTagTable extends Migration
     public function up()
     {
         Schema::create('article_tag', function (Blueprint $table) {
+            $table->id();
             $table->foreignId('article_id')->constraint()->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('tag_id')->constraint()->onDelete('cascade')->onUpdate('cascade');
         });
