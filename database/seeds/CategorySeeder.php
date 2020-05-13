@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Team;
+use App\Category;
 
-class TeamSeeder extends Seeder
+class CategorySeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,8 +12,8 @@ class TeamSeeder extends Seeder
      */
     public function run()
     {
-        Team::truncate();
+        Category::truncate();
 
-        factory(Team::class,10)->create();
+        factory(Category::class,10)->create();
     }
 }

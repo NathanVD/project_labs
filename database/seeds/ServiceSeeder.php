@@ -12,8 +12,8 @@ class ServiceSeeder extends Seeder
      */
     public function run()
     {
-    Service::truncate();
+        Service::truncate();
 
-    factory(Service::class,20)->create();
+        factory(Service::class,20)->create();
     }
 }

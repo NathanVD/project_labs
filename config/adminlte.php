@@ -302,7 +302,7 @@ return [
             'submenu' => [
                 [
                     'text' => 'Articles',
-                    'url' => '#',
+                    'url' => '/admin/articles',
                     'icon' => 'far fa-newspaper'
                 ],
                 [

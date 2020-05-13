@@ -23,19 +23,19 @@
 
 @include('templates.preloader')
 
-@include('templates.home_nav')
+@include('templates.home.home_nav')
 
-@include('templates.home_banner')
+@include('templates.home.home_banner')
 
-@include('templates.about')
+@include('templates.home.about')
 
-@include('templates.testimonials')
+@include('templates.home.testimonials')
 
 @include('templates.services')
 
-@include('templates.team')
+@include('templates.home.team')
 
-@include('templates.ready')
+@include('templates.home.ready')
 
 @include('templates.contact')
 

@@ -12,8 +12,8 @@ class CarouselSeeder extends Seeder
      */
     public function run()
     {
-    Carousel::truncate();
+        Carousel::truncate();
 
-    factory(Carousel::class,5)->create();
+        factory(Carousel::class,5)->create();
     }
 }

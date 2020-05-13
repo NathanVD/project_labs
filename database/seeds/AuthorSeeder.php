@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Team;
+use App\Author;
 
-class TeamSeeder extends Seeder
+class AuthorSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,8 +12,8 @@ class TeamSeeder extends Seeder
      */
     public function run()
     {
-        Team::truncate();
+        Author::truncate();
 
-        factory(Team::class,10)->create();
+        factory(Author::class,3)->create();
     }
 }

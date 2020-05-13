@@ -12,8 +12,8 @@ class TestimonialSeeder extends Seeder
      */
     public function run()
     {
-    Testimonial::truncate();
+        Testimonial::truncate();
 
-    factory(Testimonial::class,10)->create();
+        factory(Testimonial::class,10)->create();
     }
 }

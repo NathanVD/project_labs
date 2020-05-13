@@ -21,17 +21,17 @@
     </div>
 </div> --}}
 
-{{-- @include('templates.preloader') --}}
+@include('templates.preloader')
 
-@include('templates.services_nav')
+@include('templates.services.services_nav')
 
-@include('templates.services_banner')
+@include('templates.services.services_banner')
 
 @include('templates.services')
 
-@include('templates.primed_services')
+@include('templates.services.primed_services')
 
-@include('templates.quick_blog')
+@include('templates.services.quick_blog')
 
 @include('templates.newsletter')
 

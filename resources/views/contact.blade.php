@@ -23,13 +23,13 @@ se
     </div>
 </div> --}}
 
-{{-- @include('templates.preloader') --}}
+@include('templates.preloader')
 
-@include('templates.contact_nav')
+@include('templates.contact.contact_nav')
 
-@include('templates.contact_banner')
+@include('templates.contact.contact_banner')
 
-@include('templates.map')
+@include('templates.contact.map')
 
 @include('templates.contact')
 

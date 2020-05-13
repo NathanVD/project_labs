@@ -144,6 +144,12 @@ Route::post('/admin/services/primed/update', 'PrimedServiceController@update')->
 Route::post('/admin/services/title/update', 'ServiceController@titleUpdate')->name('services.title.update');
 Route::resource('admin/services', 'ServiceController');
 
+//Blog
+Route::post('/admin/blog/tags/create', 'ArticleController@tagCreate')->name('blog.tags.create');
+Route::resource('admin/blog/articles', 'ArticleController');
+Route::resource('admin/blog/categories', 'CategoryController');
+Route::resource('admin/blog/comments', 'CommentController');
+
 /*
 | End admin
 */
