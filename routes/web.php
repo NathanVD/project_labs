@@ -1,22 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Navlinks;
-use App\Logo;
-use App\Footer;
-use App\Carousel;
-use App\Tagline;
-use App\About;
-use App\Video;
-use App\Testimonial;
-use App\TestiTitle;
-use App\Ready;
-use App\Contact;
-use App\Team;
-use App\Team_Title;
-use App\Starred;
-use App\Service;
-use App\Services_Title;
+use App\Navlinks;use App\Logo;use App\Footer;use App\Carousel;use App\Tagline;
+use App\About;use App\Video;use App\Testimonial;use App\TestiTitle;use App\Ready;
+use App\Contact;use App\Team;use App\Team_Title;use App\Starred;use App\Service;
+use App\Services_Title;use App\Primed_Services;
 
 /*
 |--------------------------------------------------------------------------
@@ -70,11 +58,13 @@ Route::get('/services', function () {
     $logo = Logo::find(1);
     $footer = Footer::find(1);
     $contact = Contact::find(1);
-    $services = Service::paginate(9);
+    $services_chunks = Service::all()->sortByDesc('created_at')->chunk(9);
     $services_title = Services_Title::find(1);
+    $primed_services = Service::all()->sortByDesc('created_at')->chunk(6)->first();
+    $primed_services_title = Primed_Services::find(1);
 
     return view('services',compact('navlinks','logo','footer','contact',
-    'services','services_title'));
+    'services_chunks','services_title','primed_services','primed_services_title'));
 });
 Route::get('/blog', function () {
 
@@ -149,6 +139,8 @@ Route::get('/admin/contact', 'ContactController@edit')->name('contact');
 Route::post('/admin/contact/update', 'ContactController@update')->name('contact.update');
 
 //Services
+Route::get('/admin/services/primed', 'PrimedServiceController@edit')->name('services.primed');
+Route::post('/admin/services/primed/update', 'PrimedServiceController@update')->name('services.primed.update');
 Route::post('/admin/services/title/update', 'ServiceController@titleUpdate')->name('services.title.update');
 Route::resource('admin/services', 'ServiceController');
 

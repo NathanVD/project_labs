@@ -5088,7 +5088,7 @@ __webpack_require__(/*! ./main */ "./resources/js/main.js");
 --------------------*/
 
 function loader() {
-  $(window).on('load', function () {
+  $(window).on("load", function () {
     $(".loader").fadeOut();
     $("#preloder").delay(400).fadeOut("slow");
   });
@@ -5099,9 +5099,9 @@ function loader() {
 
 
 function responsive() {
-  // Responsive 
-  $('.responsive').on('click', function (event) {
-    $('.menu-list').slideToggle(400);
+  // Responsive
+  $(".responsive").on("click", function (event) {
+    $(".menu-list").slideToggle(400);
     event.preventDefault();
   });
 }
@@ -5112,34 +5112,34 @@ function responsive() {
 
 function heroSection() {
   //Slide item bg image.
-  $('.hero-item').each(function () {
-    var image = $(this).data('bg');
+  $(".hero-item").each(function () {
+    var image = $(this).data("bg");
     $(this).css({
-      'background-image': 'url(' + image + ')',
-      'background-size': 'cover',
-      'background-repeat': 'no-repeat',
-      'background-position': 'center bottom'
+      "background-image": "url(" + image + ")",
+      "background-size": "cover",
+      "background-repeat": "no-repeat",
+      "background-position": "center bottom"
     });
-  }); //slider auto height 
+  }); //slider auto height
 
   var iit = setInterval(slide_item, 1);
 
   function slide_item() {
-    var bh = $('body').height();
-    $('.hero-item').height(bh);
+    var bh = $("body").height();
+    $(".hero-item").height(bh);
   }
 
   slide_item();
   var time = 7;
   var $progressBar, $bar, $elem, isPause, tick, percentTime; // Init the carousel
 
-  $('#hero-slider').owlCarousel({
+  $("#hero-slider").owlCarousel({
     loop: true,
     nav: true,
     items: 1,
     autoHeight: true,
-    animateOut: 'fadeOut',
-    animateIn: 'fadeIn',
+    animateOut: "fadeOut",
+    animateIn: "fadeIn",
     navText: ['<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>'],
     onInitialized: progressBar,
     onTranslated: moved,
@@ -5172,8 +5172,6 @@ function heroSection() {
     tick = setInterval(interval, 10);
   }
 
-  ;
-
   function interval() {
     if (isPause === false) {
       percentTime += 1 / time;
@@ -5182,12 +5180,12 @@ function heroSection() {
       }); // if percentTime is equal or greater than 100
 
       if (percentTime >= 100) {
-        // slide to next item 
+        // slide to next item
         $("#hero-slider").trigger("next.owl.carousel");
         percentTime = 0; // give the carousel at least the animation time ;)
       }
     }
-  } // pause while dragging 
+  } // pause while dragging
 
 
   function pauseOnDragging() {
@@ -5208,8 +5206,8 @@ function heroSection() {
 
 
 function videoPopup() {
-  $('.video-popup').magnificPopup({
-    type: 'iframe',
+  $(".video-popup").magnificPopup({
+    type: "iframe",
     autoplay: true
   });
 }
@@ -5219,8 +5217,8 @@ function videoPopup() {
 
 
 function testimonial() {
-  // testimonial Carousel 
-  $('#testimonial-slide').owlCarousel({
+  // testimonial Carousel
+  $("#testimonial-slide").owlCarousel({
     loop: true,
     autoplay: true,
     margin: 30,
@@ -5248,14 +5246,14 @@ function testimonial() {
 
 
 function progressbar() {
-  $('.progress-bar-style').each(function () {
+  $(".progress-bar-style").each(function () {
     var progress = $(this).data("progress");
-    var prog_width = progress + '%';
+    var prog_width = progress + "%";
 
     if (progress <= 100) {
-      $(this).append('<div class="bar-inner" style="width:' + prog_width + '"><span>' + prog_width + '</span></div>');
+      $(this).append('<div class="bar-inner" style="width:' + prog_width + '"><span>' + prog_width + "</span></div>");
     } else {
-      $(this).append('<div class="bar-inner" style="width:100%"><span>' + prog_width + '</span></div>');
+      $(this).append('<div class="bar-inner" style="width:100%"><span>' + prog_width + "</span></div>");
     }
   });
 }
@@ -5265,12 +5263,12 @@ function progressbar() {
 
 
 function accordions() {
-  $('.panel').on('click', function (e) {
-    $('.panel').removeClass('active');
+  $(".panel").on("click", function (e) {
+    $(".panel").removeClass("active");
     var $this = $(this);
 
-    if (!$this.hasClass('active')) {
-      $this.addClass('active');
+    if (!$this.hasClass("active")) {
+      $this.addClass("active");
     }
 
     e.preventDefault();

@@ -11,7 +11,7 @@
         @endif
       @endif
     </div>
-      @if (!$services_chunks)
+      @if ($services_chunks->isEmpty())
         <div class="row">
           <!-- single service -->
           <div class="col-md-4 col-sm-6">
@@ -127,7 +127,7 @@
           @foreach ($services_chunks as $services_row)
             <div class="tab-pane {{$loop->first ? 'active' : ''}}" id="pills-{{$loop->index}}" role="tabpanel" aria-labelledby="pills-{{$loop->index}}-tab">
               @foreach ($services_row->chunk(3) as $services)
-                <div class="row">
+                <div class="row d-flex justify-content-center">
                   @foreach ($services as $service)
                     <div class="col-md-4 col-sm-6">
                       <div class="service justify-content-center">

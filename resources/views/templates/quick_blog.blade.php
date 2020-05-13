@@ -1,4 +1,4 @@
-<div class="services-card-section spad">
+<div class="services-card-section spad" id="quick_blogs">
   <div class="container">
     <div class="row">
       <!-- Single Card -->

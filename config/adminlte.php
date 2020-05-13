@@ -290,7 +290,7 @@ return [
                 ],
                 [
                     'text' => 'Services primés',
-                    'url' => '#',
+                    'url' => '/admin/services/primed',
                     'icon' => 'fas fa-award'
                 ],
             ],
