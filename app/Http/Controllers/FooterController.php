@@ -26,6 +26,6 @@ class FooterController extends Controller
 
         $footer->save();
 
-        return redirect()->route('admin');
+        return redirect()->route('footer');
     }
 }

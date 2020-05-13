@@ -36,7 +36,7 @@
         <div class="card-footer">
           <div class="btn-group">
             <button type="submit" class="btn btn-success">Valider</button>
-            <a href="{{route('admin')}}" class="btn btn-secondary">Annuler</a>
+            <a href="{{route('video')}}" class="btn btn-secondary">Annuler</a>
           </div>
         </div>
 

@@ -29,6 +29,6 @@ class LogoController extends Controller
 
         $logo->save();
 
-        return redirect()->route('admin');
+        return redirect()->route('logo');
     }
 }

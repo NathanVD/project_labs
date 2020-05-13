@@ -29,6 +29,6 @@ class NavlinksController extends Controller
 
         $links->save();
 
-        return redirect()->route('admin');
+        return redirect()->route('nav');
     }
 }

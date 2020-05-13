@@ -80,9 +80,18 @@
           <p>{{$about ? $about->col_2 : 'Cras ex mauris, ornare eget pretium sit amet, dignissim et turpis. Nunc nec maximus dui, vel suscipit dolor. Donec elementum velit a orci facilisis rutrum. Nam convallis vel erat id dictum. Sed ut risus in orci convallis viverra a eget nisi. Aenean pellentesque elit vitae eros dignissim ultrices. Quisque porttitor porttitorlaoreet vel risus et luctus.'}}</p>
         </div>
       </div>
-      <div class="text-center mt60">
-        <a href="#contact_form" class="site-btn">{{$about ? $about->button : 'browse'}}</a>
-      </div>
+      @if ($about)
+        @if ($about->button_visible === 'on')
+          <div class="text-center mt60">
+            <a href="#contact_form" class="site-btn">{{$about->button}}</a>
+          </div>
+        @endif
+      @else
+        <div class="text-center mt60">
+          <a href="#contact_form" class="site-btn">Browse</a>
+        </div>
+      @endif
+
       <!-- présentation end -->
 
       <!-- video -->

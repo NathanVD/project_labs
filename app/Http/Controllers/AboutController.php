@@ -28,9 +28,10 @@ class AboutController extends Controller
         $about->col_1 = request('col_1');
         $about->col_2 = request('col_2');
         $about->button = request('button');
+        $about->button_visible = request('button_visible');
 
         $about->save();
 
-        return redirect()->route('admin');
+        return redirect()->route('about');
     }
 }

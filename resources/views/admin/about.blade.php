@@ -53,12 +53,21 @@
             <input name="button" class="form-control" id="button" value="{{$about ? $about->button : 'browse'}}" required>
           </div>
 
+          <div class="custom-control custom-switch">
+            @if ($about)
+              <input type="checkbox" class="custom-control-input" id="button_visible" name="button_visible" {{$about->button_visible ? 'checked' : ''}}>
+            @else
+              <input type="checkbox" class="custom-control-input" id="button_visible" name="button_visible" checked>
+            @endif
+            <label class="custom-control-label" for="button_visible">Rendre le bouton visible</label>
+          </div>
+
         </div>
 
         <div class="card-footer">
           <div class="btn-group">
             <button type="submit" class="btn btn-success">Valider</button>
-            <a href="{{route('admin')}}" class="btn btn-secondary">Annuler</a>
+            <a href="{{route('about')}}" class="btn btn-secondary">Annuler</a>
           </div>
         </div>
 

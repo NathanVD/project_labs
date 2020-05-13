@@ -34,6 +34,6 @@ class VideoController extends Controller
 
         $video->save();
 
-        return redirect()->route('admin');
+        return redirect()->route('video');
     }
 }

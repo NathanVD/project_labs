@@ -33,6 +33,6 @@ class ContactController extends Controller
 
         $contact->save();
 
-        return redirect()->route('admin');
+        return redirect()->route('contact');
     }
 }

@@ -28,6 +28,6 @@ class ReadyController extends Controller
 
         $ready->save();
 
-        return redirect()->route('admin');
+        return redirect()->route('ready');
     }
 }
