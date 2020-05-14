@@ -145,7 +145,6 @@ Route::post('/admin/services/title/update', 'ServiceController@titleUpdate')->na
 Route::resource('admin/services', 'ServiceController');
 
 //Blog
-// Route::post('/admin/blog/tags/create', 'ArticleController@tagCreate')->name('tags.create');
 Route::post('/admin/blog/articles/{id}/approve', 'ArticleController@approve')->name('article.approve');
 Route::resource('admin/blog/articles', 'ArticleController');
 Route::resource('admin/blog/categories', 'CategoryController');

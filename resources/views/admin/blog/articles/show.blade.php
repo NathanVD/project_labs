@@ -46,11 +46,10 @@
         </div>
       </div>
     </div>
-    
 
     <div class="card card-teal card-outline">
       <div class="card-header">
-        <h3 class="card-title">Tags</h3>
+        <h3 class="card-title">Infos rapides</h3>
 
         <div class="card-tools">
           <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
@@ -58,11 +57,21 @@
         </div>
       </div>
       <div class="card-body p-2">
-        @foreach ($article->tags as $tag)
-          <span class="badge badge-pill badge-primary px-2 py-1 m-1">{{$tag->name}}</span>
-        @endforeach
+        <strong>Tags</strong>
+        <div>
+          @foreach ($article->tags as $tag)
+            <span class="badge badge-pill badge-primary px-2 py-1 m-1">{{$tag->name}}</span>
+          @endforeach
+        </div>
+        <hr>
+        <strong>Catégorie</strong>
+        <p>{{$article->category->name}}</p>
+        <hr>
+        <strong>Auteur</strong>
+        <p>{{$article->author->name}}</p>
       </div>
     </div>
+
   </div>
   <div class="col-md-9">
     <div class="card card-cyan card-outline">
