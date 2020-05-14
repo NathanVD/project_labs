@@ -23,7 +23,10 @@
 
           <div class="form-group">
             <label for="miniature">Miniature :</label>
-            <input type="file" name="miniature" class="form-control-file" id="miniature">
+            <div class="custom-file">
+              <input type="file" class="custom-file-input" name="miniature" id="miniature">
+              <label class="custom-file-label" for="miniature" data-browse="Parcourir">Choisissez une image</label>
+            </div>
           </div>
 
           <div class="form-group">
@@ -45,3 +48,11 @@
   </div>
 
 @endsection
+
+@section('js')
+  <script>
+    $(document).ready(function () {
+      bsCustomFileInput.init()
+    });
+  </script>
+@stop

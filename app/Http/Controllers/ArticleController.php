@@ -56,7 +56,6 @@ class ArticleController extends Controller
         
         $article->save();
 
-        // $categories = Category::all();
         $newtags = collect(request('tags'))->diff(Tag::all()->pluck('id'));
         $tags = Tag::find(request('tags'));
 
@@ -100,7 +99,11 @@ class ArticleController extends Controller
      */
     public function edit($id)
     {
-        //
+        $article = Article::find($id);
+        $categories = Category::all();
+        $tags = Tag::all();
+
+        return view('admin.blog.articles.edit',compact('article','categories','tags'));
     }
 
     /**
@@ -112,7 +115,38 @@ class ArticleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $article = Article::find($id);
+
+        if (request('img')) {
+            Storage::delete($article->img_path);
+            $article->img_path = request('img')->store('img');
+        };
+        $article->title = request('title');
+        $article->category_id = request('category');
+        $article->content = request('content');
+        
+        $article->save();
+
+        // Tags supplémentaires
+        // On retire tous les tags 
+        $article->tags()->detach();
+        // et on prend les nouveaux
+        // Qui n'existent pas encore
+        $newtags = collect(request('tags'))->diff(Tag::all()->pluck('id'));
+        // Qui existent déjà
+        $tags = Tag::find(request('tags'));
+
+        foreach ($newtags as $newtag) {
+            $tag = new Tag;
+            $tag->name = $newtag;
+            $tag->save();
+            $tags->push($tag);
+        }
+
+        $article->tags()->attach($tags);
+
+
+        return redirect()->route('articles.index');
     }
 
     /**
@@ -127,9 +161,11 @@ class ArticleController extends Controller
 
         Storage::delete($article->pic_path);
 
+        $article->tags()->detach();
+
         $article->delete();
 
-        return redirect()->back();
+        return redirect()->route('articles.index');
     }
 
     /**

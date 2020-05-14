@@ -52,7 +52,7 @@
               <img src="{{substr( $image->img_path, 0, 4 ) === "http" ? $image->img_path : asset('storage/'.$image->img_path)}}" class="img-fluid mb-2" alt="carousel_item {{$image->id}}">
 
               <div class="carousel_list_actions">
-                <a href="{{route('carousel.edit',$image->id)}}" class="btn btn-info">
+                <a href="{{route('carousel.edit',$image->id)}}" class="btn btn-warning">
                   <i class="fas fa-edit"></i>
                 </a>
                 <form action="{{route('carousel.destroy',$image->id)}}" method="POST" class="d-inline-block">

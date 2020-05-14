@@ -10,7 +10,7 @@
     <form action="{{route('team.update',$team->id)}}" method="POST" enctype="multipart/form-data">
       @csrf
       @method('PUT')
-      <div class="card card-info">
+      <div class="card card-warning">
 
         <div class="card-header">
           <h3 class="card-title">Modification d'un membre de l'équipe</h3>
@@ -22,7 +22,10 @@
             <div class="col d-flex align-items-center">
               <div class="form-group">
                 <label for="picture">Photo :</label>
-                <input type="file" name="picture" id="picture" class="form-control-file">
+                <div class="custom-file">
+                  <input type="file" class="custom-file-input" name="picture" id="picture">
+                  <label class="custom-file-label" for="picture" data-browse="Parcourir">Choisissez une image</label>
+                </div>
               </div>
             </div>
             
@@ -66,3 +69,11 @@
   </div>
 
 @endsection
+
+@section('js')
+  <script>
+    $(document).ready(function () {
+      bsCustomFileInput.init()
+    });
+  </script>
+@stop

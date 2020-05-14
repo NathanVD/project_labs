@@ -111,6 +111,7 @@ class TeamController extends Controller
     public function update(Request $request, $id)
     {
         $team = Team::find($id);
+        
         $starred = Starred::find(1);
         if (request('picture')) {
             Storage::delete($team->pic_path);

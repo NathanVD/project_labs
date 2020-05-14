@@ -14,8 +14,13 @@
         <div class="card-body">
 
           <div class="form-group">
-            <label for="picture">Photo :</label>
-            <input type="file" name="picture" id="picture" class="form-control-file" required>
+            <div class="form-group">
+              <label for="picture">Photo :</label>
+              <div class="custom-file">
+                <input type="file" class="custom-file-input" name="picture" id="picture">
+                <label class="custom-file-label" for="picture" data-browse="Parcourir">Choisissez une image</label>
+              </div>
+            </div>
           </div>
 
           <div class="form-group">
@@ -47,3 +52,11 @@
   </div>
 
 @endsection
+
+@section('js')
+  <script>
+    $(document).ready(function () {
+      bsCustomFileInput.init()
+    });
+  </script>
+@stop

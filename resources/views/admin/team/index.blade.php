@@ -167,7 +167,7 @@
                     @endif
                   </td>
                   <td class="text-center text-nowrap">
-                    <a href="{{route('team.edit',$team_member->id)}}" class="btn btn-info">
+                    <a href="{{route('team.edit',$team_member->id)}}" class="btn btn-warning">
                       <i class="fas fa-edit"></i>
                     </a>
                     <form action="{{route('team.destroy',$team_member->id)}}" method="POST" class="d-inline-block">

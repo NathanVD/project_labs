@@ -74,7 +74,7 @@
                   <td class="text-capitalize">{{$testimonial->job_title}}</td>
                   <td>{{$testimonial->testimony}}</td>
                   <td class="text-center text-nowrap">
-                    <a href="{{route('testimonials.edit',$testimonial->id)}}" class="btn btn-info">
+                    <a href="{{route('testimonials.edit',$testimonial->id)}}" class="btn btn-warning">
                       <i class="fas fa-edit"></i>
                     </a>
                     <form action="{{route('testimonials.destroy',$testimonial->id)}}" method="POST" class="d-inline-block">

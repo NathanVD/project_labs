@@ -83,7 +83,7 @@
                   <td class="text-capitalize">{{$service->title}}</td>
                   <td class="text-capitalize">{{$service->description}}</td>
                   <td class="text-center text-nowrap">
-                    <a href="{{route('services.edit',$service->id)}}" class="btn btn-info">
+                    <a href="{{route('services.edit',$service->id)}}" class="btn btn-warning">
                       <i class="fas fa-edit"></i>
                     </a>
                     <form action="{{route('services.destroy',$service->id)}}" method="POST" class="d-inline-block">

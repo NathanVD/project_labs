@@ -56,7 +56,7 @@
                         <a href="{{route('articles.show',$article->id)}}" class="btn btn-info">
                           <i class="far fa-eye"></i>
                         </a>
-                        <a href="{{route('articles.edit',$article->id)}}" class="btn btn-info">
+                        <a href="{{route('articles.edit',$article->id)}}" class="btn btn-warning">
                           <i class="fas fa-edit"></i>
                         </a>
                         <form action="{{route('articles.destroy',$article->id)}}" method="POST" class="d-inline-block">
@@ -120,7 +120,7 @@
                         <a href="{{route('articles.show',$article->id)}}" class="btn btn-info">
                           <i class="far fa-eye"></i>
                         </a>
-                        <a href="{{route('articles.edit',$article->id)}}" class="btn btn-info">
+                        <a href="{{route('articles.edit',$article->id)}}" class="btn btn-warning">
                           <i class="fas fa-edit"></i>
                         </a>
                         <form action="{{route('articles.destroy',$article->id)}}" method="POST" class="d-inline-block">

@@ -3,9 +3,10 @@
 @section('content')
 
   <div class="container">
-    <div class="card card-info">
-      <form action="{{route('nav.update')}}" method="POST">
-        @csrf
+    <form action="{{route('nav.update')}}" method="POST">
+      @csrf
+      <div class="card card-info">
+
         <div class="card-header">
           <h3 class="card-title">Noms des pages</h3>
           <p class="card-text"><small>Ces noms apparaitront dans : les liens de la navbar, les bannières des pages.</small></p>

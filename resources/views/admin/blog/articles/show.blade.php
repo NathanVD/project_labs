@@ -8,30 +8,60 @@
 <div class="row">
   <div class="col-md-3">
     <a href="{{route('articles.index')}}" class="btn btn-primary btn-block mb-3">Retour à l'index</a>
-    <div class="row">
-      <div class="col-md-4">
-        <a href="{{route('articles.edit',$article->id)}}" class="btn btn-app">
-          <i class="fas fa-edit"></i> Éditer
-        </a>        
-      </div>
-      <div class="col-md-4">
-        <form action="{{route('articles.destroy',$article->id)}}" method="POST" class="d-inline-block">
-          @csrf
-          @method('delete')
-          <button class="btn btn-app">
-            <i class="fas fa-trash-alt"></i> Supprimer
-          </button>
-        </form>
-      </div>
-      <div class="col-md-4">
-        <form action="{{route('article.approve',$article->id)}}" method="POST" class="d-inline-block">
-          @csrf
-          <button type="submit" class="btn btn-app">
-            <i class="{{$article->approved ? 'far fa-check-square text-success' : 'far fa-square'}}"></i> Valider
-          </button>
-        </form>
-      </div>
+    
+    <div class="card card-teal card-outline">
+      <div class="card-header">
+        <h3 class="card-title">Actions</h3>
 
+        <div class="card-tools">
+          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+          </button>
+        </div>
+      </div>
+      <div class="card-body p-2">
+        <div class="d-flex justify-content-center">
+          <a href="{{route('articles.edit',$article->id)}}" class="btn btn-app">
+            <i class="fas fa-edit"></i> Éditer
+          </a>        
+
+          <form action="{{route('articles.destroy',$article->id)}}" method="POST" class="d-inline-block">
+            @csrf
+            @method('delete')
+            <button class="btn btn-app">
+              <i class="fas fa-trash-alt"></i> Supprimer
+            </button>
+          </form>
+
+          <a href="" class="btn btn-app">
+            <span class="badge bg-info">{{$article->comments->count()}}</span>
+            <i class="far fa-comment-dots"></i> Commentairess
+          </a>
+
+          <form action="{{route('article.approve',$article->id)}}" method="POST" class="d-inline-block">
+            @csrf
+            <button type="submit" class="btn btn-app">
+              <i class="{{$article->approved ? 'far fa-check-square text-success' : 'far fa-square'}}"></i> Valider
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="card card-teal card-outline">
+      <div class="card-header">
+        <h3 class="card-title">Tags</h3>
+
+        <div class="card-tools">
+          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+          </button>
+        </div>
+      </div>
+      <div class="card-body p-2">
+        @foreach ($article->tags as $tag)
+          <span class="badge badge-pill badge-primary px-2 py-1 m-1">{{$tag->name}}</span>
+        @endforeach
+      </div>
     </div>
   </div>
   <div class="col-md-9">
