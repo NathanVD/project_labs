@@ -48,7 +48,7 @@
             <div class="col">
               <div class="form-group">
                 <label for="tags">Tags :</label>
-                <select class="form-control" multiple="multiple" name="tags[]" id="tags">
+                <select class="form-control" multiple="multiple" name="tags[]" id="tags" required>
                   @foreach ($tags as $tag)
                     <option value="{{$tag->id}}" {{$article->tags->contains('id',$tag->id) ? 'selected' : ''}}>{{$tag->name}}</option>
                   @endforeach

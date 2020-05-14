@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Category;
+use App\Tag;
 
 class CategoryController extends Controller
 {
@@ -15,8 +16,9 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::all()->sortByDesc('created_at');
+        $tags = Tag::all()->shuffle();
 
-        return view('admin.blog.categories.index', compact('categories'));
+        return view('admin.blog.categories.index', compact('categories','tags'));
     }
 
     /**
@@ -65,7 +67,9 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        $category = Category::find($id);
+
+        return view('admin.blog.categories.edit',compact('category'));
     }
 
     /**
@@ -77,7 +81,13 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $category = Category::find($id);
+
+        $category->name = request('name');
+        
+        $category->save();
+
+        return redirect()->route('categories.index');
     }
 
     /**
@@ -91,6 +101,20 @@ class CategoryController extends Controller
         $cat = Category::find($id);
 
         $cat->delete();
+
+        return redirect()->route('categories.index');
+    }
+
+    /**
+     * Remove the specified tag.
+     */
+    public function rmTag($id)
+    {
+        $tag = Tag::find($id);
+
+        $tag->articles()->detach();
+
+        $tag->delete();
 
         return redirect()->route('categories.index');
     }

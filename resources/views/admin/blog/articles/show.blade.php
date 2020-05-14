@@ -59,9 +59,13 @@
       <div class="card-body p-2">
         <strong>Tags</strong>
         <div>
-          @foreach ($article->tags as $tag)
-            <span class="badge badge-pill badge-primary px-2 py-1 m-1">{{$tag->name}}</span>
-          @endforeach
+          @if ($article->tags->isEmpty())
+              <p>Aucun Tag</p>
+          @else
+            @foreach ($article->tags as $tag)
+              <span class="badge badge-pill badge-primary px-2 py-1 m-1">{{$tag->name}}</span>
+            @endforeach  
+          @endif
         </div>
         <hr>
         <strong>Catégorie</strong>
@@ -97,7 +101,7 @@
             <h2 class="post-title">{{$article->title}}</h2>
             <div class="post-meta">
               <a href="">{{$article->category ? $article->category->name : "Pas de catégorie"}}</a>
-              <a href="">{{$tags}}</a>
+              <a href="">{{$tags ? $tags : "Aucun tag"}}</a>
               <a href="">{{$article->comments->count()}} Comments</a>
             </div>
             <p>

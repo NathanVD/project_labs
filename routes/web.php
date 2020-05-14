@@ -145,9 +145,13 @@ Route::post('/admin/services/title/update', 'ServiceController@titleUpdate')->na
 Route::resource('admin/services', 'ServiceController');
 
 //Blog
+ // Articles
 Route::post('/admin/blog/articles/{id}/approve', 'ArticleController@approve')->name('article.approve');
 Route::resource('admin/blog/articles', 'ArticleController');
+ // Categories & Tags
+Route::delete('/admin/blog/tags/{id}/remove', 'CategoryController@rmTag')->name('tags.remove');
 Route::resource('admin/blog/categories', 'CategoryController');
+ // Commentaires
 Route::resource('admin/blog/comments', 'CommentController');
 
 /*
