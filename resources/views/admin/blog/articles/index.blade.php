@@ -27,6 +27,7 @@
                   <th>Auteur</th>
                   <th>Catégorie</th>
                   <th>Date de création</th>
+                  <th>Validé ?</th>
                   <th class="text-center">Actions</th>
                 </tr>
               </thead>
@@ -42,12 +43,12 @@
                       <td class="text-capitalize">{{$article->title}}</td>
                       <td class="text-capitalize">{{$article->author->name}}</td>
                       <td class="text-capitalize">{{$article->category->name}}</td>
-                      <td class="text-capitalize">{{$article->created_at}}</td>
-                      <td>
+                      <td class="text-capitalize">{{$article->created_at->format('d M Y')}}</td>
+                      <td class="text-center">
                         <form action="{{route('article.approve',$article->id)}}" method="POST" class="d-inline-block">
                           @csrf
-                          <button type="submit" class="btn btn-outline-success border-0">
-                            <i class="far fa-check-square"></i>
+                          <button type="submit" class="btn btn-outline border-0">
+                            <i class="far fa-check-square fa-lg text-success"></i>
                           </button>
                         </form>
                       </td>
@@ -106,12 +107,12 @@
                       <td class="text-capitalize">{{$article->title}}</td>
                       <td class="text-capitalize">{{$article->author->name}}</td>
                       <td class="text-capitalize">{{$article->category->name}}</td>
-                      <td class="text-capitalize">{{$article->created_at}}</td>
-                      <td>
+                      <td class="text-capitalize">{{$article->created_at->format('d M Y')}}</td>
+                      <td class="text-center">
                         <form action="{{route('article.approve',$article->id)}}" method="POST" class="d-inline-block">
                           @csrf
-                          <button type="submit" class="btn btn-outline-secondary border-0">
-                            <i class="far fa-square"></i>
+                          <button type="submit" class="btn btn-outline border-0">
+                            <i class="far fa-square fa-lg text-secondary"></i>
                           </button>
                         </form>
                       </td>

@@ -53,11 +53,20 @@ class ArticleController extends Controller
         $article->author_id = Author::all()->shuffle()->first()->id;
         $article->category_id = request('category');
         $article->content = request('content');
-
+        
         $article->save();
-        // $categories = Category::all();
 
+        // $categories = Category::all();
+        $newtags = collect(request('tags'))->diff(Tag::all()->pluck('id'));
         $tags = Tag::find(request('tags'));
+
+        foreach ($newtags as $newtag) {
+            $tag = new Tag;
+            $tag->name = $newtag;
+            $tag->save();
+            $tags->push($tag);
+        }
+
         $article->tags()->attach($tags);
 
         return redirect()->route('articles.index');
@@ -71,7 +80,16 @@ class ArticleController extends Controller
      */
     public function show($id)
     {
-        //
+        $article = Article::find($id);
+
+        $tags = Article::find($id)
+        ->tags()
+        ->inRandomOrder()
+        ->limit(3)
+        ->get()
+        ->implode('name', ', ');
+
+        return view('admin.blog.articles.show',compact('article','tags'));
     }
 
     /**
@@ -111,7 +129,7 @@ class ArticleController extends Controller
 
         $article->delete();
 
-        return redirect()->route('articles.index');
+        return redirect()->back();
     }
 
     /**
@@ -125,6 +143,6 @@ class ArticleController extends Controller
 
         $article->save();
 
-        return redirect()->route('articles.index');
+        return redirect()->back();
     }
 }
