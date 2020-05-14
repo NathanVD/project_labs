@@ -7103,6 +7103,7 @@ ul {
   position: relative;
   overflow: hidden;
   margin-bottom: 60px;
+  height: 270px;
 }
 
 .post-thumbnail .post-date {
@@ -7322,7 +7323,13 @@ ul {
 }
 
 .single-post .author .avatar img {
-  min-width: 117px;
+  width: 150px;
+  height: 150px;
+  max-width: none;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: top;
+     object-position: top;
 }
 
 .single-post .author .author-info h2 {

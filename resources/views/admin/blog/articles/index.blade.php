@@ -38,7 +38,7 @@
                       <td colspan="6" class="text-center"><b>Aucun article validé</b></td>
                     </tr>
                 @else 
-                  @foreach ($articles->where('approved',true) as $article)
+                  @foreach ($articles->where('approved',true)->sortByDesc('updated_at') as $article)
                     <tr>
                       <td class="text-capitalize">{{$article->title}}</td>
                       <td class="text-capitalize">{{$article->author ? $article->author->name : "Auteur supprimé"}}</td>
@@ -55,9 +55,6 @@
                       <td class="text-center text-nowrap">
                         <a href="{{route('articles.show',$article->id)}}" class="btn btn-info">
                           <i class="far fa-eye"></i>
-                        </a>
-                        <a href="{{route('articles.edit',$article->id)}}" class="btn btn-warning">
-                          <i class="fas fa-edit"></i>
                         </a>
                         <form action="{{route('articles.destroy',$article->id)}}" method="POST" class="d-inline-block">
                           @csrf

@@ -102,7 +102,7 @@
             <div class="post-meta">
               <a href="">{{$article->category ? $article->category->name : "Pas de catégorie"}}</a>
               <a href="">{{$tags ? $tags : "Aucun tag"}}</a>
-              <a href="">{{$article->comments->count()}} Comments</a>
+              <a href="">{{$article->comments->count()}} Commentaires</a>
             </div>
             <p>
               {!! nl2br(e($article->content)) !!}
