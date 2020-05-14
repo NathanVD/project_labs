@@ -65,10 +65,10 @@
         </div>
         <hr>
         <strong>Catégorie</strong>
-        <p>{{$article->category->name}}</p>
+        <p>{{$article->category ? $article->category->name : "Supprimée"}}</p>
         <hr>
         <strong>Auteur</strong>
-        <p>{{$article->author->name}}</p>
+        <p>{{$article->author ? $article->author->name : "Supprimé"}}</p>
       </div>
     </div>
 
@@ -77,7 +77,7 @@
     <div class="card card-cyan card-outline">
 
       <div class="card-header">
-        <h3 class="card-title">"{{$article->title}}" <span>par</span> {{$article->author->name}}</h3>
+        <h3 class="card-title">"{{$article->title}}" <span>par</span> {{$article->author ? $article->author->name : "L'auteur n'existe plus"}}</h3>
       </div>
 
       <div class="card-body">
@@ -96,7 +96,7 @@
           <div class="post-content">
             <h2 class="post-title">{{$article->title}}</h2>
             <div class="post-meta">
-              <a href="">{{$article->category->name}}</a>
+              <a href="">{{$article->category ? $article->category->name : "Pas de catégorie"}}</a>
               <a href="">{{$tags}}</a>
               <a href="">{{$article->comments->count()}} Comments</a>
             </div>
@@ -110,7 +110,7 @@
               <img src="{{substr( $article->author->img_path, 0, 4 ) === "http" ? $article->author->img_path : asset('storage/'.$article->author->img_path)}}" alt="">
             </div>
             <div class="author-info">
-              <h2>{{$article->author->name}}, <span>Author</span></h2>
+              <h2>{{$article->author ? $article->author->name : "L'auteur n'existe plus"}}, <span>Auteur</span></h2>
               <p>{{$article->author->description}}</p>
             </div>
           </div>

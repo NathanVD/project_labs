@@ -41,8 +41,8 @@
                   @foreach ($articles->where('approved',true) as $article)
                     <tr>
                       <td class="text-capitalize">{{$article->title}}</td>
-                      <td class="text-capitalize">{{$article->author->name}}</td>
-                      <td class="text-capitalize">{{$article->category->name}}</td>
+                      <td class="text-capitalize">{{$article->author ? $article->author->name : "Auteur supprimé"}}</td>
+                      <td class="text-capitalize">{{$article->category ? $article->category->name : "Pas de catégorie"}}</td>
                       <td class="text-capitalize">{{$article->created_at->format('d M Y')}}</td>
                       <td class="text-center">
                         <form action="{{route('article.approve',$article->id)}}" method="POST" class="d-inline-block">
@@ -105,8 +105,8 @@
                   @foreach ($articles->where('approved',false) as $article)
                     <tr>
                       <td class="text-capitalize">{{$article->title}}</td>
-                      <td class="text-capitalize">{{$article->author->name}}</td>
-                      <td class="text-capitalize">{{$article->category->name}}</td>
+                      <td class="text-capitalize">{{$article->author ? $article->author->name : "Supprimé"}}</td>
+                      <td class="text-capitalize">{{$article->category ? $article->category->name : "Supprimée"}}</td>
                       <td class="text-capitalize">{{$article->created_at->format('d M Y')}}</td>
                       <td class="text-center">
                         <form action="{{route('article.approve',$article->id)}}" method="POST" class="d-inline-block">

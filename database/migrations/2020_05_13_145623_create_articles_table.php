@@ -17,8 +17,8 @@ class CreateArticlesTable extends Migration
             $table->id();
             $table->string('img_path');
             $table->string('title');
-            $table->foreignId('author_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
-            $table->foreignId('category_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('author_id')->nullable()->constrained()->onDelete('set null')->onUpdate('cascade');
+            $table->foreignId('category_id')->nullable()->constrained()->onDelete('set null')->onUpdate('cascade');
             $table->text('content');
             $table->boolean('approved')->default(false);
             $table->timestamps();
@@ -33,9 +33,9 @@ class CreateArticlesTable extends Migration
     public function down()
     {
         Schema::dropIfExists('articles', function (Blueprint $table) {
-        $table->dropForeign(['author_id']);
-        $table->dropForeign(['category_id']);
-        $table->dropColumn(['author_id','category_id']);
+            $table->dropForeign(['author_id']);
+            $table->dropForeign(['category_id']);
+            $table->dropColumn(['author_id','category_id']);
         });
     }
 }

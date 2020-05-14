@@ -56,7 +56,7 @@ class ArticleController extends Controller
         
         $article->save();
 
-        $newtags = collect(request('tags'))->diff(Tag::all()->pluck('id'));
+        $newtags = collect(request('tags'))->whereNotNull()->diff(Tag::all()->pluck('id'));
         $tags = Tag::find(request('tags'));
 
         foreach ($newtags as $newtag) {
@@ -132,7 +132,7 @@ class ArticleController extends Controller
         $article->tags()->detach();
         // et on prend les nouveaux
         // Qui n'existent pas encore
-        $newtags = collect(request('tags'))->diff(Tag::all()->pluck('id'));
+        $newtags = collect(request('tags'))->whereNotNull()->diff(Tag::all()->pluck('id'));
         // Qui existent déjà
         $tags = Tag::find(request('tags'));
 

@@ -15,8 +15,8 @@ class CreateArticleTagTable extends Migration
     {
         Schema::create('article_tag', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('article_id')->constraint()->onDelete('cascade')->onUpdate('cascade');
-            $table->foreignId('tag_id')->constraint()->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('article_id')->nullable()->constrained()->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('tag_id')->nullable()->constrained()->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
@@ -28,8 +28,9 @@ class CreateArticleTagTable extends Migration
     public function down()
     {
         Schema::dropIfExists('article_tag', function (Blueprint $table) {
-        $table->dropForeign('article_tag_article_id_foreign');
-        $table->dropForeign('article_tag_tag_id_foreign');
+            $table->dropForeign(['article_id']);
+            $table->dropForeign(['tag_id']);
+            $table->dropColumn(['article_id','tag_id']);
         });
     }
 }

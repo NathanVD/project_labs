@@ -35,8 +35,8 @@
             <div class="col">
               <div class="form-group">
                 <label for="category">Catégorie :</label>
-                <select class="form-control text-capitalize" name="category" id="category">
-                  <option>-- Choisissez la catégorie de votre article --</option>
+                <select class="form-control text-capitalize" name="category" id="category" required>
+                  <option value="">-- Choisissez la catégorie de votre article --</option>
                   @foreach ($categories as $category)
                     <option value="{{$category->id}}">{{$category->name}}</option>
                   @endforeach
@@ -47,7 +47,7 @@
               <div class="form-group">
                 <label for="tags">Tags :</label>
                 <select class="form-control" multiple="multiple" name="tags[]" id="tags">
-                  <option selected="selected">Sélectionnez des tags ou écrivez pour en créer des nouveaux</option>
+                  <option value="" selected="selected">Sélectionnez des tags ou écrivez pour en créer des nouveaux</option>
                   @foreach ($tags as $tag)
                     <option value="{{$tag->id}}">{{$tag->name}}</option>
                   @endforeach

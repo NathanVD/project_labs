@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Category;
 
 class CategoryController extends Controller
 {
@@ -13,7 +14,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $categories = Category::all()->sortByDesc('created_at');
+
+        return view('admin.blog.categories.index', compact('categories'));
     }
 
     /**
@@ -34,7 +37,13 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $category = new Category;
+
+        $category->name = request('name');
+        
+        $category->save();
+
+        return redirect()->back();
     }
 
     /**
@@ -79,6 +88,10 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $cat = Category::find($id);
+
+        $cat->delete();
+
+        return redirect()->route('categories.index');
     }
 }

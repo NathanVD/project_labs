@@ -37,10 +37,10 @@
             <div class="col">
               <div class="form-group">
                 <label for="category">Catégorie :</label>
-                <select class="form-control text-capitalize" name="category" id="category">
-                  <option>-- Choisissez la catégorie de votre article --</option>
+                <select class="form-control" name="category" id="category" required>
+                  <option value="">-- Choisissez la catégorie de votre article --</option>
                   @foreach ($categories as $category)
-                    <option value="{{$category->id}}" {{$article->category->id === $category->id ? 'selected' : ''}}>{{$category->name}}</option>
+                    <option value="{{$category->id}}" {{$article->category ? $article->category->id === $category->id ? 'selected' : '' : ''}}>{{$category->name}}</option>
                   @endforeach
                 </select>
               </div>
