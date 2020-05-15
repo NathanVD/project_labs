@@ -319,7 +319,7 @@ return [
             'submenu' => [
                 [
                     'text' => 'Map',
-                    'url' => '#',
+                    'url' => '/admin/map',
                     'icon' => 'fas fa-map-marked-alt'
                 ],
                 [

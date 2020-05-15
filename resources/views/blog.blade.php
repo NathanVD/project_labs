@@ -1,36 +1,17 @@
 @extends('layouts.app')
 
 @section('content')
-{{-- <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">Dashboard</div>
 
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+  @include('templates.preloader')
 
-                    You are logged in!
-                </div>
-            </div>
-        </div>
-    </div>
-</div> --}}
+  @include('templates.blog.blog_nav')
 
-@include('templates.preloader')
+  @include('templates.blog.blog_banner')
 
-@include('templates.blog.blog_nav')
+  @include('templates.blog.blog_page')
 
-@include('templates.blog.blog_banner')
+  @include('templates.newsletter')
 
-@include('templates.blog.blog_page')
-
-@include('templates.newsletter')
-
-@include('templates.footer')
+  @include('templates.footer')
 
 @endsection

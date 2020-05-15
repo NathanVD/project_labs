@@ -6,7 +6,7 @@ use App\Navlinks;use App\Logo;use App\Footer;use App\Carousel;use App\Tagline;
 use App\About;use App\Video;use App\Testimonial;use App\TestiTitle;use App\Ready;
 use App\Contact;use App\Team;use App\Team_Title;use App\Starred;use App\Service;
 use App\Services_Title;use App\Primed_Services;use App\Article;use App\Category;
-use App\Tag;
+use App\Tag;use App\Map;
 
 /*
 |--------------------------------------------------------------------------
@@ -98,8 +98,9 @@ Route::get('/contact', function () {
     $logo = Logo::find(1);
     $footer = Footer::find(1);
     $contact = Contact::find(1);
+    $map = Map::find(1);
 
-    return view('contact',compact('navlinks','logo','footer','contact'));
+    return view('contact',compact('navlinks','logo','footer','contact','map'));
 });
 /* 
 | End page publiques
@@ -156,6 +157,10 @@ Route::post('/admin/ready/update', 'ReadyController@update')->name('ready.update
 //Infos contact
 Route::get('/admin/contact', 'ContactController@edit')->name('contact');
 Route::post('/admin/contact/update', 'ContactController@update')->name('contact.update');
+
+//Map
+Route::get('/admin/map', 'MapController@edit')->name('map');
+Route::post('/admin/map/update', 'MapController@update')->name('map.update');
 
 //Services
 Route::get('/admin/services/primed', 'PrimedServiceController@edit')->name('services.primed');
