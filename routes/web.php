@@ -64,9 +64,10 @@ Route::get('/services', function () {
     $services_title = Services_Title::find(1);
     $primed_services = Service::all()->sortByDesc('created_at')->chunk(6)->first();
     $primed_services_title = Primed_Services::find(1);
+    $articles = Article::all()->where('approved',true)->sortByDesc('updated_at')->chunk(3)->first();
 
     return view('services',compact('navlinks','logo','footer','contact',
-    'services_chunks','services_title','primed_services','primed_services_title'));
+    'services_chunks','services_title','primed_services','primed_services_title','articles'));
 });
 Route::get('/blog', function () {
 

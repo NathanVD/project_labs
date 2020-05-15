@@ -15,7 +15,7 @@
             <h2 class="post-title">{{$article->title}}</h2>
             <div class="post-meta">
               <a href="">{{$article->category ? $article->category->name : "Pas de catégorie"}}</a>
-              <a href="">{{$article->tags ? $article->tags()->inRandomOrder()->limit(3)->get()->implode('name', ', ') : "Aucun tag"}}</a>
+              <a href="">{{$article->tags->isNotEmpty() ? $article->tags()->inRandomOrder()->limit(3)->get()->implode('name', ', ') : "Aucun tag"}}</a>
               <a href="">{{$article->comments->count()}} Commentaires</a>
             </div>
             <p>{!! nl2br(e($article->content)) !!}</p>
