@@ -7,7 +7,7 @@
 	<meta name="keywords" content="lab, onepage, creative, html">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<!-- Favicon -->
-	<link href="./favicons/favicon.ico" rel="shortcut icon"/>
+	<link href="{{asset('favicons/favicon.ico')}}" rel="shortcut icon"/>
 
     <!-- Stylesheets -->
 	<link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}"/>
@@ -88,5 +88,6 @@
 	<script src="{{asset('js/owl.carousel.min.js')}}"></script>
 	<script src="{{asset('js/circle-progress.min.js')}}"></script>
     <script src="{{asset('js/app.js')}}"></script>
+    @include('sweetalert::alert')
 </body>
 </html>

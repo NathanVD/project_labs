@@ -13,7 +13,7 @@
       @endif
     </div>
     <div class="row d-flex justify-content-center">
-      @if (!$team)
+      @if (!$team || $team->isEmpty())
         <!-- single member -->
         <div class="col-sm-4">
           <div class="member">

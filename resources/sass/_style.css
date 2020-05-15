@@ -1281,6 +1281,8 @@ ul {
 .comment-list {
     list-style: none;
     margin-bottom: 90px;
+    max-height: 500px;
+    overflow: auto;
 }
 
 .comment-list li {

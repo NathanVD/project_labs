@@ -15,9 +15,9 @@ class CreateCommentsTable extends Migration
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
+            $table->string('img_path')->default('img/default_profile_picture.png');
             $table->string('name');
             $table->string('email');
-            $table->string('subject');
             $table->text('content');
             $table->foreignId('article_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
@@ -32,7 +32,8 @@ class CreateCommentsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('comments', function (Blueprint $table) {
-        $table->dropForeign('comments_article_id_foreign');
+            $table->dropForeign(['article_id']);
+            $table->dropColumn(['article_id']);
         });
     }
 }

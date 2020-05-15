@@ -13,7 +13,7 @@
       @endif
     </div>
     <div class="row">
-      @if ($primed_services->isEmpty())
+      @if (!$primed_services || $primed_services->isEmpty())
         <!-- feature item -->
         <div class="col-md-4 col-sm-4 features">
           <div class="icon-box light left">

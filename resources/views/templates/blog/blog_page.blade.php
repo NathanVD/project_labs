@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row">
       <div class="col-md-8 col-sm-7 blog-posts">
-        @if ($articles->isEmpty())
+        @if (!$articles || $articles->isEmpty())
           <!-- Post item -->
           <div class="post-item">
             <div class="post-thumbnail">
@@ -107,7 +107,7 @@
         <div class="widget-item">
           <h2 class="widget-title">Categories</h2>
           <ul>
-            @if ($categories->isEmpty())
+            @if (!$categories || $categories->isEmpty())
               <li><a href="#">Vestibulum maximus</a></li>
               <li><a href="#">Nisi eu lobortis pharetra</a></li>
               <li><a href="#">Orci quam accumsan </a></li>
@@ -137,7 +137,7 @@
         <div class="widget-item">
           <h2 class="widget-title">Tags</h2>
           <ul class="tag">
-            @if ($tags->isEmpty())
+            @if (!$tags || $tags->isEmpty())
               <li><a href="">branding</a></li>
               <li><a href="">identity</a></li>
               <li><a href="">video</a></li>

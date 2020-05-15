@@ -97,8 +97,9 @@ Route::get('/contact', function () {
     $navlinks = Navlinks::find(1);
     $logo = Logo::find(1);
     $footer = Footer::find(1);
+    $contact = Contact::find(1);
 
-    return view('contact',compact('navlinks','logo','footer'));
+    return view('contact',compact('navlinks','logo','footer','contact'));
 });
 /* 
 | End page publiques
@@ -164,12 +165,14 @@ Route::resource('admin/services', 'ServiceController');
 
 //Blog
  // Articles
-Route::post('/admin/blog/articles/{id}/approve', 'ArticleController@approve')->name('article.approve');
+Route::post('/admin/blog/articles/{article}/approve', 'ArticleController@approve')->name('article.approve');
+Route::get('/admin/blog/articles/{article}/comments', 'ArticleController@comments')->name('article.comments');
 Route::resource('admin/blog/articles', 'ArticleController');
  // Categories & Tags
 Route::delete('/admin/blog/tags/{id}/remove', 'CategoryController@rmTag')->name('tags.remove');
 Route::resource('admin/blog/categories', 'CategoryController');
  // Commentaires
+Route::post('/admin/blog/comments/{article}/addComment', 'CommentController@addComment')->name('comments.addComment');
 Route::resource('admin/blog/comments', 'CommentController');
 
 /*

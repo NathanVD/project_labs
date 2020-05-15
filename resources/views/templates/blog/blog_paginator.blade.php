@@ -22,8 +22,8 @@
         </ul>
     </nav>
 @endif
-          {{-- <div class="page-pagination">
-            <a class="active" href="">01.</a>
-            <a href="">02.</a>
-            <a href="">03.</a>
-          </div> --}}
+{{-- <div class="page-pagination">
+<a class="active" href="">01.</a>
+<a href="">02.</a>
+<a href="">03.</a>
+</div> --}}

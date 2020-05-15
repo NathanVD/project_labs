@@ -1,7 +1,7 @@
 <div class="services-card-section spad" id="quick_blogs">
   <div class="container">
-    <div class="row">
-      @if (!$articles)
+    <div class="row d-flex justify-content-center">
+      @if (!$articles || $articles->isEmpty())
         <!-- Single Card -->
         <div class="col-md-4 col-sm-6">
           <div class="sv-card">

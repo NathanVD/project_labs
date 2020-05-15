@@ -9,7 +9,7 @@
           <h2>{{$testiTitle ? $testiTitle->title : 'What our clients say'}}</h2>
         </div>
         <div class="owl-carousel" id="testimonial-slide">
-          @if (!$testimonials)
+          @if (!$testimonials || $testimonials->isEmpty())
             <div class="testimonial">
               <span>‘​‌‘​‌</span>
               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur leo est, feugiat nec elementum id, suscipit id nulla. Nulla sit amet luctus dolor. Etiam finibus consequa.</p>

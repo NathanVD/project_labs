@@ -10,7 +10,7 @@
       <li><a href="services" class="text-capitalize">{{$navlinks ? $navlinks->link_2 : 'services'}}</a></li>
       <li><a href="blog" class="text-capitalize">{{$navlinks ? $navlinks->link_3 : 'blog'}}</a></li>
       <li class="active"><a href="contact" class="text-capitalize">{{$navlinks ? $navlinks->link_4 : 'contact'}}</a></li>
-      <li><a href="admin">Admin</a></li>
+      <li><a href="/admin">Admin</a></li>
     </ul>
   </nav>
 </header>

@@ -6,7 +6,7 @@
   <div class="card-section">
     <div class="container">
       <div class="row d-flex justify-content-center">
-        @if ($services_chunks->isEmpty())
+        @if (!$services_chunks || $services_chunks->isEmpty())
           <!-- single card -->
           <div class="col-md-4 col-sm-6">
             <div class="lab-card">

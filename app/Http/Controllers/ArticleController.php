@@ -181,5 +181,14 @@ class ArticleController extends Controller
 
         return redirect()->back();
     }
-    
+
+    /**
+     * Approve an article (change article->approved between true and false)
+     */
+    public function comments($id)
+    {
+        $article = Article::find($id);
+
+        return view('admin.blog.articles.comments',compact('article'));
+    }
 }

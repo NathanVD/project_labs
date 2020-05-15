@@ -1,3 +1,9 @@
+@if (session()->has('success'))
+  <div class="alert alert-success" role="alert">
+    {{ session()->get('success') }}
+  </div>
+@endif
+
 <div class="page-section spad">
   <div class="container">
     <div class="row">
@@ -32,33 +38,28 @@
           </div>
           <!-- Post Comments -->
           <div class="comments">
-            <h2>Comments (2)</h2>
+            <h2>Commentaires ({{$article->comments->count()}})</h2>
             <ul class="comment-list">
-              <li>
-                <div class="avatar">
-                  <img src="{{asset('img/avatar/01.jpg')}}" alt="">
-                </div>
-                <div class="commetn-text">
-                  <h3>Michael Smith | 03 nov, 2017 | Reply</h3>
-                  <p>Vivamus in urna eu enim porttitor consequat. Proin vitae pulvinar libero. Proin ut hendrerit metus. Aliquam erat volutpat. Donec fermen tum convallis ante eget tristique. </p>
-                </div>
-              </li>
-              <li>
-                <div class="avatar">
-                  <img src="{{asset('img/avatar/02.jpg')}}" alt="">
-                </div>
-                <div class="commetn-text">
-                  <h3>Michael Smith | 03 nov, 2017 | Reply</h3>
-                  <p>Vivamus in urna eu enim porttitor consequat. Proin vitae pulvinar libero. Proin ut hendrerit metus. Aliquam erat volutpat. Donec fermen tum convallis ante eget tristique. </p>
-                </div>
-              </li>
+              @foreach ($article->comments->sortByDesc('created_at') as $comment)
+                <li>
+                  <div class="avatar">
+                    {{-- <img src="{{asset('img/avatar/01.jpg')}}" alt=""> --}}
+                    <img src="{{asset('storage/'.$comment->img_path)}}" alt="">
+                  </div>
+                  <div class="commetn-text">
+                    <h3>{{$comment->name}} | {{$comment->created_at->format('d M')}}, {{$comment->created_at->format('Y')}} | {{$comment->created_at->format('H:i')}}</h3>
+                    <p>{!! nl2br(e($comment->content)) !!}</p>
+                  </div>
+                </li>                  
+              @endforeach
             </ul>
           </div>
           <!-- Commert Form -->
           <div class="row">
             <div class="col-md-9 comment-from">
-              <h2>Laisser un commentaire</h2>
-              <form class="form-class">
+              <h2>Laissez un commentaire</h2>
+              <form class="form-class" action="{{route('comments.addComment',$article->id)}}" method="POST">
+                @csrf
                 <div class="row">
                   <div class="col-sm-6">
                     <input type="text" name="name" placeholder="Your name">
@@ -67,8 +68,7 @@
                     <input type="text" name="email" placeholder="Your email">
                   </div>
                   <div class="col-sm-12">
-                    <input type="text" name="subject" placeholder="Subject">
-                    <textarea name="message" placeholder="Message"></textarea>
+                    <textarea name="content" placeholder="Message"></textarea>
                     <button class="site-btn">Envoyer</button>
                   </div>
                 </div>
@@ -90,7 +90,7 @@
         <div class="widget-item">
           <h2 class="widget-title">Categories</h2>
           <ul>
-            @if ($categories->isEmpty())
+            @if (!$categories || $categories->isEmpty())
               <li><a href="#">Vestibulum maximus</a></li>
               <li><a href="#">Nisi eu lobortis pharetra</a></li>
               <li><a href="#">Orci quam accumsan </a></li>
@@ -120,7 +120,7 @@
         <div class="widget-item">
           <h2 class="widget-title">Tags</h2>
           <ul class="tag">
-            @if ($tags->isEmpty())
+            @if (!$tags || $tags->isEmpty())
               <li><a href="">branding</a></li>
               <li><a href="">identity</a></li>
               <li><a href="">video</a></li>

@@ -26,6 +26,7 @@
                   <th>Titre</th>
                   <th>Auteur</th>
                   <th>Catégorie</th>
+                  <th>Commentaires</th>
                   <th>Date de création</th>
                   <th>Validé ?</th>
                   <th class="text-center">Actions</th>
@@ -33,7 +34,7 @@
               </thead>
 
               <tbody>
-                @if ($articles->where('approved',true)->isEmpty())
+                @if (!$articles || $articles->where('approved',true)->isEmpty())
                     <tr>
                       <td colspan="6" class="text-center"><b>Aucun article validé</b></td>
                     </tr>
@@ -43,7 +44,8 @@
                       <td class="text-capitalize">{{$article->title}}</td>
                       <td class="text-capitalize">{{$article->author ? $article->author->name : "Auteur supprimé"}}</td>
                       <td class="text-capitalize">{{$article->category ? $article->category->name : "Pas de catégorie"}}</td>
-                      <td class="text-capitalize">{{$article->created_at->format('d M Y')}}</td>
+                      <td class="text-capitalize text-center">{{$article->comments->count()}}</td>
+                      <td class="text-capitalize text-center">{{$article->created_at->format('d M Y')}}</td>
                       <td class="text-center">
                         <form action="{{route('article.approve',$article->id)}}" method="POST" class="d-inline-block">
                           @csrf
@@ -94,7 +96,7 @@
               </thead>
 
               <tbody>
-                @if ($articles->where('approved',false)->isEmpty())
+                @if (!$articles || $articles->where('approved',false)->isEmpty())
                     <tr>
                       <td colspan="6" class="text-center"><b>Aucun article en attente</b></td>
                     </tr>
@@ -127,7 +129,7 @@
                             <i class="fas fa-trash-alt"></i>
                           </button>
                         </form>
-                      </>
+                      </td>
                     </tr>
                   @endforeach
                 @endif

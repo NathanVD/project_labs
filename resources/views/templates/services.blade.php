@@ -11,7 +11,7 @@
         @endif
       @endif
     </div>
-      @if ($services_chunks->isEmpty())
+      @if (!$services_chunks || $services_chunks->isEmpty())
         <div class="row">
           <!-- single service -->
           <div class="col-md-4 col-sm-6">
@@ -157,7 +157,7 @@
         @endif
       @endif
     <div class="text-center">
-      <a href="#primed_services" class="site-btn">Browse</a>
+      <a href="/services#primed_services" class="site-btn">Browse</a>
     </div>
   </div>
 </div>

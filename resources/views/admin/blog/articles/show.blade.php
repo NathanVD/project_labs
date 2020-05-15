@@ -32,7 +32,7 @@
             </button>
           </form>
 
-          <a href="" class="btn btn-app">
+          <a href="{{route('article.comments',$article->id)}}" class="btn btn-app">
             <span class="badge bg-info">{{$article->comments->count()}}</span>
             <i class="far fa-comment-dots"></i> Commentairess
           </a>
@@ -87,14 +87,12 @@
       <div class="card-body">
         <div class="single-post">
 
-          <div class="post-thumbnail">
-
+          <div class="post-thumbnail h-100">
             <img class="img-fluid w-100" src="{{substr( $article->img_path, 0, 4 ) === "http" ? $article->img_path : asset('storage/'.$article->img_path)}}" alt="">
             <div class="post-date">
               <h2>{{$article->created_at->format('d')}}</h2>
               <h3>{{$article->created_at->format('M Y')}}</h3>
             </div>
-
           </div>
 
           <div class="post-content">
@@ -123,8 +121,6 @@
     </div>
   </div>
 </div>
-
-  
 
 @endsection
 
