@@ -180,6 +180,9 @@ Route::resource('admin/blog/categories', 'CategoryController');
 Route::post('/admin/blog/comments/{article}/addComment', 'CommentController@addComment')->name('comments.addComment');
 Route::resource('admin/blog/comments', 'CommentController');
 
+//Messages
+Route::resource('admin/inbox', 'MessageController');
+
 /*
 | End admin
 */

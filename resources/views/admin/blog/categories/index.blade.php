@@ -13,7 +13,7 @@
           <h3 class="card-title">Catégories</h3>
         </div>
 
-        <div class="card-body table-responsive p-0">
+        <div class="card-body">
 
           <form action="{{route('categories.store')}}" method="POST" class="m-3">
             @csrf
@@ -28,23 +28,23 @@
 
           <hr>
 
-          <table class="table table-hover">
+          <table id="categories_table" class="table table-hover">
             <thead>
               <tr>
-                <th>Nom</th>
-                <th class="text-center">Actions</th>
+                <th class="text-center text-nowrap">Nom</th>
+                <th class="text-center text-nowrap">Actions</th>
               </tr>
             </thead>
 
             <tbody>
               @if ($categories->isEmpty())
                   <tr>
-                    <td colspan="2" class="text-center"><b>Aucune catégorie</b></td>
+                    <td colspan="2" class="text-center text-nowrap"><b>Aucune catégorie</b></td>
                   </tr>
               @else 
                 @foreach ($categories as $category)
                   <tr>
-                    <td class="text-capitalize">{{$category->name}}</td>
+                    <td class="text-center text-nowrap">{{$category->name}}</td>
                     <td class="text-center text-nowrap">
                       <a href="{{route('categories.edit',$category->id)}}" class="btn btn-warning">
                         <i class="fas fa-edit"></i>
@@ -103,4 +103,12 @@
     </div>
   </div>
 
+@endsection
+
+@section('js')
+  <script>
+    $(document).ready( function () {
+      $('#categories_table').DataTable();
+    } );  
+  </script>
 @endsection

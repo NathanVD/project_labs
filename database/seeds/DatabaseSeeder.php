@@ -18,11 +18,11 @@ class DatabaseSeeder extends Seeder
 
         // $this->call(CarouselSeeder::class);
 
-        // $this->call(TestimonialSeeder::class);
-        // $this->call(TeamSeeder::class);
-        // $this->call(ServiceSeeder::class);
-        // $this->call(CategorySeeder::class);
-        // $this->call(TagSeeder::class);
+        $this->call(TestimonialSeeder::class);
+        $this->call(TeamSeeder::class);
+        $this->call(ServiceSeeder::class);
+        $this->call(CategorySeeder::class);
+        $this->call(TagSeeder::class);
 
         $this->call(AuthorSeeder::class);
 

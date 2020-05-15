@@ -3,11 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Article;
-use App\Comment;
+use App\Message;
 Use Alert;
 
-class CommentController extends Controller
+class MessageController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,6 +14,18 @@ class CommentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
+    {
+        $messages = Message::all();
+
+        return view('admin.inbox.index',compact('messages'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
     {
         //
     }
@@ -25,20 +36,18 @@ class CommentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function addComment(Request $request,$id)
+    public function store(Request $request)
     {
-        $article = Article::find($id);
+        $message = new Message;
 
-        $comment = new Comment;
+        $message->name = request('name');
+        $message->email = request('email');
+        $message->subject = request('subject');
+        $message->message = request('message');
 
-        $comment->name = request('name');
-        $comment->email = request('email');
-        $comment->content = request('content');
+        $message->save();
 
-        $article->comments()->save($comment);
-
-        Alert::success('Super,', 'Commentaire envoyé !')
-        // ->toToast('top-right')
+        Alert::success('Super,', 'Message envoyé !')
         ->position('top-end')
         ->autoClose(2000)
         ->hideCloseButton()
@@ -56,7 +65,12 @@ class CommentController extends Controller
      */
     public function show($id)
     {
-        //
+        $message = Message::find($id);
+
+        $previous = Message::where('id','<',$id)->max('id');
+        $next = Message::where('id','>',$id)->min('id');
+
+        return view('admin.inbox.show',compact('message','previous','next'));
     }
 
     /**
@@ -90,17 +104,8 @@ class CommentController extends Controller
      */
     public function destroy($id)
     {
-        $comment = Comment::find($id);
+        Message::find($id)->delete();
 
-        $comment->delete();
-
-        Alert::success('Commentaire supprimé','.')
-        ->position('top-end')
-        ->autoClose(2000)
-        ->hideCloseButton()
-        ->animation('animate__heartBeat','animate__fadeOut')
-        ->timerProgressBar();
-
-        return redirect()->back();
+        return redirect()->route('messages.index');
     }
 }

@@ -19,8 +19,8 @@
             <h3 class="card-title">Articles validés</h3>
           </div>
 
-          <div class="card-body table-responsive p-0">
-            <table class="table table-hover">
+          <div class="card-body">
+            <table id="articles_1_table" class="table table-hover">
               <thead>
                 <tr>
                   <th>Titre</th>
@@ -44,9 +44,9 @@
                       <td class="text-capitalize">{{$article->title}}</td>
                       <td class="text-capitalize">{{$article->author ? $article->author->name : "Auteur supprimé"}}</td>
                       <td class="text-capitalize">{{$article->category ? $article->category->name : "Pas de catégorie"}}</td>
-                      <td class="text-capitalize text-center">{{$article->comments->count()}}</td>
-                      <td class="text-capitalize text-center">{{$article->created_at->format('d M Y')}}</td>
-                      <td class="text-center">
+                      <td class="text-center text-nowrap">{{$article->comments->count()}}</td>
+                      <td class="text-center text-nowrap">{{$article->created_at->format('d M Y')}}</td>
+                      <td class="text-center text-nowrap">
                         <form action="{{route('article.approve',$article->id)}}" method="POST" class="d-inline-block">
                           @csrf
                           <button type="submit" class="btn btn-outline border-0">
@@ -82,8 +82,8 @@
             <h3 class="card-title">Articles en attente</h3>
           </div>
 
-          <div class="card-body table-responsive p-0">
-            <table class="table table-hover">
+          <div class="card-body">
+            <table id="articles_2_table" class="table table-hover">
               <thead>
                 <tr>
                   <th>Titre</th>
@@ -145,4 +145,13 @@
 
   {{-- Index fin --}}
 
+@endsection
+
+@section('js')
+  <script>
+    $(document).ready( function () {
+      $('#articles_1_table').DataTable();
+      $('#articles_2_table').DataTable();
+    } );  
+  </script>
 @endsection
