@@ -13,7 +13,7 @@
         </div>
       </div>
 
-      <div class="card-body" style="height: 800px; overflow: auto;">
+      <div class="card-body" style="max-height: 800px; overflow: auto;">
         <div class="tab-content" id="myTabContent">
           @foreach ($article->comments->sortByDesc('created_at') as $comment)
             <div class="row">
@@ -27,7 +27,7 @@
                     <span class="description">{{$comment->created_at->format('d M')}}, {{$comment->created_at->format('Y')}} - {{$comment->created_at->format('H:i')}}</span>
                   </div>
                   <!-- /.user-block -->
-                  <p>
+                  <p class="ml-4">
                     {{$comment->content}}
                   </p>
                 </div>            

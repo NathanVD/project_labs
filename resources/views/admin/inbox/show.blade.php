@@ -41,8 +41,11 @@
 
         <div class="card-body p-0">
           <div class="mailbox-read-info">
-            <h6>De: {{$message->email}}
-              <span class="mailbox-read-time float-right">{{$message->created_at}}</span></h6>
+            <p class="mb-1">
+              De : {{$message->name}}
+              <span class="mailbox-read-time float-right">{{$message->created_at}}</span>
+            </p>
+            <p class="m-0">E-mail : {{$message->email}}</p>
           </div>
 
           <div class="mailbox-read-message">
@@ -50,15 +53,6 @@
           </div>
 
         </div>    
-
-        <div class="card-footer">
-          <p>Expéditeur : {{$message->name}}</p>
-          <div class="float-right">
-
-            
-          </div>
-        </div>
-
       </div>      
     </div>
   </div>

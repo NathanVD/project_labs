@@ -15,8 +15,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::all()->sortByDesc('created_at');
-        $tags = Tag::all()->shuffle();
+        $categories = Category::all();
+        $tags = Tag::all();
 
         return view('admin.blog.categories.index', compact('categories','tags'));
     }

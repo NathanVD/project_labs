@@ -42,7 +42,7 @@
                     <td colspan="2" class="text-center text-nowrap"><b>Aucune catégorie</b></td>
                   </tr>
               @else 
-                @foreach ($categories as $category)
+                @foreach ($categories->sortByDesc('created_at') as $category)
                   <tr>
                     <td class="text-center text-nowrap">{{$category->name}}</td>
                     <td class="text-center text-nowrap">
@@ -83,7 +83,7 @@
             <p class="text-center"><b>Aucun tag</b></p>
           @else 
             <div class="h3">
-              @foreach ($tags as $tag)
+              @foreach ($tags->sortBy('name') as $tag)
                 <span class="badge badge-pill badge-primary">
                   {{$tag->name}}
                   <form action="{{route('tags.remove',$tag->id)}}" method="POST" class="d-inline-block">
@@ -108,7 +108,9 @@
 @section('js')
   <script>
     $(document).ready( function () {
-      $('#categories_table').DataTable();
+      $('#categories_table').DataTable({
+        "order": [], 
+      });
     } );  
   </script>
 @endsection

@@ -19,30 +19,35 @@
         </div>
       </div>
       <div class="card-body p-2">
-        <div class="d-flex justify-content-center">
-          <a href="{{route('articles.edit',$article->id)}}" class="btn btn-app">
-            <i class="fas fa-edit"></i> Éditer
-          </a>        
-
-          <form action="{{route('articles.destroy',$article->id)}}" method="POST" class="d-inline-block">
-            @csrf
-            @method('delete')
-            <button class="btn btn-app">
-              <i class="fas fa-trash-alt"></i> Supprimer
-            </button>
-          </form>
-
-          <a href="{{route('article.comments',$article->id)}}" class="btn btn-app">
-            <span class="badge bg-info">{{$article->comments->count()}}</span>
-            <i class="far fa-comment-dots"></i> Commentairess
-          </a>
-
-          <form action="{{route('article.approve',$article->id)}}" method="POST" class="d-inline-block">
-            @csrf
-            <button type="submit" class="btn btn-app">
-              <i class="{{$article->approved ? 'far fa-check-square text-success' : 'far fa-square'}}"></i> Valider
-            </button>
-          </form>
+        <div class=" row d-flex justify-content-center">
+          <div class="col">
+            <a href="{{route('articles.edit',$article->id)}}" class="btn btn-app">
+              <i class="fas fa-edit"></i> Éditer
+            </a>             
+          </div>
+          <div class="col">
+            <form action="{{route('articles.destroy',$article->id)}}" method="POST" class="d-inline-block">
+              @csrf
+              @method('delete')
+              <button class="btn btn-app">
+                <i class="fas fa-trash-alt"></i> Supprimer
+              </button>
+            </form>
+          </div>
+          <div class="col">
+            <a href="{{route('article.comments',$article->id)}}" class="btn btn-app">
+              <span class="badge bg-info">{{$article->comments->count()}}</span>
+              <i class="far fa-comment-dots"></i> Commentairess
+            </a>
+          </div>
+          <div class="col">
+            <form action="{{route('article.approve',$article->id)}}" method="POST" class="d-inline-block">
+              @csrf
+              <button type="submit" class="btn btn-app">
+                <i class="{{$article->approved ? 'far fa-check-square text-success' : 'far fa-square'}}"></i> Valider
+              </button>
+            </form>
+          </div>
         </div>
       </div>
     </div>
@@ -123,14 +128,3 @@
 </div>
 
 @endsection
-
-{{-- @section('js')
-<script>
-  $(document).ready(function () {
-    bsCustomFileInput.init()
-  });
-  $("#tags").select2({
-    tags: true
-  });
-</script>
-@stop --}}

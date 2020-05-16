@@ -27,7 +27,7 @@
                   <td colspan="4" class="text-center"><b>Aucun message.</b></td>
                 </tr>
             @else 
-              @foreach ($messages as $message)
+              @foreach ($messages->sortByDesc('created_at') as $message)
                 <tr>
                   <td class="text-center text-nowrap">{{$message->name}}</td>
                   <td class="text-center text-nowrap">{{$message->subject}}</td>
@@ -60,7 +60,9 @@
 @section('js')
   <script>
     $(document).ready( function () {
-      $('#messages_table').DataTable();
+      $('#messages_table').DataTable({
+        "order": [], 
+      });
     } );  
   </script>
 @endsection

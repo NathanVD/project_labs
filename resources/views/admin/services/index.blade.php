@@ -60,28 +60,28 @@
         <h3 class="card-title">Liste des services <a href="{{route('services.create')}}" class="badge bg-success align-top ml-3">Nouveau <i class="fas fa-plus"></i></a></h3>
       </div>
 
-      <div class="card-body table-responsive p-0">
-        <table class="table table-hover">
+      <div class="card-body table_responsive">
+        <table id="service_table" class="table table-hover">
           <thead>
             <tr>
-              <th>Icone</th>
-              <th>Nom du service</th>
-              <th>Description</th>
-              <th class="text-center">Actions</th>
+              <th class="text-center text-nowrap">Icone</th>
+              <th class="text-center text-nowrap">Nom du service</th>
+              <th class="text-center text-nowrap">Description</th>
+              <th class="text-center text-nowrap">Actions</th>
             </tr>
           </thead>
 
           <tbody>
             @if ($services->isEmpty())
                 <tr>
-                  <td colspan="6" class="text-center"><b>Aucun service proposé</b></td>
+                  <td colspan="6" class="text-center text-nowrap"><b>Aucun service proposé</b></td>
                 </tr>
             @else 
-              @foreach ($services as $service)
+              @foreach ($services->sortByDesc('created_at') as $service)
                 <tr>
-                  <td class="h2"><i class="{{$service->icon}}"></i></td>
-                  <td class="text-capitalize">{{$service->title}}</td>
-                  <td class="text-capitalize">{{$service->description}}</td>
+                  <td class="text-center text-nowrap h2"><i class="{{$service->icon}}"></i></td>
+                  <td class="text-center text-nowrap">{{$service->title}}</td>
+                  <td>{{$service->description}}</td>
                   <td class="text-center text-nowrap">
                     <a href="{{route('services.edit',$service->id)}}" class="btn btn-warning">
                       <i class="fas fa-edit"></i>
@@ -104,4 +104,14 @@
     </div>
   {{-- Index fin --}}
 
+@endsection
+
+@section('js')
+  <script>
+    $(document).ready( function () {
+      $('#service_table').DataTable({
+        "order": [], 
+      });
+    } );  
+  </script>
 @endsection

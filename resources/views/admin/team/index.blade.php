@@ -55,38 +55,38 @@
   {{-- Titre fin --}}
 
   {{-- Membre vedette --}}
-    <div class="card card-warning">
+    <div class="card card-warning card-outline">
       <div class="card-header">
         <h3 class="card-title">Équipier vedette </h3>
       </div>
 
-      <div class="card-body table-responsive p-0">
-        <table class="table table-hover">
+      <div class="card-body table-responsive">
+        <table id="starred_table" class="table table-hover">
           <thead>
             <tr>
-              <th>Photo</th>
-              <th>Prénom</th>
-              <th>Nom</th>
-              <th>Poste</th>
-              <th>Vedette</th>
-              <th class="text-center">Actions</th>
+              <th class="text-center text-nowrap">Photo</th>
+              <th class="text-center text-nowrap">Nom</th>
+              <th class="text-center text-nowrap">Prénom</th>
+              <th class="text-center text-nowrap">Poste</th>
+              <th class="text-center text-nowrap">Vedette</th>
+              <th class="text-center text-nowrap">Actions</th>
             </tr>
           </thead>
 
           <tbody>
             @if (!$starred)
                 <tr>
-                  <td colspan="6" class="text-center"><b>Aucun équipier en vedette</b></td>
+                  <td colspan="6" class="text-center text-nowrap"><b>Aucun équipier en vedette</b></td>
                 </tr>
             @else 
               <tr>
-                <td>
+                <td class="text-center text-nowrap">
                   <img src="{{substr( $starred->pic_path, 0, 4 ) === "http" ? $starred->pic_path : asset('storage/'.$starred->pic_path)}}" class="mini rounded-circle" alt="img">
                 </td>
-                <td class="text-capitalize">{{$starred->first_name}}</td>
-                <td class="text-capitalize">{{$starred->last_name}}</td>
-                <td class="text-capitalize">{{$starred->role}}</td>
-                <td class="text-capitalize">
+                <td class="text-center text-nowrap">{{$starred->last_name}}</td>
+                <td class="text-center text-nowrap">{{$starred->first_name}}</td>
+                <td class="text-center text-nowrap">{{$starred->role}}</td>
+                <td class="text-center text-nowrap">
                   <form action="{{route('team.starred_member.remove')}}" method="POST" class="d-inline-block">
                     @csrf
                     @method('delete')
@@ -96,7 +96,7 @@
                   </form>
                 </td>
                 <td class="text-center text-nowrap">
-                  <a href="{{route('team.edit',$starred->member_id)}}" class="btn btn-info">
+                  <a href="{{route('team.edit',$starred->member_id)}}" class="btn btn-warning">
                     <i class="fas fa-edit"></i>
                   </a>
                   <form action="{{route('team.destroy',$starred->member_id)}}" method="POST" class="d-inline-block">
@@ -121,34 +121,34 @@
         <h3 class="card-title">Liste des membres de l'équipe <a href="{{route('team.create')}}" class="badge bg-success align-top ml-3">Nouveau <i class="fas fa-plus"></i></a></h3>
       </div>
 
-      <div class="card-body table-responsive p-0">
-        <table class="table table-hover">
+      <div class="card-body table-responsive">
+        <table id="team_table" class="table table-hover">
           <thead>
             <tr>
-              <th>Photo</th>
-              <th>Prénom</th>
-              <th>Nom</th>
-              <th>Poste</th>
-              <th>Vedette ?</th>
-              <th class="text-center">Actions</th>
+              <th class="text-center text-nowrap">Photo</th>
+              <th class="text-center text-nowrap">Nom</th>
+              <th class="text-center text-nowrap">Prénom</th>
+              <th class="text-center text-nowrap">Poste</th>
+              <th class="text-center text-nowrap">Vedette ?</th>
+              <th class="text-center text-nowrap">Actions</th>
             </tr>
           </thead>
 
           <tbody>
             @if ($team->isEmpty())
                 <tr>
-                  <td colspan="6" class="text-center"><b>Aucun membre dans l'équipe</b></td>
+                  <td colspan="6" class="text-center text-nowrap"><b>Aucun membre dans l'équipe</b></td>
                 </tr>
             @else 
-              @foreach ($team as $team_member)
+              @foreach ($team->sortBy('last_name') as $team_member)
                 <tr>
-                  <td>
+                  <td class="text-center text-nowrap">
                     <img src="{{substr( $team_member->pic_path, 0, 4 ) === "http" ? $team_member->pic_path : asset('storage/'.$team_member->pic_path)}}" class="mini rounded-circle" alt="img">
                   </td>
-                  <td class="text-capitalize">{{$team_member->first_name}}</td>
-                  <td class="text-capitalize">{{$team_member->last_name}}</td>
-                  <td class="text-capitalize">{{$team_member->role}}</td>
-                  <td class="text-capitalize">
+                  <td class="text-center text-nowrap">{{$team_member->last_name}}</td>
+                  <td class="text-center text-nowrap">{{$team_member->first_name}}</td>
+                  <td class="text-center text-nowrap">{{$team_member->role}}</td>
+                  <td class="text-center text-nowrap">
                     @if ($starred && $team_member->id === $starred->member_id)
                       <form action="{{route('team.starred_member.remove')}}" method="POST" class="d-inline-block">
                         @csrf
@@ -188,4 +188,14 @@
     </div>
   {{-- Index fin --}}
 
+@endsection
+
+@section('js')
+  <script>
+    $(document).ready( function () {
+      $('#team_table').DataTable({
+        "order": [], 
+      });
+    } );
+  </script>
 @endsection

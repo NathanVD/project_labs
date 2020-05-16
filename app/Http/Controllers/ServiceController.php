@@ -16,7 +16,7 @@ class ServiceController extends Controller
     public function index()
     {
         $title = Services_Title::find(1);
-        $services = Service::all()->sortByDesc('created_at');
+        $services = Service::all();
 
         return view('admin.services.index', compact('services','title'));
     }

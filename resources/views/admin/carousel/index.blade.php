@@ -46,26 +46,31 @@
 
       <div class="card-body">
         <div class="row">
-          @foreach ($carousels as $image)
-            <div class="col-sm-2 position-relative">
+          @if (!$carousels || $carousels->isEmpty())
+             <p class="text-center w-100"><b>Aucune image dans le carousel.</b></p> 
+          @else
+            @foreach ($carousels->sortByDesc('created_at') as $image)
+              <div class="col-sm-2 position-relative">
 
-              <img src="{{substr( $image->img_path, 0, 4 ) === "http" ? $image->img_path : asset('storage/'.$image->img_path)}}" class="img-fluid mb-2" alt="carousel_item {{$image->id}}">
+                <img src="{{substr( $image->img_path, 0, 4 ) === "http" ? $image->img_path : asset('storage/'.$image->img_path)}}" class="img-fluid mb-2" alt="carousel_item {{$image->id}}">
 
-              <div class="carousel_list_actions">
-                <a href="{{route('carousel.edit',$image->id)}}" class="btn btn-warning">
-                  <i class="fas fa-edit"></i>
-                </a>
-                <form action="{{route('carousel.destroy',$image->id)}}" method="POST" class="d-inline-block">
-                  @csrf
-                  @method('delete')
-                  <button class="btn btn-danger">
-                    <i class="fas fa-trash-alt"></i>
-                  </button>
-                </form> 
+                <div class="carousel_list_actions">
+                  <a href="{{route('carousel.edit',$image->id)}}" class="btn btn-warning">
+                    <i class="fas fa-edit"></i>
+                  </a>
+                  <form action="{{route('carousel.destroy',$image->id)}}" method="POST" class="d-inline-block">
+                    @csrf
+                    @method('delete')
+                    <button class="btn btn-danger">
+                      <i class="fas fa-trash-alt"></i>
+                    </button>
+                  </form> 
+                </div>
+
               </div>
+            @endforeach              
+          @endif
 
-            </div>
-          @endforeach
         </div>
       </div>
     </div>
