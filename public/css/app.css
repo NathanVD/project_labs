@@ -7872,30 +7872,30 @@ ul {
 }
 
 .little_logo {
-  max-height: 33px;
+  max-height: 33px !important;
 }
 
 .big_logo {
-  max-height: 148px;
+  max-height: 148px !important;
 }
 
 .member img {
-  height: 488px;
-  width: 360px;
-  -o-object-fit: cover;
-     object-fit: cover;
+  height: 488px !important;
+  width: 360px !important;
+  -o-object-fit: cover !important;
+     object-fit: cover !important;
 }
 
 .nav-pills li.active a {
-  color: #337ab7;
-  background-color: #2be6ab;
+  color: #337ab7 !important;
+  background-color: #2be6ab !important;
 }
 
 .nav-pills li.active a:hover {
-  color: #2be6ab;
+  color: #2be6ab !important;
 }
 
 .nav-pills li.active a:focus {
-  color: #2be6ab;
+  color: #337ab7 !important;
 }
 

@@ -19,41 +19,16 @@ use App\Tag;use App\Map;
 |
 */
 
+Auth::routes();
+
 /*
 | Page publiques
 */
-Route::get('/', function () {
+/**
+ * Home
+*/
+Route::get('/home', 'HomeController@index')->name('home');
 
-    $navlinks = Navlinks::find(1);
-    $logo = Logo::find(1);
-    $footer = Footer::find(1);
-    $carousel = Carousel::all();
-    $tagline = Tagline::find(1);
-    $about = About::find(1);
-    $video = Video::find(1);
-    $testimonials = Testimonial::all()->sortByDesc('created_at')->chunk(6)->first();
-    $testiTitle = TestiTitle::find(1);
-    $services_chunks = Service::all()->sortByDesc('created_at')->chunk(9);
-    $services_title = Services_Title::find(1);
-    $ready = Ready::find(1);
-    $contact = Contact::find(1);
-    $starred = Starred::find(1);
-    $team1 = Team::all()->where('role');
-    if ($starred && $team1->count() <= 1) {
-        $team  = $team1->replace([0 => $starred]);
-    } else if ($starred) {
-        $team = $team1->whereNotIn('id',$starred->member_id)->shuffle();
-        $team_2 = $team[1];
-        $team = $team->replace([1 => $starred])->push($team_2)->chunk(3)->first();
-    } else {
-        $team = $team1->shuffle()->chunk(3)->first();
-    };
-    $team_title = Team_Title::find(1);
-
-    return view('home',compact('navlinks','logo','footer','carousel',
-    'tagline','about','video','testimonials','testiTitle','ready','contact',
-    'team','team_title','services_chunks','services_title' ));
-});
 Route::get('/services', function () {
 
     $navlinks = Navlinks::find(1);
@@ -68,7 +43,7 @@ Route::get('/services', function () {
 
     return view('services',compact('navlinks','logo','footer','contact',
     'services_chunks','services_title','primed_services','primed_services_title','articles'));
-});
+})->name('services');
 Route::get('/blog', function () {
 
     $navlinks = Navlinks::find(1);
@@ -80,7 +55,7 @@ Route::get('/blog', function () {
     $tags = Tag::all()->shuffle()->chunk(9)->first();
 
     return view('blog',compact('navlinks','logo','footer','articles','categories','tags'));
-});
+})->name('blog');
 Route::get('/blog_post/{id}', function ($id) {
 
     $navlinks = Navlinks::find(1);
@@ -91,7 +66,7 @@ Route::get('/blog_post/{id}', function ($id) {
     $tags = Tag::all()->shuffle()->chunk(9)->first();
 
     return view('blog_post',compact('navlinks','logo','footer','article','categories','tags'));
-});
+})->name('blog_post');
 Route::get('/contact', function () {
 
     $navlinks = Navlinks::find(1);
@@ -101,7 +76,7 @@ Route::get('/contact', function () {
     $map = Map::find(1);
 
     return view('contact',compact('navlinks','logo','footer','contact','map'));
-});
+})->name('contact');
 /* 
 | End page publiques
 */
@@ -198,10 +173,3 @@ Route::resource('admin/inbox', 'MessageController');
 /*
 | End admin
 */
-
-
-Auth::routes();
-
-// Route::get('/home', 'HomeController@index')->name('home');
-
-

@@ -215,7 +215,7 @@ return [
     'menu' => [
         [
             'text' => 'Retour au site',
-            'url' => '/',
+            'url' => '/home',
             'icon' => 'fas fa-chevron-circle-left'
         ],
         [

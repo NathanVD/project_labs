@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
-	<title>Labs - Design Studio</title>
+	<title>{{ config('app.name', 'Laravel') }}</title>
 	<meta charset="UTF-8">
 	<meta name="description" content="Labs - Design Studio">
 	<meta name="keywords" content="lab, onepage, creative, html">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="csrf-token" content="{{ csrf_token() }}">
 	<!-- Favicon -->
 	<link href="{{asset('favicons/favicon.ico')}}" rel="shortcut icon"/>
 
@@ -25,9 +26,9 @@
 </head>
 <body>
     <div id="app">
-        <main>
-            @yield('content')
-        </main>
+			<main>
+					@yield('content')
+			</main>
     </div>
 
     <!--====== Javascripts & Jquery ======-->
