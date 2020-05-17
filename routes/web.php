@@ -181,6 +181,13 @@ Route::post('/admin/blog/comments/{article}/addComment', 'CommentController@addC
 Route::resource('admin/blog/comments', 'CommentController');
 
 //Messages
+// Route::get('/admin/inbox/confirmation_email/preview', 'MessageController@messageConfirmPreview')->name('inbox.message_confirm.preview');
+Route::get('/admin/inbox/message_email', 'MessageController@messageEmail')->name('inbox.message_email');
+Route::post('/admin/inbox/message_email/update', 'MessageController@messageEmailUpdate')->name('inbox.message_email.update');
+Route::get('/admin/inbox/newsletter_email', 'MessageController@newsletterEmail')->name('inbox.newsletter_email');
+Route::post('/admin/inbox/newsletter_email/update', 'MessageController@newsletterEmailUpdate')->name('inbox.newsletter_email.update');
+Route::get('/admin/inbox/blogPost_email', 'MessageController@blogPostEmail')->name('inbox.blogPost_email');
+Route::post('/admin/inbox/blogPost_email/update', 'MessageController@blogPostEmailUpdate')->name('inbox.blogPost_email.update');
 Route::resource('admin/inbox', 'MessageController');
 
 /*

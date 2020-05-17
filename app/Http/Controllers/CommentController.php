@@ -37,11 +37,9 @@ class CommentController extends Controller
 
         $article->comments()->save($comment);
 
-        Alert::success('Super,', 'Commentaire envoyé !')
-        // ->toToast('top-right')
+        Alert::success('Commentaire envoyé !')
         ->position('top-end')
         ->autoClose(2000)
-        ->hideCloseButton()
         ->animation('animate__heartBeat','animate__fadeOut')
         ->timerProgressBar();
 

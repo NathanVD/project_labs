@@ -26,7 +26,7 @@
             <div class="col-sm-12">
               <input type="text" name="subject" placeholder="Subject">
               <textarea name="message" placeholder="Message"></textarea>
-              <button class="site-btn">{{$contact ? $contact->button : 'send'}}</button>
+              <button class="site-btn">{{$contact ? $contact->button : 'envoyer'}}</button>
             </div>
           </div>
         </form>
