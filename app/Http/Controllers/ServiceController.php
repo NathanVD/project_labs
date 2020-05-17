@@ -28,20 +28,23 @@ class ServiceController extends Controller
 
         $title = Services_Title::find(1);
 
+        $request->validate([
+            'titre_1'=>'nullable|RequiredWithout:surlignement,titre_2|string',
+            'surlignement'=>'nullable|RequiredWithout:titre_1,titre_2|string',
+            'titre_2'=>'nullable|RequiredWithout:surlignement,titre_1|string',
+        ]);
+
         if (!$title) {
             $title = new Services_Title;
         }
 
-        $title->title_1 = request('title_1');
-        $title->highlight = request('highlight');
-        $title->title_2 = request('title_2');
+        $title->title_1 = request('titre_1');
+        $title->highlight = request('surlignement');
+        $title->title_2 = request('titre_2');
 
         $title->save();
 
-                $request->validate([
-            'ligne'=>'required|string',
-        ]);
-        alert()->toast('Modification enrégistrée !','success')->width('20rem');
+        alert()->toast('Modification enregistrée !','success')->width('20rem');
 
         return redirect()->route('services.index');
     }
@@ -64,26 +67,23 @@ class ServiceController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'icone'=>'required',
+            'nom'=>'required|string',
+            'description'=>'required|string',
+        ]);
+
         $service = new Service;
 
-        $service->icon = request('icon');
-        $service->title = request('title');
+        $service->icon = request('icone');
+        $service->title = request('nom');
         $service->description = request('description');
 
         $service->save();
 
-        return redirect()->route('services.index');
-    }
+        alert()->toast('Service ajouté !','success')->width('20rem');
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+        return redirect()->route('services.index');
     }
 
     /**
@@ -110,13 +110,23 @@ class ServiceController extends Controller
     {
         $service = Service::find($id);
 
+        $request->validate([
+            'nom'=>'required|string',
+            'description'=>'required|string',
+        ]);
+
         if (request('icon')) {
+            $request->validate([
+        	    'icone'=>'required',
+            ]);
             $service->icon = request('icon');
         }
-        $service->title = request('title');
+        $service->title = request('nom');
         $service->description = request('description');
 
         $service->save();
+
+        alert()->toast('Modification enregistrée !','success')->width('20rem');
 
         return redirect()->route('services.index');
     }
@@ -132,6 +142,8 @@ class ServiceController extends Controller
         $service = Service::find($id);
 
         $service->delete();
+
+        alert()->toast('Service supprimé !','error')->width('20rem');
 
         return redirect()->route('services.index');
     }

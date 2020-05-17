@@ -22,8 +22,8 @@
 
         <div class="card-body">
           <div class="form-group">
-            <label for="title">Titre :</label>
-            <input name="title" class="form-control" id="title" value="{{$title ? $title->title : 'what our clients say'}}" required>
+            <label for="titre">Titre :</label>
+            <input name="titre" id="titre" class="form-control{{($errors->isNotEmpty() ? $errors->first('titre') ? " is-invalid" : " is-valid" : "")}}" value="{{$title ? $title->title : 'ce que disent nos clients'}}">
           </div>
         </div>
 
@@ -61,7 +61,7 @@
           <tbody>
             @if ($testimonials->isEmpty())
                 <tr>
-                  <td colspan="6" class="text-center text-nowrap"><b>Aucun témoignage enrégistré</b></td>
+                  <td colspan="6" class="text-center text-nowrap"><b>Aucun témoignage enregistré</b></td>
                 </tr>
             @else 
               @foreach ($testimonials as $testimonial)
@@ -100,7 +100,9 @@
 @section('js')
   <script>
     $(document).ready( function () {
-      $('#testimonials_table').DataTable();
+      $('#testimonials_table').DataTable({
+        "order": [], 
+      });
     } );  
   </script>
 @endsection

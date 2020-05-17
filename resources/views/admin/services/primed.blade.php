@@ -18,26 +18,26 @@
         <div class="row">
           <div class="col-5">
             <div class="form-group">
-              <label for="line">Titre <small>(partie 1)</small> :</label>
-              <input name="title_1" class="form-control" id="title_1" value="{{$title ? $title->title_1 : 'Get in'}}">
+              <label for="titre_1">Titre <small>(partie 1)</small> :</label>
+              <input name="titre_1" id="titre_1" value="{{$title ? $title->title_1 : 'Get in'}}" class="form-control{{($errors->isNotEmpty() ? $errors->first('titre_1') ? " is-invalid" : " is-valid" : "")}}">
             </div>
           </div>
           <div class="col-2">
             <div class="form-group">
-              <label for="highlight">Surlignement :</label>
-              <input name="highlight" class="form-control" id="highlight" value="{{$title ? $title->highlight : 'the lab'}}">
+              <label for="surlignement">Surlignement :</label>
+              <input name="surlignement" id="surlignement" value="{{$title ? $title->highlight : 'the lab'}}" class="form-control{{($errors->isNotEmpty() ? $errors->first('surlignement') ? " is-invalid" : " is-valid" : "")}}">
             </div>
           </div>
           <div class="col-5">
             <div class="form-group">
-              <label for="title_2">Titre <small>(partie 2)</small> :</label>
-              <input name="title_2" class="form-control" id="title_2" value="{{$title ? $title->title_2 : 'and discover the world'}}">
+              <label for="titre_2">Titre <small>(partie 2)</small> :</label>
+              <input name="titre_2" id="titre_2" value="{{$title ? $title->title_2 : 'and discover the world'}}" class="form-control{{($errors->isNotEmpty() ? $errors->first('titre_2') ? " is-invalid" : " is-valid" : "")}}">
             </div>
           </div>
         </div>
         <div class="form-group">
-            <label for="button">Nom du bouton :</label>
-            <input name="button" class="form-control" id="button" value="{{$title ? $title->button : 'browse'}}">
+            <label for="bouton">Nom du bouton :</label>
+            <input name="bouton" id="bouton" value="{{$title ? $title->button : 'parcourir'}}" class="form-control{{($errors->isNotEmpty() ? $errors->first('bouton') ? " is-invalid" : " is-valid" : "")}}">
           </div>
       </div>
 

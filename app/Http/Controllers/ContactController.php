@@ -19,25 +19,33 @@ class ContactController extends Controller
 
         $contact = Contact::find(1);
 
+        $request->validate([
+            'titre'=>'required|string',
+            'description'=>'required|string',
+            'info_titre'=>'required|string',
+            'adresse_1'=>'required|string',
+            'adresse_2'=>'required|string',
+            'téléphone'=>'required|numeric',
+            'email'=>'required|email',
+            'bouton'=>'required|string',
+        ]);
+
         if (!$contact) {
             $contact = new Contact;
         }
 
-        $contact->title = request('title');
+        $contact->title = request('titre');
         $contact->description = request('description');
-        $contact->data_title = request('data_title');
-        $contact->adress_1 = request('adress_1');
-        $contact->adress_2 = request('adress_2');
-        $contact->phone = request('phone');
+        $contact->data_title = request('info_titre');
+        $contact->adress_1 = request('adresse_1');
+        $contact->adress_2 = request('adresse_2');
+        $contact->phone = request('téléphone');
         $contact->email = request('email');
-        $contact->button = request('button');
+        $contact->button = request('bouton');
 
         $contact->save();
 
-                $request->validate([
-            'ligne'=>'required|string',
-        ]);
-        alert()->toast('Modification enrégistrée !','success')->width('20rem');
+        alert()->toast('Modification enregistrée !','success')->width('20rem');
 
         return redirect()->route('contact');
     }

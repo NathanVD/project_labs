@@ -18,20 +18,23 @@ class ReadyController extends Controller
 
         $ready = Ready::find(1);
 
+        $request->validate([
+            'titre'=>'required|string',
+            'sous-titre'=>'required|string',
+            'bouton'=>'required|string',
+        ]);
+
         if (!$ready) {
             $ready = new Ready;
         }
 
-        $ready->title = request('title');
-        $ready->subtitle = request('subtitle');
-        $ready->button = request('button');
+        $ready->title = request('titre');
+        $ready->subtitle = request('sous-titre');
+        $ready->button = request('bouton');
 
         $ready->save();
 
-                $request->validate([
-            'ligne'=>'required|string',
-        ]);
-        alert()->toast('Modification enrégistrée !','success')->width('20rem');
+        alert()->toast('Modification enregistrée !','success')->width('20rem');
 
         return redirect()->route('ready');
     }

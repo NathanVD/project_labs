@@ -15,27 +15,27 @@
 
           <div class="form-group">
             <div class="form-group">
-              <label for="picture">Photo :</label>
+              <label for="photo">Photo :</label>
               <div class="custom-file">
-                <input type="file" class="custom-file-input" name="picture" id="picture">
-                <label class="custom-file-label" for="picture" data-browse="Parcourir">Choisissez une image</label>
+                <input type="file" name="photo" id="photo" class="custom-file-input{{($errors->isNotEmpty() ? $errors->first('photo') ? " is-invalid" : " is-valid" : "")}}">
+                <label class="custom-file-label" for="photo" data-browse="Parcourir">Choisissez une image</label>
               </div>
             </div>
           </div>
 
           <div class="form-group">
-            <label for="first_name">Prénom :</label>
-            <input type="text" name="first_name" id="first_name" class="form-control" required>
+            <label for="prénom">Prénom :</label>
+            <input type="text" name="prénom" id="prénom" class="form-control{{($errors->isNotEmpty() ? $errors->first('prénom') ? " is-invalid" : " is-valid" : "")}}">
           </div>
 
           <div class="form-group">
-            <label for="last_name">Nom :</label>
-            <input type="text" name="last_name" id="last_name" class="form-control" required>
+            <label for="nom">Nom :</label>
+            <input type="text" name="nom" id="nom" class="form-control{{($errors->isNotEmpty() ? $errors->first('nom') ? " is-invalid" : " is-valid" : "")}}">
           </div>
 
           <div class="form-group">
             <label for="role">Poste :</label>
-            <input type="text" name="role" id="role" class="form-control">
+            <input type="text" name="role" id="role" class="form-control{{($errors->isNotEmpty() ? $errors->first('role') ? " is-invalid" : " is-valid" : "")}}">
           </div>
 
         </div>

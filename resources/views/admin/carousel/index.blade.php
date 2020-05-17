@@ -22,8 +22,8 @@
 
         <div class="card-body">
           <div class="form-group">
-            <label for="line">Slogan :</label>
-            <input name="line" class="form-control" id="line" value="{{$tagline ? $tagline->line : 'Get your freebie template now!'}}" required>
+            <label for="slogan">Slogan :</label>
+            <input name="slogan" class="form-control{{($errors->isNotEmpty() ? $errors->first('slogan') ? " is-invalid" : " is-valid" : "")}}" id="slogan" value="{{$tagline ? $tagline->line : ''}}">
           </div>
         </div>
 

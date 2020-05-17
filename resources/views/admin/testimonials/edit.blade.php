@@ -21,10 +21,10 @@
 
             <div class="col d-flex align-items-center">
               <div class="form-group">
-                <label for="picture">Photo de profil :</label>
+                <label for="photo">Photo de profil :</label>
                 <div class="custom-file">
-                  <input type="file" class="custom-file-input" name="picture" id="picture">
-                  <label class="custom-file-label" for="picture" data-browse="Parcourir">Choisissez une image</label>
+                  <input type="file" name="photo" id="photo" class="custom-file-input{{($errors->isNotEmpty() ? $errors->first('photo') ? " is-invalid" : " is-valid" : "")}}">
+                  <label class="custom-file-label" for="photo" data-browse="Parcourir">Choisissez une image</label>
                 </div>
               </div>
             </div>
@@ -38,26 +38,26 @@
           <div class="row">
             <div class="col">
               <div class="form-group">
-                <label for="name">Prénom :</label>
-                <input type="text" name="first_name" id="first_name" class="form-control" value="{{$testimonial->first_name}}" required>
+                <label for="prénom">Prénom :</label>
+                <input type="text" name="prénom" id="prénom" class="form-control{{($errors->isNotEmpty() ? $errors->first('prénom') ? " is-invalid" : " is-valid" : "")}}" value="{{$testimonial->first_name}}">
               </div>
             </div>
             <div class="col">
               <div class="form-group">
-                <label for="name">Nom :</label>
-                <input type="text" name="last_name" id="last_name" class="form-control" value="{{$testimonial->last_name}}" required>
+                <label for="nom">Nom :</label>
+                <input type="text" name="nom" id="nom" class="form-control{{($errors->isNotEmpty() ? $errors->first('nom') ? " is-invalid" : " is-valid" : "")}}" value="{{$testimonial->last_name}}">
               </div>              
             </div>
           </div>
 
           <div class="form-group">
-            <label for="job_title">Poste :</label>
-            <input type="text" name="job_title" id="job_title" class="form-control" value="{{$testimonial->job_title}}" required>
+            <label for="profession">Profession :</label>
+            <input type="text" name="profession" id="profession" class="form-control{{($errors->isNotEmpty() ? $errors->first('profession') ? " is-invalid" : " is-valid" : "")}}" value="{{$testimonial->job_title}}">
           </div>
 
           <div class="form-group">
-            <label for="quote">Témoignage :</label>
-            <textarea name="testimony" id="testimony" class="form-control" rows="4" maxlength="175" required>{{$testimonial->testimony}} </textarea>
+            <label for="témoignage">Témoignage :</label>
+            <textarea name="témoignage" id="témoignage" class="form-control{{($errors->isNotEmpty() ? $errors->first('témoignage') ? " is-invalid" : " is-valid" : "")}}" rows="4" maxlength="175">{{$testimonial->testimony}}</textarea>
           </div>
 
         </div>

@@ -29,34 +29,25 @@ class TestimonialController extends Controller
 
         $title = TestiTitle::find(1);
 
+        $request->validate([
+            'titre'=>'required|string',
+        ]);
+
         if (!$title) {
             $title = new TestiTitle;
         }
 
-        $title->title = request('title');
+        $title->title = request('titre');
 
         $title->save();
 
-                $request->validate([
-            'ligne'=>'required|string',
-        ]);
-        alert()->toast('Modification enrégistrée !','success')->width('20rem');
+        alert()->toast('Modification enregistrée !','success')->width('20rem');
 
         return redirect()->route('testimonials.index');
     }
     /*
     /Fin partie Titre
     */
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        return view('admin.testimonials.create');
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -68,26 +59,25 @@ class TestimonialController extends Controller
     {
         $testimonial = new Testimonial;
 
-        $testimonial->profile_picture_path = request('picture')->store('img');
-        $testimonial->first_name = request('first_name');
-        $testimonial->last_name = request('last_name');
-        $testimonial->job_title = request('job_title');
-        $testimonial->testimony = request('testimony');
+        $request->validate([
+            'photo'=>'required|image',
+            'prénom'=>'required|string',
+        	'nom'=>'required|string',
+        	'profession'=>'required|string',
+        	'témoignage'=>'required',
+        ]);
+
+        $testimonial->profile_picture_path = request('photo')->store('img');
+        $testimonial->first_name = request('prénom');
+        $testimonial->last_name = request('nom');
+        $testimonial->job_title = request('profession');
+        $testimonial->testimony = request('témoignage');
 
         $testimonial->save();
 
-        return redirect()->route('testimonials.index');
-    }
+        alert()->toast('Témoignage ajouté !','success')->width('20rem');
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+        return redirect()->route('testimonials.index');
     }
 
     /**
@@ -114,16 +104,28 @@ class TestimonialController extends Controller
     {
         $testimonial = Testimonial::find($id);
 
-        if (request('picture')) {
+        $request->validate([
+            'prénom'=>'required|string',
+        	'nom'=>'required|string',
+        	'profession'=>'required|string',
+        	'témoignage'=>'required',
+        ]);
+
+        if (request('photo')) {
+            $request->validate([
+                'photo'=>'required|image',
+            ]);
             Storage::delete($testimonial->profile_picture_path);
-            $testimonial->profile_picture_path = request('picture')->store('img');
+            $testimonial->profile_picture_path = request('photo')->store('img');
         };
-        $testimonial->first_name = request('first_name');
-        $testimonial->last_name = request('last_name');
-        $testimonial->job_title = request('job_title');
-        $testimonial->testimony = request('testimony');
+        $testimonial->first_name = request('prénom');
+        $testimonial->last_name = request('nom');
+        $testimonial->job_title = request('profession');
+        $testimonial->testimony = request('témoignage');
 
         $testimonial->save();
+
+        alert()->toast('Modification enregistrée !','success')->width('20rem');
 
         return redirect()->route('testimonials.index');
     }
@@ -141,6 +143,8 @@ class TestimonialController extends Controller
         Storage::delete($testimonial->profile_picture_path);
 
         $testimonial->delete();
+
+        alert()->toast('Témoignage supprimé !','error')->width('20rem');
 
         return redirect()->route('testimonials.index');
     }

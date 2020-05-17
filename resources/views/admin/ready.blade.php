@@ -13,16 +13,16 @@
 
         <div class="card-body">
           <div class="form-group">
-            <label for="title">Titre :</label>
-            <input name="title" class="form-control" id="title" value="{{$ready ? $ready->title : 'Are you ready to stand out?'}}" required>
+            <label for="titre">Titre :</label>
+            <input name="titre" id="titre" value="{{$ready ? $ready->title : 'Are you ready to stand out?'}}" class="form-control{{($errors->isNotEmpty() ? $errors->first('titre') ? " is-invalid" : " is-valid" : "")}}">
           </div>
           <div class="form-group">
-            <label for="subtitle">Sous-titre :</label>
-            <input name="subtitle" class="form-control" id="subtitle" value="{{$ready ? $ready->subtitle : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur leo est.'}}" required>
+            <label for="sous-titre">Sous-titre :</label>
+            <input name="sous-titre" id="sous-titre" value="{{$ready ? $ready->subtitle : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur leo est.'}}" class="form-control{{($errors->isNotEmpty() ? $errors->first('sous-titre') ? " is-invalid" : " is-valid" : "")}}">
           </div>
           <div class="form-group">
-            <label for="button">Bouton :</label>
-            <input name="button" class="form-control" id="button" value="{{$ready ? $ready->button : 'browse'}}" required>
+            <label for="bouton">Bouton :</label>
+            <input name="bouton" id="bouton" value="{{$ready ? $ready->button : 'parcourir'}}" class="form-control{{($errors->isNotEmpty() ? $errors->first('bouton') ? " is-invalid" : " is-valid" : "")}}">
           </div>
         </div>
 

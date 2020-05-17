@@ -18,18 +18,20 @@ class MapController extends Controller
 
         $map = Map::find(1);
 
+        $request->validate([
+            'lieu'=>'required|string',
+            'url'=>'required|url',
+        ]);
+
         if (!$map) {
             $map = new Map;
         }
 
-        $map->name = request('name');
+        $map->name = request('lieu');
         $map->url = request('url');
 
         $map->save();
 
-                $request->validate([
-            'ligne'=>'required|string',
-        ]);
         alert()->toast('Modification enrégistrée !','success')->width('20rem');
 
         return redirect()->route('map');

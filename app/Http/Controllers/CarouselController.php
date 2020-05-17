@@ -30,17 +30,20 @@ class CarouselController extends Controller
 
         $tagline = Tagline::find(1);
 
+        $request->validate([
+            'slogan'=>'required|string',
+        ]);
+
         if (!$tagline) {
             $tagline = new Tagline;
         }
 
-        $tagline->line = request('line');
+        $tagline->line = request('slogan');
 
         $tagline->save();
-$request->validate([
-            'ligne'=>'required|string',
-        ]);
-        alert()->toast('Modification enrégistrée !','success')->width('20rem');
+
+        alert()->toast('Modification enregistrée !','success')->width('20rem');
+
         return redirect()->route('carousel.index');
     }
     /*
@@ -67,22 +70,17 @@ $request->validate([
     {
         $carousel = new Carousel();
 
-        $carousel->img_path = request('img')->store('img');
+        $request->validate([
+            'image'=>'required|image',
+        ]);
+
+        $carousel->img_path = request('image')->store('img');
 
         $carousel->save();
 
-        return redirect()->route('carousel.index');
-    }
+        alert()->toast('Image ajoutée !','success')->width('20rem');
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+        return redirect()->route('carousel.index');
     }
 
     /**
@@ -109,13 +107,20 @@ $request->validate([
     {
         $carousel = Carousel::find($id);
 
-        if(request('img')){
+        if(request('image')){
+
+            $request->validate([
+                'image'=>'required|image',
+            ]);
+
             Storage::delete($carousel->img_path);
-            $carousel->img_path = request('img')->store('img');
+            $carousel->img_path = request('image')->store('img');
         }
 
         $carousel->save();
 
+        alert()->toast('Modification enregistrée !','success')->width('20rem');
+        
         return redirect()->route('carousel.index');
     }
 
@@ -132,6 +137,8 @@ $request->validate([
         Storage::delete($carousel->img_path);
 
         $carousel->delete();
+
+        alert()->toast('Image supprimée !','error')->width('20rem');
 
         return redirect()->route('carousel.index');
     }

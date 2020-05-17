@@ -19,6 +19,10 @@ class LogoController extends Controller
     {
         $logo = Logo::find(1);
 
+        $request->validate([
+            'logo'=>'required|image',
+        ]);
+
         if (!$logo) {
             $logo = new Logo;
         }
@@ -29,10 +33,7 @@ class LogoController extends Controller
 
         $logo->save();
 
-                $request->validate([
-            'ligne'=>'required|string',
-        ]);
-        alert()->toast('Modification enrégistrée !','success')->width('20rem');
+        alert()->toast('Modification enregistrée !','success')->width('20rem');
 
         return redirect()->route('logo');
     }

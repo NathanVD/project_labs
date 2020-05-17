@@ -14,31 +14,31 @@
         <div class="card-body">
 
           <div class="form-group">
-            <label for="picture">Photo de profil :</label>
+            <label for="photo">Photo de profil :</label>
             <div class="custom-file">
-              <input type="file" class="custom-file-input" name="picture" id="picture">
-              <label class="custom-file-label" for="picture" data-browse="Parcourir">Choisissez une image</label>
+              <input type="file" name="photo" id="photo" class="custom-file-input{{($errors->isNotEmpty() ? $errors->first('photo') ? " is-invalid" : " is-valid" : "")}}">
+              <label class="custom-file-label" for="photo" data-browse="Parcourir">Choisissez une image</label>
             </div>
           </div>
 
           <div class="form-group">
-            <label for="first_name">Prénom :</label>
-            <input type="text" name="first_name" id="first_name" class="form-control" required>
+            <label for="prénom">Prénom :</label>
+            <input type="text" name="prénom" id="prénom" class="form-control{{($errors->isNotEmpty() ? $errors->first('prénom') ? " is-invalid" : " is-valid" : "")}}">
           </div>
 
           <div class="form-group">
-            <label for="last_name">Nom :</label>
-            <input type="text" name="last_name" id="last_name" class="form-control" required>
+            <label for="nom">Nom :</label>
+            <input type="text" name="nom" id="nom" class="form-control{{($errors->isNotEmpty() ? $errors->first('nom') ? " is-invalid" : " is-valid" : "")}}">
           </div>
 
           <div class="form-group">
-            <label for="job_title">Poste :</label>
-            <input type="text" name="job_title" id="job_title" class="form-control" required>
+            <label for="profession">Profession :</label>
+            <input type="text" name="profession" id="profession" class="form-control{{($errors->isNotEmpty() ? $errors->first('profession') ? " is-invalid" : " is-valid" : "")}}">
           </div>
 
           <div class="form-group">
             <label for="testimony">Témoignage :</label>
-            <textarea name="testimony" id="testimony" class="form-control" rows="4" maxlength="175" required></textarea>
+            <textarea name="testimony" id="testimony" class="form-control" rows="4" maxlength="175"></textarea>
           </div>
 
         </div>

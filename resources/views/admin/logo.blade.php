@@ -18,7 +18,7 @@
             <div class="form-group">
               <label for="logo">Logo :</label>
               <div class="custom-file">
-                <input type="file" class="custom-file-input" name="logo" id="logo">
+                <input type="file" name="logo" id="logo" class="custom-file-input{{($errors->isNotEmpty() ? $errors->first('logo') ? " is-invalid" : " is-valid" : "")}}">
                 <label class="custom-file-label" for="logo" data-browse="Parcourir">Choisissez une image</label>
               </div>
             </div>

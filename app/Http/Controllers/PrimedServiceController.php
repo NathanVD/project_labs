@@ -18,21 +18,25 @@ class PrimedServiceController extends Controller
 
         $title = Primed_services::find(1);
 
+        $request->validate([
+            'titre_1'=>'nullable|RequiredWithout:surlignement,titre_2|string',
+            'surlignement'=>'nullable|RequiredWithout:titre_1,titre_2|string',
+            'titre_2'=>'nullable|RequiredWithout:surlignement,titre_1|string',
+            'bouton'=>'required|string',
+        ]);
+
         if (!$title) {
             $title = new Primed_services;
         }
 
-        $title->title_1 = request('title_1');
-        $title->highlight = request('highlight');
-        $title->title_2 = request('title_2');
-        $title->button = request('button');
+        $title->title_1 = request('titre_1');
+        $title->highlight = request('surlignement');
+        $title->title_2 = request('titre_2');
+        $title->button = request('bouton');
 
         $title->save();
 
-                $request->validate([
-            'ligne'=>'required|string',
-        ]);
-        alert()->toast('Modification enrégistrée !','success')->width('20rem');
+        alert()->toast('Modification enregistrée !','success')->width('20rem');
 
         return redirect()->route('services.primed');
     }

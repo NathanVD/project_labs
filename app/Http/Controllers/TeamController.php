@@ -31,20 +31,23 @@ class TeamController extends Controller
 
         $title = Team_Title::find(1);
 
+        $request->validate([
+            'titre_1'=>'nullable|RequiredWithout:surlignement,titre_2|string',
+            'surlignement'=>'nullable|RequiredWithout:titre_1,titre_2|string',
+            'titre_2'=>'nullable|RequiredWithout:surlignement,titre_1|string',
+        ]);
+
         if (!$title) {
             $title = new Team_Title;
         }
 
-        $title->title_1 = request('title_1');
-        $title->highlight = request('highlight');
-        $title->title_2 = request('title_2');
+        $title->title_1 = request('titre_1');
+        $title->highlight = request('surlignement');
+        $title->title_2 = request('titre_2');
 
         $title->save();
 
-                $request->validate([
-            'ligne'=>'required|string',
-        ]);
-        alert()->toast('Modification enrégistrée !','success')->width('20rem');
+        alert()->toast('Modification enregistrée !','success')->width('20rem');
 
         return redirect()->route('team.index');
     }
@@ -72,25 +75,23 @@ class TeamController extends Controller
     {
         $testimonial = new Team;
 
-        $testimonial->pic_path = request('picture')->store('img');
-        $testimonial->first_name = request('first_name');
-        $testimonial->last_name = request('last_name');
+        $request->validate([
+            'photo'=>'required|image',
+            'prénom'=>'required|string',
+            'nom'=>'required|string',
+        	'role'=>'required|string',
+        ]);
+
+        $testimonial->pic_path = request('photo')->store('img');
+        $testimonial->first_name = request('prénom');
+        $testimonial->last_name = request('nom');
         $testimonial->role = request('role');
 
         $testimonial->save();
 
-        return redirect()->route('team.index');
-    }
+        alert()->toast('Modification enregistrée !','success')->width('20rem');
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+        return redirect()->route('team.index');
     }
 
     /**
@@ -116,14 +117,23 @@ class TeamController extends Controller
     public function update(Request $request, $id)
     {
         $team = Team::find($id);
-        
         $starred = Starred::find(1);
-        if (request('picture')) {
+
+        $request->validate([
+            'prénom'=>'required|string',
+            'nom'=>'required|string',
+        	'role'=>'required|string',
+        ]);
+
+        if (request('photo')) {
+            $request->validate([
+                'photo'=>'required|image',
+            ]);
             Storage::delete($team->pic_path);
-            $team->pic_path = request('picture')->store('img');
+            $team->pic_path = request('photo')->store('img');
         };
-        $team->first_name = request('first_name');
-        $team->last_name = request('last_name');
+        $team->first_name = request('prénom');
+        $team->last_name = request('nom');
         $team->role = request('role');
 
         if ($starred && $team->id === $starred->member_id) {
@@ -136,6 +146,8 @@ class TeamController extends Controller
         };
 
         $team->save();
+
+        alert()->toast('Modification enregistrée !','success')->width('20rem');
 
         return redirect()->route('team.index');
     }
@@ -159,6 +171,8 @@ class TeamController extends Controller
 
         $team->delete();
 
+        alert()->toast('Membre supprimé !','error')->width('20rem');
+
         return redirect()->route('team.index');
     }
 
@@ -181,6 +195,8 @@ class TeamController extends Controller
 
         $starred->save();
 
+        alert()->toast('Vedette modifiée !','success')->width('20rem');
+
         return redirect()->route('team.index');
     }
 
@@ -189,6 +205,8 @@ class TeamController extends Controller
         $starred = Starred::find(1);
 
         $starred->delete();
+
+        alert()->toast('Vedette retirée !','warning')->width('20rem');
 
         return redirect()->route('team.index');
     }

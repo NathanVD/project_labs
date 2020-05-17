@@ -10,16 +10,6 @@ Use Alert;
 class CommentController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -31,9 +21,15 @@ class CommentController extends Controller
 
         $comment = new Comment;
 
-        $comment->name = request('name');
+        $request->validate([
+            'nom'=>'required|string',
+            'email'=>'required|email',
+            'contenu'=>'required',
+        ]);
+
+        $comment->name = request('nom');
         $comment->email = request('email');
-        $comment->content = request('content');
+        $comment->content = request('contenu');
 
         $article->comments()->save($comment);
 
@@ -44,40 +40,6 @@ class CommentController extends Controller
         ->timerProgressBar();
 
         return redirect()->back();
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
     }
 
     /**

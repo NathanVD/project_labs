@@ -24,20 +24,20 @@
           <div class="row">
             <div class="col-5">
               <div class="form-group">
-                <label for="line">Titre <small>(partie 1)</small> :</label>
-                <input name="title_1" class="form-control" id="title_1" value="{{$title ? $title->title_1 : 'Get in'}}">
+                <label for="titre_1">Titre <small>(partie 1)</small> :</label>
+                <input name="titre_1" id="titre_1" class="form-control{{($errors->isNotEmpty() ? $errors->first('titre_1') ? " is-invalid" : " is-valid" : "")}}" value="{{$title ? $title->title_1 : 'Get in'}}">
               </div>
             </div>
             <div class="col-2">
               <div class="form-group">
-                <label for="line">Surlignement :</label>
-                <input name="highlight" class="form-control" id="highlight" value="{{$title ? $title->highlight : 'the lab'}}">
+                <label for="surlignement">Surlignement :</label>
+                <input name="surlignement" id="surlignement" class="form-control{{($errors->isNotEmpty() ? $errors->first('surlignement') ? " is-invalid" : " is-valid" : "")}}" value="{{$title ? $title->highlight : 'the lab'}}">
               </div>
             </div>
             <div class="col-5">
               <div class="form-group">
-                <label for="title_2">Titre <small>(partie 2)</small> :</label>
-                <input name="title_2" class="form-control" id="title_2" value="{{$title ? $title->title_2 : 'and see the services'}}">
+                <label for="titre_2">Titre <small>(partie 2)</small> :</label>
+                <input name="titre_2" id="titre_2" class="form-control{{($errors->isNotEmpty() ? $errors->first('titre_2') ? " is-invalid" : " is-valid" : "")}}" value="{{$title ? $title->title_2 : 'and see the services'}}">
               </div>
             </div>
           </div>
@@ -72,9 +72,9 @@
           </thead>
 
           <tbody>
-            @if ($services->isEmpty())
+            @if (!$services || $services->isEmpty())
                 <tr>
-                  <td colspan="6" class="text-center text-nowrap"><b>Aucun service proposé</b></td>
+                  <td colspan="4" class="text-center text-nowrap"><b>Aucun service proposé</b></td>
                 </tr>
             @else 
               @foreach ($services->sortByDesc('created_at') as $service)

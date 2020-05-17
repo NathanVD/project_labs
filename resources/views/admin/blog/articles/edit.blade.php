@@ -21,14 +21,14 @@
             <div class="col">
               <div class="form-group">
                 <label for="titre">Titre :</label>
-                <input type="text" name="titre" id="titre" class="form-control" value="{{$article->title}}">
+                <input type="text" name="titre" id="titre" class="form-control{{($errors->isNotEmpty() ? $errors->first('titre') ? " is-invalid" : " is-valid" : "")}}" value="{{$article->title}}">
               </div>
             </div>
             <div class="col">
               <div class="form-group">
                 <label for="image">Image :</label>
                 <div class="custom-file">
-                  <input type="file" class="custom-file-input" name="image" id="image">
+                  <input type="file" class="custom-file-input{{($errors->isNotEmpty() ? $errors->first('image') ? " is-invalid" : " is-valid" : "")}}" name="image" id="image">
                   <label class="custom-file-label" for="image" data-browse="Parcourir">Choisissez une image</label>
                 </div>
               </div>
@@ -39,7 +39,7 @@
             <div class="col">
               <div class="form-group">
                 <label for="catégorie">Catégorie :</label>
-                <select class="form-control" name="catégorie" id="catégorie" required>
+                <select name="catégorie" id="catégorie" class="form-control{{($errors->isNotEmpty() ? $errors->first('catégorie') ? " is-invalid" : " is-valid" : "")}}">
                   <option value="">-- Choisissez la catégorie de votre article --</option>
                   @foreach ($categories as $category)
                     <option value="{{$category->id}}" {{$article->category ? $article->category->id === $category->id ? 'selected' : '' : ''}}>{{$category->name}}</option>
@@ -50,7 +50,7 @@
             <div class="col">
               <div class="form-group">
                 <label for="tags">Tags :</label>
-                <select class="form-control" multiple="multiple" name="tags[]" id="tags" required>
+                <select multiple="multiple" name="tags[]" id="tags" class="form-control{{($errors->isNotEmpty() ? $errors->first('tags') ? " is-invalid" : " is-valid" : "")}}">
                   @foreach ($tags as $tag)
                     <option value="{{$tag->id}}" {{$article->tags->contains('id',$tag->id) ? 'selected' : ''}}>{{$tag->name}}</option>
                   @endforeach
@@ -61,7 +61,7 @@
 
           <div class="form-group">
               <label for="contenu">Contenu de l'article :</label>
-              <textarea name="contenu" id="contenu" class="w-100" rows="20">{{$article->content}}</textarea>
+              <textarea name="contenu" id="contenu" rows="20" class="w-100{{($errors->isNotEmpty() ? $errors->first('contenu') ? " is-invalid" : " is-valid" : "")}}">{{$article->content}}</textarea>
           </div>
         </div>
 

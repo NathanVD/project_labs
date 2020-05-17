@@ -13,10 +13,10 @@
 
         <div class="card-body">
           <div class="form-group">
-            <label for="img">Image :</label>
+            <label for="image">Image :</label>
             <div class="custom-file">
-              <input type="file" class="custom-file-input" name="img" id="img">
-              <label class="custom-file-label" for="img" data-browse="Parcourir">Choisissez une image</label>
+              <input type="file" name="image" id="image" class="custom-file-input{{($errors->isNotEmpty() ? $errors->first('image') ? " is-invalid" : " is-valid" : "")}}">
+              <label class="custom-file-label" for="image" data-browse="Parcourir">Choisissez une image</label>
             </div>
           </div>
         </div>
