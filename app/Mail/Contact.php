@@ -13,8 +13,8 @@ class contact extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $sent_message;
     public $message_model;
+    public $sent_message;
 
     /**
      * Create a new message instance.

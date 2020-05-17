@@ -14,7 +14,7 @@ class ReadyController extends Controller
         return view('admin.ready',compact('ready'));
     }
 
-    public function update() {
+    public function update(Request $request) {
 
         $ready = Ready::find(1);
 
@@ -27,6 +27,11 @@ class ReadyController extends Controller
         $ready->button = request('button');
 
         $ready->save();
+
+                $request->validate([
+            'ligne'=>'required|string',
+        ]);
+        alert()->toast('Modification enrégistrée !','success')->width('20rem');
 
         return redirect()->route('ready');
     }

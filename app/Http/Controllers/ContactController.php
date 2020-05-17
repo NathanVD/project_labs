@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Contact;
+Use Alert;
 
 class ContactController extends Controller
 {
@@ -14,7 +15,7 @@ class ContactController extends Controller
         return view('admin.contact',compact('contact'));
     }
 
-    public function update() {
+    public function update(Request $request) {
 
         $contact = Contact::find(1);
 
@@ -32,6 +33,11 @@ class ContactController extends Controller
         $contact->button = request('button');
 
         $contact->save();
+
+                $request->validate([
+            'ligne'=>'required|string',
+        ]);
+        alert()->toast('Modification enrégistrée !','success')->width('20rem');
 
         return redirect()->route('contact');
     }

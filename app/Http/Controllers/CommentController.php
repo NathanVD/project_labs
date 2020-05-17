@@ -92,7 +92,7 @@ class CommentController extends Controller
 
         $comment->delete();
 
-        Alert::success('Commentaire supprimé','.')
+        Alert::success('Commentaire supprimé.')
         ->position('top-end')
         ->autoClose(2000)
         ->hideCloseButton()

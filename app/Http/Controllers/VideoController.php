@@ -15,7 +15,7 @@ class VideoController extends Controller
         return view('admin.video',compact('video'));
     }
 
-    public function update() {
+    public function update(Request $request) {
 
         $video = Video::find(1);
 
@@ -33,6 +33,11 @@ class VideoController extends Controller
         $video->video_link = request('video');
 
         $video->save();
+
+                $request->validate([
+            'ligne'=>'required|string',
+        ]);
+        alert()->toast('Modification enrégistrée !','success')->width('20rem');
 
         return redirect()->route('video');
     }

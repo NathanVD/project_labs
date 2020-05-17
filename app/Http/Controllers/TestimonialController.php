@@ -25,7 +25,7 @@ class TestimonialController extends Controller
     /*
     / Partie Titre
     */
-    public function titleUpdate() {
+    public function titleUpdate(Request $request) {
 
         $title = TestiTitle::find(1);
 
@@ -36,6 +36,11 @@ class TestimonialController extends Controller
         $title->title = request('title');
 
         $title->save();
+
+                $request->validate([
+            'ligne'=>'required|string',
+        ]);
+        alert()->toast('Modification enrégistrée !','success')->width('20rem');
 
         return redirect()->route('testimonials.index');
     }

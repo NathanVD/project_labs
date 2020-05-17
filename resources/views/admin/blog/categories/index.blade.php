@@ -19,7 +19,7 @@
             @csrf
             <label for="name">Nouvelle catégorie :</label>
             <div class="input-group">
-              <input type="text" class="form-control" name="name" id="name" placeholder="Nom de la catégorie" autofocus>
+              <input type="text" class="form-control{{($errors->isNotEmpty() ? $errors->first('nom') ? " is-invalid" : " is-valid" : "")}}" name="nom" id="nom" placeholder="Nom de la catégorie" autofocus>
               <div class="input-group-append">
                 <button class="btn btn-success" type="submit">Ajouter</button>
               </div>
@@ -111,6 +111,6 @@
       $('#categories_table').DataTable({
         "order": [], 
       });
-    } );  
+    } );
   </script>
 @endsection

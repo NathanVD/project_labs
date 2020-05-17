@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
 	<title>Labs - Design Studio</title>
 	<meta charset="UTF-8">
@@ -15,7 +15,7 @@
 	<link rel="stylesheet" href="{{asset('css/flaticon.css')}}"/>
 	<link rel="stylesheet" href="{{asset('css/magnific-popup.css')}}"/>
 	<link rel="stylesheet" href="{{asset('css/owl.carousel.css')}}"/>
-    <link rel="stylesheet" href="{{asset('css/app.css')}}"/>
+	<link rel="stylesheet" href="{{asset('css/app.css')}}"/>
 
 	<!--[if lt IE 9]>
 	  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -36,7 +36,7 @@
 	<script src="{{asset('js/magnific-popup.min.js')}}"></script>
 	<script src="{{asset('js/owl.carousel.min.js')}}"></script>
 	<script src="{{asset('js/circle-progress.min.js')}}"></script>
-    <script src="{{asset('js/app.js')}}"></script>
-    @include('sweetalert::alert')
+	<script src="{{asset('js/app.js')}}"></script>
+	@include('sweetalert::alert')
 </body>
 </html>

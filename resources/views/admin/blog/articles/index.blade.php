@@ -26,7 +26,7 @@
               <th class="text-center text-nowrap">Auteur</th>
               <th class="text-center text-nowrap">Commentaires</th>
               <th class="text-center text-nowrap">Date de création</th>
-              <th class="text-center text-nowrap">Validé ?</th>
+              {{-- <th class="text-center text-nowrap">Validé ?</th> --}}
               <th class="text-center text-nowrap">Actions</th>
             </tr>
           </thead>
@@ -44,14 +44,14 @@
                   <td class="text-center">{{$article->author ? $article->author->name : "Auteur supprimé"}}</td>
                   <td class="text-center text-nowrap">{{$article->comments->count()}}</td>
                   <td class="text-center text-nowrap">{{$article->created_at->format('d M Y')}}</td>
-                  <td class="text-center text-nowrap">
+                  {{-- <td class="text-center text-nowrap">
                     <form action="{{route('article.approve',$article->id)}}" method="POST" class="d-inline-block">
                       @csrf
                       <button type="submit" class="btn btn-outline border-0">
                         <i class="far fa-check-square fa-lg text-success"></i>
                       </button>
                     </form>
-                  </td>
+                  </td> --}}
                   <td class="text-center text-nowrap">
                     <a href="{{route('articles.show',$article->id)}}" class="btn btn-info">
                       <i class="far fa-eye"></i>
@@ -91,7 +91,7 @@
               <th class="text-center text-nowrap">Catégorie</th>
               <th class="text-center text-nowrap">Auteur</th>
               <th class="text-center text-nowrap">Date de création</th>
-              <th class="text-center text-nowrap">Validé ?</th>
+              <th class="text-center text-nowrap">Valider ?</th>
               <th class="text-center text-nowrap">Actions</th>
             </tr>
           </thead>

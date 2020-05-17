@@ -116,7 +116,7 @@ Route::get('/admin', function () {
     return view('admin.index', compact('testimonials_count','last_testimonial'));
 })->name('admin');
 
-//Subscribe 
+//Nav 
 Route::get('/admin/nav', 'NavlinksController@edit')->name('nav');
 Route::post('/admin/nav/update', 'NavlinksController@update')->name('nav.update');
 
@@ -171,7 +171,7 @@ Route::resource('admin/services', 'ServiceController');
 //Blog
  // Articles
 Route::post('/admin/blog/articles/{article}/approve', 'ArticleController@approve')->name('article.approve');
-Route::get('/admin/blog/articles/{article}/comments', 'ArticleController@comments')->name('article.comments');
+Route::get('/blog/articles/{article}/comments', 'ArticleController@comments')->name('article.comments');
 Route::resource('admin/blog/articles', 'ArticleController');
  // Categories & Tags
 Route::delete('/admin/blog/tags/{id}/remove', 'CategoryController@rmTag')->name('tags.remove');
@@ -179,6 +179,11 @@ Route::resource('admin/blog/categories', 'CategoryController');
  // Commentaires
 Route::post('/admin/blog/comments/{article}/addComment', 'CommentController@addComment')->name('comments.addComment');
 Route::resource('admin/blog/comments', 'CommentController');
+
+//Newsletter
+Route::get('/admin/blog/subscribers', 'NewsletterController@subscribers')->name('newsletter');
+Route::post('/newsletter/subscribe', 'NewsletterController@subscribe')->name('newsletter.subscribe');
+Route::delete('/newsletter/{email}/unsubscribe', 'NewsletterController@unsubscribe')->name('newsletter.unsubscribe');
 
 //Messages
 // Route::get('/admin/inbox/confirmation_email/preview', 'MessageController@messageConfirmPreview')->name('inbox.message_confirm.preview');

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Footer;
+use Alert;
 
 class FooterController extends Controller
 {
@@ -14,7 +15,7 @@ class FooterController extends Controller
         return view('admin.footer', compact('footer'));
     }
 
-    public function update()
+    public function update(Request $request)
     {
         $footer = Footer::find(1);
 
@@ -22,9 +23,15 @@ class FooterController extends Controller
             $footer = new Footer;
         }
 
-        $footer->line = request('line');
+        $request->validate([
+            'ligne'=>'required|string',
+        ]);
+
+        $footer->line = request('ligne');
 
         $footer->save();
+
+        alert()->toast('Modification enrégistrée !','success')->width('20rem');
 
         return redirect()->route('footer');
     }

@@ -20,7 +20,7 @@ class CreateAboutTable extends Migration
             $table->string('title_2')->nullable();
             $table->text('col_1');
             $table->text('col_2');
-            $table->string('button');
+            $table->string('button')->nullable();
             $table->string('button_visible')->nullable();
             $table->timestamps();
         });

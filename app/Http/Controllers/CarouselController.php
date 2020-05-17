@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Carousel;
 use App\Tagline;
+Use Alert;
 
 class CarouselController extends Controller
 {
@@ -25,7 +26,7 @@ class CarouselController extends Controller
     /*
     / Partie Slogan
     */
-    public function taglineUpdate() {
+    public function taglineUpdate(Request $request) {
 
         $tagline = Tagline::find(1);
 
@@ -36,7 +37,10 @@ class CarouselController extends Controller
         $tagline->line = request('line');
 
         $tagline->save();
-
+$request->validate([
+            'ligne'=>'required|string',
+        ]);
+        alert()->toast('Modification enrégistrée !','success')->width('20rem');
         return redirect()->route('carousel.index');
     }
     /*

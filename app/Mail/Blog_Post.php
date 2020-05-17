@@ -6,19 +6,25 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
+use App\Blog_Post_Mail;
+use App\Article;
 
-class newsletter extends Mailable
+class Blog_Post extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
+
+    public $message_model;
+    public $article;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Article $article)
     {
-        //
+        $this->message_model = Blog_Post_Mail::first();
+        $this->article = $article;
     }
 
     /**
@@ -28,6 +34,6 @@ class newsletter extends Mailable
      */
     public function build()
     {
-        return $this->view('view.name');
+        return $this->markdown('admin.emails.blog_post')->subject("Labs - Nouvel article : ".$this->article->title);
     }
 }

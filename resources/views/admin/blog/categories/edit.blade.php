@@ -14,8 +14,8 @@
 
         <div class="card-body">
           <div class="form-group">
-            <label for="name">Nom :</label>
-            <input name="name" class="form-control" id="name" value="{{$category->name}}" autofocus>
+            <label for="nom">Nom :</label>
+            <input name="nom" class="form-control{{($errors->isNotEmpty() ? $errors->first('nom') ? " is-invalid" : " is-valid" : "")}}" id="nom" value="{{$category->name}}" autofocus>
           </div>
         </div>
 

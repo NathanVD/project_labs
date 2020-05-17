@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Category;
 use App\Tag;
+Use Alert;
 
 class CategoryController extends Controller
 {
@@ -22,16 +23,6 @@ class CategoryController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -41,22 +32,18 @@ class CategoryController extends Controller
     {
         $category = new Category;
 
-        $category->name = request('name');
+        $request->validate([
+            'nom'=>'required|unique:categories,name|string',
+        ]);
+
+        $category->name = request('nom');
         
         $category->save();
 
-        return redirect()->back();
-    }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+        alert()->toast('Catégorie ajoutée !','success')->width('20rem');
+
+        return redirect()->back();
     }
 
     /**
@@ -83,9 +70,15 @@ class CategoryController extends Controller
     {
         $category = Category::find($id);
 
-        $category->name = request('name');
+        $request->validate([
+            'nom'=>'required|unique:categories,name|string',
+        ]);
+
+        $category->name = request('nom');
         
         $category->save();
+
+        alert()->toast('Modification enregistrée !','success')->width('20rem');
 
         return redirect()->route('categories.index');
     }
@@ -102,6 +95,8 @@ class CategoryController extends Controller
 
         $cat->delete();
 
+        alert()->toast('Catégorie supprimée !','error')->width('20rem');
+
         return redirect()->route('categories.index');
     }
 
@@ -115,6 +110,8 @@ class CategoryController extends Controller
         $tag->articles()->detach();
 
         $tag->delete();
+
+        alert()->toast('Tag supprimé !','error')->width('20rem');
 
         return redirect()->route('categories.index');
     }

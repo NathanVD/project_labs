@@ -12,10 +12,12 @@
         </div>
 
         <div class="card-body">
+          
           <div class="form-group">
-            <label for="line">Ligne :</label>
-            <input name="line" class="form-control" id="line" value="{{$footer ? $footer->line : '2017 All rights reserved.'}}" required>
+            <label for="ligne">Ligne :</label>
+            <input name="ligne" class="form-control" id="ligne" value="{{$footer ? $footer->line : date('Y').' All rights reserved.'}}" autofocus>
           </div>
+
         </div>
 
         <div class="card-footer">

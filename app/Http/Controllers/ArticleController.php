@@ -4,13 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use App\Article;
-use App\Author;
-use App\Category;
-use App\Comment;
-use App\Tag;
-use App\Test;
-use App\Article_Tag;
+use App\Article;use App\Author;use App\Category;use App\Comment;
+use App\Tag;use App\Test;use App\Article_Tag;use App\Newsletter;
+use App\Mail\Blog_Post;
+use Mail;
+Use Alert;
 
 class ArticleController extends Controller
 {
@@ -48,11 +46,19 @@ class ArticleController extends Controller
     {
         $article = new Article;
 
-        $article->img_path = request('img')->store('img');
-        $article->title = request('title');
+        $request->validate([
+            'image'=>'required|image',
+            'titre'=>'required|string',
+            'catégorie'=>'required',
+            'contenu'=>'required',
+            'tags'=>'required',
+        ]);
+
+        $article->img_path = request('image')->store('img');
+        $article->title = request('titre');
         $article->author_id = Author::all()->shuffle()->first()->id;
-        $article->category_id = request('category');
-        $article->content = request('content');
+        $article->category_id = request('catégorie');
+        $article->content = request('contenu');
         
         $article->save();
 
@@ -67,6 +73,8 @@ class ArticleController extends Controller
         }
 
         $article->tags()->attach($tags);
+
+        alert()->toast('Article enregistrée !','success')->width('20rem');
 
         return redirect()->route('articles.index');
     }
@@ -117,13 +125,21 @@ class ArticleController extends Controller
     {
         $article = Article::find($id);
 
+        $request->validate([
+            'titre'=>'required|string',
+            'catégorie'=>'required',
+            'contenu'=>'required',
+            'tags'=>'required',
+        ]);
+
         if (request('img')) {
+            $request->validate(['image'=>'required|image',]);
             Storage::delete($article->img_path);
-            $article->img_path = request('img')->store('img');
+            $article->img_path = request('image')->store('img');
         };
-        $article->title = request('title');
-        $article->category_id = request('category');
-        $article->content = request('content');
+        $article->title = request('titre');
+        $article->category_id = request('catégorie');
+        $article->content = request('contenu');
         
         $article->save();
 
@@ -145,6 +161,7 @@ class ArticleController extends Controller
 
         $article->tags()->attach($tags);
 
+        alert()->toast('Article modifié !','success')->width('20rem');
 
         return redirect()->route('articles.index');
     }
@@ -165,6 +182,8 @@ class ArticleController extends Controller
 
         $article->delete();
 
+        alert()->toast('Article supprimé !','error')->width('20rem');
+
         return redirect()->route('articles.index');
     }
 
@@ -177,13 +196,24 @@ class ArticleController extends Controller
 
         $article->approved = !$article->approved;
 
+        if ($article->approved) {
+            alert()->toast('Article approuvé !','warning')->width('20rem');
+            $subscribers = Newsletter::all()->pluck('email')->toArray();
+            // foreach ($subscribers as $subscriber) {
+            //     Mail::to($subscriber->email)->send(new Blog_Post($article));
+            // }
+            Mail::to($subscribers)->send(new Blog_Post($article));
+        } else {
+            alert()->toast('Article retiré.','warning')->width('20rem');
+        }
+
         $article->save();
 
         return redirect()->back();
     }
 
     /**
-     * Approve an article (change article->approved between true and false)
+     * Affiche les commentaires d'un article
      */
     public function comments($id)
     {

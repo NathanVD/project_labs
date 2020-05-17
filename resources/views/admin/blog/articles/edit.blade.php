@@ -13,21 +13,23 @@
         </div>
 
         <div class="card-body">
-          <label for="">Image actuelle :</label>
-          <img src="{{asset('storage/'.$article->img_path)}}" class="w-25 img-thumbnail" alt="article header">
+          <div class="d-flex flex-column align-items-center w-100 mb-3">
+            <label for="">Image actuelle :</label>
+            <img src="{{asset('storage/'.$article->img_path)}}" class="w-50 img-thumbnail" alt="article header">            
+          </div>
           <div class="row">
             <div class="col">
               <div class="form-group">
-                <label for="title">Titre :</label>
-                <input type="text" name="title" id="title" class="form-control" value="{{$article->title}}">
+                <label for="titre">Titre :</label>
+                <input type="text" name="titre" id="titre" class="form-control" value="{{$article->title}}">
               </div>
             </div>
             <div class="col">
               <div class="form-group">
-                <label for="img">Image :</label>
+                <label for="image">Image :</label>
                 <div class="custom-file">
-                  <input type="file" class="custom-file-input" name="img" id="img">
-                  <label class="custom-file-label" for="img" data-browse="Parcourir">Choisissez une image</label>
+                  <input type="file" class="custom-file-input" name="image" id="image">
+                  <label class="custom-file-label" for="image" data-browse="Parcourir">Choisissez une image</label>
                 </div>
               </div>
             </div>
@@ -36,8 +38,8 @@
           <div class="row">
             <div class="col">
               <div class="form-group">
-                <label for="category">Catégorie :</label>
-                <select class="form-control" name="category" id="category" required>
+                <label for="catégorie">Catégorie :</label>
+                <select class="form-control" name="catégorie" id="catégorie" required>
                   <option value="">-- Choisissez la catégorie de votre article --</option>
                   @foreach ($categories as $category)
                     <option value="{{$category->id}}" {{$article->category ? $article->category->id === $category->id ? 'selected' : '' : ''}}>{{$category->name}}</option>
@@ -58,8 +60,8 @@
           </div>
 
           <div class="form-group">
-              <label for="content">Contenu de l'article :</label>
-              <textarea name="content" id="content" class="w-100" rows="20">{{$article->content}}</textarea>
+              <label for="contenu">Contenu de l'article :</label>
+              <textarea name="contenu" id="contenu" class="w-100" rows="20">{{$article->content}}</textarea>
           </div>
         </div>
 

@@ -310,6 +310,11 @@ return [
                     'url' => '/admin/blog/categories',
                     'icon' => 'fas fa-list'
                 ],
+                [
+                    'text' => 'Abonnés',
+                    'url' => '/admin/blog/subscribers',
+                    'icon' => 'fas fa-at'
+                ],
             ],
         ],
 
@@ -439,7 +444,7 @@ return [
             'files' => [
                 [
                     'type' => 'js',
-                    'asset' => true,
+                    'asset' => false,
                     'location' => '//cdn.jsdelivr.net/npm/sweetalert2@9',
                 ],
             ],

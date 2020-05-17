@@ -15,7 +15,7 @@ class LogoController extends Controller
         return view('admin.logo', compact('logo'));
     }
 
-    public function update()
+    public function update(Request $request)
     {
         $logo = Logo::find(1);
 
@@ -28,6 +28,11 @@ class LogoController extends Controller
         $logo->logo_path = request('logo')->store('img');
 
         $logo->save();
+
+                $request->validate([
+            'ligne'=>'required|string',
+        ]);
+        alert()->toast('Modification enrégistrée !','success')->width('20rem');
 
         return redirect()->route('logo');
     }

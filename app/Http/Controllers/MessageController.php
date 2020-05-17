@@ -5,8 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Mail\Contact;
 use App\Mail\Contact_Preview;
-use App\Message;
-use App\Message_Confirmation_Mail;
+use App\Mail\Newsletter;
+use App\Mail\Blog_post;
+use App\Message;use App\Message_Confirmation_Mail;use App\Newsletter_Mail;use App\Blog_Post_Mail;
 use Mail;
 use Alert;
 
@@ -22,16 +23,6 @@ class MessageController extends Controller
     $messages = Message::all();
 
     return view('admin.inbox.index', compact('messages'));
-  }
-
-  /**
-   * Show the form for creating a new resource.
-   *
-   * @return \Illuminate\Http\Response
-   */
-  public function create()
-  {
-    //
   }
 
   /**
@@ -77,29 +68,6 @@ class MessageController extends Controller
     $next = Message::where('id', '>', $id)->min('id');
 
     return view('admin.inbox.show', compact('message', 'previous', 'next'));
-  }
-
-  /**
-   * Show the form for editing the specified resource.
-   *
-   * @param  int  $id
-   * @return \Illuminate\Http\Response
-   */
-  public function edit($id)
-  {
-    //
-  }
-
-  /**
-   * Update the specified resource in storage.
-   *
-   * @param  \Illuminate\Http\Request  $request
-   * @param  int  $id
-   * @return \Illuminate\Http\Response
-   */
-  public function update(Request $request, $id)
-  {
-    //
   }
 
   /**
@@ -156,17 +124,17 @@ class MessageController extends Controller
   // (2) Abonnement à la newsletter
     public function newsletterEmail()
   {
-    $message = Message_Confirmation_Mail::find(1);
+    $message = Newsletter_Mail::find(1);
 
     return view('admin.inbox.newsletter_email', compact('message'));
   }
 
   public function newsletterEmailUpdate(Request $request)
   {
-    $message = Message_Confirmation_Mail::find(1);
+    $message = Newsletter_Mail::find(1);
 
     if (!$message) {
-      $message = new Message_Confirmation_Mail;
+      $message = new Newsletter_Mail;
     }
 
     $message->name = request('name');
