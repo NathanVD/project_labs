@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Gate;
 use App\Navlinks;use App\Logo;use App\Footer;use App\Carousel;use App\Tagline;
 use App\About;use App\Video;use App\Testimonial;use App\TestiTitle;use App\Ready;
 use App\Contact;use App\Team;use App\Team_Title;use App\Starred;use App\Service;

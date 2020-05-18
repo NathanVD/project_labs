@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Navlinks;use App\Logo;use App\Footer;use App\Carousel;use App\Tagline;
 use App\About;use App\Video;use App\Testimonial;use App\TestiTitle;use App\Ready;
 use App\Contact;use App\Role;use App\Team_Title;use App\Starred;use App\Service;
 use App\Services_Title;use App\Primed_Services;use App\Article;use App\Category;
-use App\Tag;use App\Map;
+use App\Tag;use App\Map;use App\User;
 
 class HomeController extends Controller
 {
@@ -41,7 +42,7 @@ class HomeController extends Controller
         $services_title = Services_Title::find(1);
         $ready = Ready::find(1);
         $contact = Contact::find(1);
-        $starred = Starred::find(1);
+        $starred = User::find(Starred::find(1)->member_id);
         // $team1 = Team::all()->where('role');
         $team1 = Role::where('name','Teammate')->first()->users()->get();
         if ($starred && $team1->count() <= 1) {

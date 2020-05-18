@@ -52,7 +52,7 @@ class TeamController extends Controller
     public function starredUpdate($id) {
 
         if (Gate::allows('webmaster-power')) {
-            $team = Role::where('name','Teammate')->first()->users()->get();
+            $team = User::find($id);
             $starred = Starred::find(1);
 
             if (!$starred) {
@@ -62,8 +62,8 @@ class TeamController extends Controller
 
 
             $starred->pic_path = $team->photo_path;
-            $starred->first_name = $team->name;
-            $starred->role = $team->role->roles()->get()->implode('name', ', ');
+            $starred->name = $team->name;
+            $starred->roles = $team->roles()->get()->implode('name', ', ');
             $starred->member_id = $team->id;
 
             $starred->save();

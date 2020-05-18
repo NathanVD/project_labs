@@ -72,7 +72,7 @@
           </thead>
 
           <tbody>
-            @if (!$starred || $starred->isEmpty())
+            @if (!$starred)
                 <tr>
                   <td colspan="4" class="text-center text-nowrap"><b>Aucun équipier en vedette</b></td>
                 </tr>
@@ -82,7 +82,7 @@
                   <img src="{{asset('storage/'.$starred->pic_path)}}" class="mini rounded-circle" alt="img">
                 </td>
                 <td class="text-center text-nowrap">{{$starred->name}}</td>
-                <td class="text-center text-nowrap">{{$starred->roles()->get()->implode('name', ', ')}}</td>
+                <td class="text-center text-nowrap">{{$starred->roles}}</td>
                 <td class="text-center text-nowrap">
                   <form action="{{route('team.starred_member.remove')}}" method="POST" class="d-inline-block">
                     @csrf

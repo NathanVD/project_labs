@@ -11,16 +11,6 @@
           <input type="text" id="email" name="email" placeholder="Entrez votre e-mail ici">
           <button class="site-btn btn-2">Newsletter</button>
         </form>
-        @error('email')
-          @foreach ($errors->all() as $error)
-            <div class="alert alert-danger" style="margin-top: 5px">
-              {{$error}}
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-          @endforeach
-        @enderror
       </div>
     </div>
   </div>

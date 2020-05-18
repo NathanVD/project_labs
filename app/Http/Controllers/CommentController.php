@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Article;
 use App\Comment;
 Use Alert;
+use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
 {
@@ -32,7 +33,7 @@ class CommentController extends Controller
             $comment->name = request('nom');
             $comment->email = request('email');
             $comment->content = request('contenu');
-
+            $comment->img_path = Auth::user()->photo_path;
             $article->comments()->save($comment);
 
             Alert::success('Commentaire envoyé !')

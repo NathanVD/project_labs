@@ -63,10 +63,10 @@
                   @csrf
                   <div class="row">
                     <div class="col-sm-6">
-                      <input type="text" name="nom" placeholder="Votre nom" class="{{($errors->isNotEmpty() ? $errors->first('nom') ? " is-invalid" : " is-valid" : "")}}">
+                      <input type="text" name="nom" placeholder="Votre nom" value="{{Auth::check() ? Auth::user()->name : ''}}" {{Auth::check() ? 'readonly' : ''}} class="{{($errors->isNotEmpty() ? $errors->first('nom') ? " is-invalid" : " is-valid" : "")}}">
                     </div>
                     <div class="col-sm-6">
-                      <input type="text" name="email" placeholder="Votre email" class="{{($errors->isNotEmpty() ? $errors->first('email') ? " is-invalid" : " is-valid" : "")}}">
+                      <input type="text" name="email" placeholder="Votre email" value="{{Auth::check() ? Auth::user()->email : ''}}" {{Auth::check() ? 'readonly' : ''}} class="{{($errors->isNotEmpty() ? $errors->first('email') ? " is-invalid" : " is-valid" : "")}}">
                     </div>
                     <div class="col-sm-12">
                       <textarea name="contenu" placeholder="Message" class="{{($errors->isNotEmpty() ? $errors->first('contenu') ? " is-invalid" : " is-valid" : "")}}"></textarea>
