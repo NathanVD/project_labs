@@ -5,9 +5,15 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Service;
 use App\Services_Title;
+use Illuminate\Support\Facades\Auth;
+use Gate;
 
 class ServiceController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -15,38 +21,49 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        $title = Services_Title::find(1);
-        $services = Service::all();
+        if (Gate::allows('webmaster-power')) {
+            $title = Services_Title::find(1);
+            $services = Service::all();
 
-        return view('admin.services.index', compact('services','title'));
+            return view('admin.services.index', compact('services','title'));            
+        } else {
+            alert()->warning('Tu dois être webmaster pour effectuer cette action');
+	        return redirect()->back();
+        }
+
     }
 
     /*
     / Partie Titre
     */
     public function titleUpdate(Request $request) {
+        if (Gate::allows('webmaster-power')) {
+            $title = Services_Title::find(1);
 
-        $title = Services_Title::find(1);
+            $request->validate([
+                'titre_1'=>'nullable|RequiredWithout:surlignement,titre_2|string',
+                'surlignement'=>'nullable|RequiredWithout:titre_1,titre_2|string',
+                'titre_2'=>'nullable|RequiredWithout:surlignement,titre_1|string',
+            ]);
 
-        $request->validate([
-            'titre_1'=>'nullable|RequiredWithout:surlignement,titre_2|string',
-            'surlignement'=>'nullable|RequiredWithout:titre_1,titre_2|string',
-            'titre_2'=>'nullable|RequiredWithout:surlignement,titre_1|string',
-        ]);
+            if (!$title) {
+                $title = new Services_Title;
+            }
 
-        if (!$title) {
-            $title = new Services_Title;
+            $title->title_1 = request('titre_1');
+            $title->highlight = request('surlignement');
+            $title->title_2 = request('titre_2');
+
+            $title->save();
+
+            alert()->toast('Modification enregistrée !','success')->width('20rem');
+
+            return redirect()->route('services.index');            
+        } else {
+            alert()->warning('Tu dois être webmaster pour effectuer cette action');
+	        return redirect()->back();
         }
 
-        $title->title_1 = request('titre_1');
-        $title->highlight = request('surlignement');
-        $title->title_2 = request('titre_2');
-
-        $title->save();
-
-        alert()->toast('Modification enregistrée !','success')->width('20rem');
-
-        return redirect()->route('services.index');
     }
 
     /**
@@ -56,7 +73,13 @@ class ServiceController extends Controller
      */
     public function create()
     {
-        return view('admin.services.create');
+        if (Gate::allows('webmaster-power')) {
+            return view('admin.services.create');           
+        } else {
+            alert()->warning('Tu dois être webmaster pour effectuer cette action');
+	        return redirect()->back();
+        }
+
     }
 
     /**
@@ -67,23 +90,29 @@ class ServiceController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'icone'=>'required',
-            'nom'=>'required|string',
-            'description'=>'required|string',
-        ]);
+        if (Gate::allows('webmaster-power')) {
+            $request->validate([
+                'icone'=>'required',
+                'nom'=>'required|string',
+                'description'=>'required|string',
+            ]);
 
-        $service = new Service;
+            $service = new Service;
 
-        $service->icon = request('icone');
-        $service->title = request('nom');
-        $service->description = request('description');
+            $service->icon = request('icone');
+            $service->title = request('nom');
+            $service->description = request('description');
 
-        $service->save();
+            $service->save();
 
-        alert()->toast('Service ajouté !','success')->width('20rem');
+            alert()->toast('Service ajouté !','success')->width('20rem');
 
-        return redirect()->route('services.index');
+            return redirect()->route('services.index');            
+        } else {
+            alert()->warning('Tu dois être webmaster pour effectuer cette action');
+	        return redirect()->back();
+        }
+
     }
 
     /**
@@ -94,9 +123,14 @@ class ServiceController extends Controller
      */
     public function edit($id)
     {
-        $service = Service::find($id);
+        if (Gate::allows('webmaster-power')) {
+            $service = Service::find($id);
 
-        return view('admin.services.edit',compact('service'));
+            return view('admin.services.edit',compact('service'));            
+        } else {
+            alert()->warning('Tu dois être webmaster pour effectuer cette action');
+	    return redirect()->back();
+        }
     }
 
     /**
@@ -108,27 +142,33 @@ class ServiceController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $service = Service::find($id);
+        if (Gate::allows('webmaster-power')) {
+            $service = Service::find($id);
 
-        $request->validate([
-            'nom'=>'required|string',
-            'description'=>'required|string',
-        ]);
-
-        if (request('icon')) {
             $request->validate([
-        	    'icone'=>'required',
+                'nom'=>'required|string',
+                'description'=>'required|string',
             ]);
-            $service->icon = request('icon');
+
+            if (request('icon')) {
+                $request->validate([
+                    'icone'=>'required',
+                ]);
+                $service->icon = request('icon');
+            }
+            $service->title = request('nom');
+            $service->description = request('description');
+
+            $service->save();
+
+            alert()->toast('Modification enregistrée !','success')->width('20rem');
+
+            return redirect()->route('services.index');            
+        } else {
+            alert()->warning('Tu dois être webmaster pour effectuer cette action');
+	        return redirect()->back();
         }
-        $service->title = request('nom');
-        $service->description = request('description');
 
-        $service->save();
-
-        alert()->toast('Modification enregistrée !','success')->width('20rem');
-
-        return redirect()->route('services.index');
     }
 
     /**
@@ -139,12 +179,18 @@ class ServiceController extends Controller
      */
     public function destroy($id)
     {
-        $service = Service::find($id);
+        if (Gate::allows('webmaster-power')) {
+            $service = Service::find($id);
 
-        $service->delete();
+            $service->delete();
 
-        alert()->toast('Service supprimé !','error')->width('20rem');
+            alert()->toast('Service supprimé !','error')->width('20rem');
 
-        return redirect()->route('services.index');
+            return redirect()->route('services.index');            
+        } else {
+            alert()->warning('Tu dois être webmaster pour effectuer cette action');
+	        return redirect()->back();
+        }
+
     }
 }

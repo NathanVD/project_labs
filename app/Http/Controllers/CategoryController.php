@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Gate;
 use App\Category;
 use App\Tag;
 Use Alert;
@@ -16,10 +18,16 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
-        $tags = Tag::all();
+        if (Gate::allows('webmaster-power')) {
+            $categories = Category::all();
+            $tags = Tag::all();
 
-        return view('admin.blog.categories.index', compact('categories','tags'));
+            return view('admin.blog.categories.index', compact('categories','tags'));            
+        } else {
+            alert()->warning('Tu dois être webmaster pour effectuer cette action');
+	        return redirect()->back();
+        }
+
     }
 
     /**
@@ -30,20 +38,26 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $category = new Category;
+        if (Gate::allows('webmaster-power')) {
+            $category = new Category;
 
-        $request->validate([
-            'nom'=>'required|unique:categories,name|string',
-        ]);
+            $request->validate([
+                'nom'=>'required|unique:categories,name|string',
+            ]);
 
-        $category->name = request('nom');
-        
-        $category->save();
+            $category->name = request('nom');
+            
+            $category->save();
 
 
-        alert()->toast('Catégorie ajoutée !','success')->width('20rem');
+            alert()->toast('Catégorie ajoutée !','success')->width('20rem');
 
-        return redirect()->back();
+            return redirect()->back();            
+        } else {
+            alert()->warning('Tu dois être webmaster pour effectuer cette action');
+	        return redirect()->back();
+        }
+
     }
 
     /**
@@ -54,9 +68,15 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
+        if (Gate::allows('webmaster-power')) {
         $category = Category::find($id);
 
-        return view('admin.blog.categories.edit',compact('category'));
+        return view('admin.blog.categories.edit',compact('category'));            
+        } else {
+            alert()->warning('Tu dois être webmaster pour effectuer cette action');
+	        return redirect()->back();
+        }
+
     }
 
     /**
@@ -68,19 +88,25 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $category = Category::find($id);
+        if (Gate::allows('webmaster-power')) {
+            $category = Category::find($id);
 
-        $request->validate([
-            'nom'=>'required|unique:categories,name|string',
-        ]);
+            $request->validate([
+                'nom'=>'required|unique:categories,name|string',
+            ]);
 
-        $category->name = request('nom');
-        
-        $category->save();
+            $category->name = request('nom');
+            
+            $category->save();
 
-        alert()->toast('Modification enregistrée !','success')->width('20rem');
+            alert()->toast('Modification enregistrée !','success')->width('20rem');
 
-        return redirect()->route('categories.index');
+            return redirect()->route('categories.index');            
+        } else {
+            alert()->warning('Tu dois être webmaster pour effectuer cette action');
+	        return redirect()->back();
+        }
+
     }
 
     /**
@@ -91,13 +117,19 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        $cat = Category::find($id);
+        if (Gate::allows('webmaster-power')) {
+            $cat = Category::find($id);
 
-        $cat->delete();
+            $cat->delete();
 
-        alert()->toast('Catégorie supprimée !','error')->width('20rem');
+            alert()->toast('Catégorie supprimée !','error')->width('20rem');
 
-        return redirect()->route('categories.index');
+            return redirect()->route('categories.index');            
+        } else {
+            alert()->warning('Tu dois être webmaster pour effectuer cette action');
+	        return redirect()->back();
+        }
+
     }
 
     /**
@@ -105,14 +137,20 @@ class CategoryController extends Controller
      */
     public function rmTag($id)
     {
-        $tag = Tag::find($id);
+        if (Gate::allows('webmaster-power')) {
+            $tag = Tag::find($id);
 
-        $tag->articles()->detach();
+            $tag->articles()->detach();
 
-        $tag->delete();
+            $tag->delete();
 
-        alert()->toast('Tag supprimé !','error')->width('20rem');
+            alert()->toast('Tag supprimé !','error')->width('20rem');
 
-        return redirect()->route('categories.index');
+            return redirect()->route('categories.index');            
+        } else {
+            alert()->warning('Tu dois être webmaster pour effectuer cette action');
+	        return redirect()->back();
+        }
+ 
     }
 }

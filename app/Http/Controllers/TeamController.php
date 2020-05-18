@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Storage;
 use App\Team_Title;
 use App\Team;
 use App\Starred;
+use Illuminate\Support\Facades\Auth;
+use Gate;
 
 class TeamController extends Controller
 {
@@ -19,10 +21,6 @@ class TeamController extends Controller
     {
         $this->middleware('auth');
     }
-    protected function redirectTo($request)
-    {
-        return route('login');
-    }
     
     /**
      * Display a listing of the resource.
@@ -31,39 +29,50 @@ class TeamController extends Controller
      */
     public function index()
     {
-        $team_title = Team_Title::find(1);
-        $team = Team::all();
-        $starred = Starred::find(1);
+        if (Gate::allows('webmaster-power')) {
+            $team_title = Team_Title::find(1);
+            $team = Team::all();
+            $starred = Starred::find(1);
 
-        return view('admin.team.index', compact('team_title','team','starred'));
+            return view('admin.team.index', compact('team_title','team','starred'));            
+        } else {
+            alert()->warning('Tu dois être webmaster pour effectuer cette action');
+	        return redirect()->back();
+        }
+
     }
 
     /*
     / Partie Titre
     */
     public function titleUpdate(Request $request) {
+        if (Gate::allows('webmaster-power')) {
+            $title = Team_Title::find(1);
 
-        $title = Team_Title::find(1);
+            $request->validate([
+                'titre_1'=>'nullable|RequiredWithout:surlignement,titre_2|string',
+                'surlignement'=>'nullable|RequiredWithout:titre_1,titre_2|string',
+                'titre_2'=>'nullable|RequiredWithout:surlignement,titre_1|string',
+            ]);
 
-        $request->validate([
-            'titre_1'=>'nullable|RequiredWithout:surlignement,titre_2|string',
-            'surlignement'=>'nullable|RequiredWithout:titre_1,titre_2|string',
-            'titre_2'=>'nullable|RequiredWithout:surlignement,titre_1|string',
-        ]);
+            if (!$title) {
+                $title = new Team_Title;
+            }
 
-        if (!$title) {
-            $title = new Team_Title;
+            $title->title_1 = request('titre_1');
+            $title->highlight = request('surlignement');
+            $title->title_2 = request('titre_2');
+
+            $title->save();
+
+            alert()->toast('Modification enregistrée !','success')->width('20rem');
+
+            return redirect()->route('team.index');            
+        } else {
+            alert()->warning('Tu dois être webmaster pour effectuer cette action');
+	        return redirect()->back();
         }
 
-        $title->title_1 = request('titre_1');
-        $title->highlight = request('surlignement');
-        $title->title_2 = request('titre_2');
-
-        $title->save();
-
-        alert()->toast('Modification enregistrée !','success')->width('20rem');
-
-        return redirect()->route('team.index');
     }
     /*
     /Fin partie Titre
@@ -76,7 +85,13 @@ class TeamController extends Controller
      */
     public function create()
     {
-        return view('admin.team.create');
+        if (Gate::allows('webmaster-power')) {
+            return view('admin.team.create');            
+        } else {
+            alert()->warning('Tu dois être webmaster pour effectuer cette action');
+	        return redirect()->back();
+        }
+
     }
 
     /**
@@ -87,25 +102,31 @@ class TeamController extends Controller
      */
     public function store(Request $request)
     {
-        $testimonial = new Team;
+        if (Gate::allows('webmaster-power')) {
+            $testimonial = new Team;
 
-        $request->validate([
-            'photo'=>'required|image',
-            'prénom'=>'required|string',
-            'nom'=>'required|string',
-        	'role'=>'required|string',
-        ]);
+            $request->validate([
+                'photo'=>'required|image',
+                'prénom'=>'required|string',
+                'nom'=>'required|string',
+                'role'=>'required|string',
+            ]);
 
-        $testimonial->pic_path = request('photo')->store('img');
-        $testimonial->first_name = request('prénom');
-        $testimonial->last_name = request('nom');
-        $testimonial->role = request('role');
+            $testimonial->pic_path = request('photo')->store('img');
+            $testimonial->first_name = request('prénom');
+            $testimonial->last_name = request('nom');
+            $testimonial->role = request('role');
 
-        $testimonial->save();
+            $testimonial->save();
 
-        alert()->toast('Modification enregistrée !','success')->width('20rem');
+            alert()->toast('Modification enregistrée !','success')->width('20rem');
 
-        return redirect()->route('team.index');
+            return redirect()->route('team.index');            
+        } else {
+            alert()->warning('Tu dois être webmaster pour effectuer cette action');
+	        return redirect()->back();
+        }
+
     }
 
     /**
@@ -116,9 +137,15 @@ class TeamController extends Controller
      */
     public function edit($id)
     {
-        $team = Team::find($id);
+        if (Gate::allows('webmaster-power')) {
+            $team = Team::find($id);
 
-        return view('admin.team.edit',compact('team'));
+            return view('admin.team.edit',compact('team'));            
+        } else {
+            alert()->warning('Tu dois être webmaster pour effectuer cette action');
+	        return redirect()->back();
+        }
+
     }
 
     /**
@@ -130,40 +157,46 @@ class TeamController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $team = Team::find($id);
-        $starred = Starred::find(1);
+        if (Gate::allows('webmaster-power')) {
+            $team = Team::find($id);
+            $starred = Starred::find(1);
 
-        $request->validate([
-            'prénom'=>'required|string',
-            'nom'=>'required|string',
-        	'role'=>'required|string',
-        ]);
-
-        if (request('photo')) {
             $request->validate([
-                'photo'=>'required|image',
+                'prénom'=>'required|string',
+                'nom'=>'required|string',
+                'role'=>'required|string',
             ]);
-            Storage::delete($team->pic_path);
-            $team->pic_path = request('photo')->store('img');
-        };
-        $team->first_name = request('prénom');
-        $team->last_name = request('nom');
-        $team->role = request('role');
 
-        if ($starred && $team->id === $starred->member_id) {
-            $starred->pic_path = $team->pic_path;
-            $starred->first_name = $team->first_name;
-            $starred->last_name = $team->last_name;
-            $starred->role = $team->role;
+            if (request('photo')) {
+                $request->validate([
+                    'photo'=>'required|image',
+                ]);
+                Storage::delete($team->pic_path);
+                $team->pic_path = request('photo')->store('img');
+            };
+            $team->first_name = request('prénom');
+            $team->last_name = request('nom');
+            $team->role = request('role');
 
-            $starred->save();
-        };
+            if ($starred && $team->id === $starred->member_id) {
+                $starred->pic_path = $team->pic_path;
+                $starred->first_name = $team->first_name;
+                $starred->last_name = $team->last_name;
+                $starred->role = $team->role;
 
-        $team->save();
+                $starred->save();
+            };
 
-        alert()->toast('Modification enregistrée !','success')->width('20rem');
+            $team->save();
 
-        return redirect()->route('team.index');
+            alert()->toast('Modification enregistrée !','success')->width('20rem');
+
+            return redirect()->route('team.index');            
+        } else {
+            alert()->warning('Tu dois être webmaster pour effectuer cette action');
+	    return redirect()->back();
+        }
+
     }
 
     /**
@@ -174,54 +207,72 @@ class TeamController extends Controller
      */
     public function destroy($id)
     {
-        $team = Team::find($id);
-        $starred = Starred::find(1);
+        if (Gate::allows('webmaster-power')) {
+            $team = Team::find($id);
+            $starred = Starred::find(1);
 
-        Storage::delete($team->pic_path);
+            Storage::delete($team->pic_path);
 
-        if ($starred && $team->id === $starred->member_id) {
-            $starred->delete();
+            if ($starred && $team->id === $starred->member_id) {
+                $starred->delete();
+            }
+
+            $team->delete();
+
+            alert()->toast('Membre supprimé !','error')->width('20rem');
+
+            return redirect()->route('team.index');            
+        } else {
+            alert()->warning('Tu dois être webmaster pour effectuer cette action');
+	        return redirect()->back();
         }
 
-        $team->delete();
-
-        alert()->toast('Membre supprimé !','error')->width('20rem');
-
-        return redirect()->route('team.index');
     }
 
     public function starredUpdate($id)
     {
-        $team = Team::find($id);
-        $starred = Starred::find(1);
+        if (Gate::allows('webmaster-power')) {
+            $team = Team::find($id);
+            $starred = Starred::find(1);
 
-        if (!$starred) {
-            $starred = new Starred;
-            $starred->id = 1;
+            if (!$starred) {
+                $starred = new Starred;
+                $starred->id = 1;
+            }
+
+
+            $starred->pic_path = $team->pic_path;
+            $starred->first_name = $team->first_name;
+            $starred->last_name = $team->last_name;
+            $starred->role = $team->role;
+            $starred->member_id = $team->id;
+
+            $starred->save();
+
+            alert()->toast('Vedette modifiée !','success')->width('20rem');
+
+            return redirect()->route('team.index');            
+        } else {
+            alert()->warning('Tu dois être webmaster pour effectuer cette action');
+	        return redirect()->back();
         }
 
-
-        $starred->pic_path = $team->pic_path;
-        $starred->first_name = $team->first_name;
-        $starred->last_name = $team->last_name;
-        $starred->role = $team->role;
-        $starred->member_id = $team->id;
-
-        $starred->save();
-
-        alert()->toast('Vedette modifiée !','success')->width('20rem');
-
-        return redirect()->route('team.index');
     }
 
     public function starredRemove()
     {
-        $starred = Starred::find(1);
+        if (Gate::allows('webmaster-power')) {
+            $starred = Starred::find(1);
 
-        $starred->delete();
+            $starred->delete();
 
-        alert()->toast('Vedette retirée !','warning')->width('20rem');
+            alert()->toast('Vedette retirée !','warning')->width('20rem');
 
-        return redirect()->route('team.index');
+            return redirect()->route('team.index');            
+        } else {
+            alert()->warning('Tu dois être webmaster pour effectuer cette action');
+	        return redirect()->back();
+        }
+
     }
 }

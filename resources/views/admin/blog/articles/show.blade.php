@@ -1,7 +1,7 @@
 @extends('adminlte::page')
 
 @section('css')
-  <link rel="stylesheet" href="{{asset('/css/app.css')}}">
+  <link rel="stylesheet" href="{{asset('/css/style.css')}}">
 @stop
 
 @section('content')
@@ -93,7 +93,7 @@
         <div class="single-post">
 
           <div class="post-thumbnail h-100">
-            <img class="img-fluid w-100" src="{{substr( $article->img_path, 0, 4 ) === "http" ? $article->img_path : asset('storage/'.$article->img_path)}}" alt="">
+            <img class="img-fluid w-100" src="{{asset('storage/'.$article->img_path)}}" alt="">
             <div class="post-date">
               <h2>{{$article->created_at->format('d')}}</h2>
               <h3>{{$article->created_at->format('M Y')}}</h3>
@@ -103,9 +103,9 @@
           <div class="post-content">
             <h2 class="post-title">{{$article->title}}</h2>
             <div class="post-meta">
-              <a href="">{{$article->category ? $article->category->name : "Pas de catégorie"}}</a>
-              <a href="">{{$tags ? $tags : "Aucun tag"}}</a>
-              <a href="">{{$article->comments->count()}} Commentaires</a>
+              <a href="#">{{$article->category ? $article->category->name : "Pas de catégorie"}}</a>
+              <a href="#">{{$tags ? $tags : "Aucun tag"}}</a>
+              <a href="#">{{$article->comments->count()}} Commentaires</a>
             </div>
             <p>
               {!! nl2br(e($article->content)) !!}
@@ -118,7 +118,7 @@
             </div>
             <div class="author-info">
               <h2>{{$article->user ? $article->user->name : "L'auteur n'existe plus"}}, <span>Auteur</span></h2>
-              <p>{{$article->user->description}}</p>
+              <p>{{$article->user->description ? $article->user->description : 'Proin eget tortor risus. Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus. Sed porttitor lectus nibh. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Donec rutrum congue leo eget malesuada.'}}</p>
             </div>
           </div>
         </div>

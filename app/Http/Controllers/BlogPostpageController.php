@@ -18,7 +18,7 @@ class BlogPostpageController extends Controller
      */
     public function __construct()
     {
-
+        //
     }
 
     /**

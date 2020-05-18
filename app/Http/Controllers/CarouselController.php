@@ -4,12 +4,18 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
+use Gate;
 use App\Carousel;
 use App\Tagline;
 Use Alert;
 
 class CarouselController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -17,34 +23,43 @@ class CarouselController extends Controller
      */
     public function index()
     {
-        $tagline = Tagline::find(1);
-        $carousels = Carousel::all();
+        if (Gate::allows('webmaster-power')) {
+            $tagline = Tagline::find(1);
+            $carousels = Carousel::all();
 
-        return view('admin.carousel.index', compact('carousels','tagline'));
+            return view('admin.carousel.index', compact('carousels','tagline'));            
+        } else {
+            alert()->warning('Tu dois être webmaster pour effectuer cette action');
+	        return redirect()->back();
+        }
     }
 
     /*
     / Partie Slogan
     */
     public function taglineUpdate(Request $request) {
+        if (Gate::allows('webmaster-power')) {
+            $tagline = Tagline::find(1);
 
-        $tagline = Tagline::find(1);
+            $request->validate([
+                'slogan'=>'required|string',
+            ]);
 
-        $request->validate([
-            'slogan'=>'required|string',
-        ]);
+            if (!$tagline) {
+                $tagline = new Tagline;
+            }
 
-        if (!$tagline) {
-            $tagline = new Tagline;
+            $tagline->line = request('slogan');
+
+            $tagline->save();
+
+            alert()->toast('Modification enregistrée !','success')->width('20rem');
+
+            return redirect()->route('carousel.index');            
+        } else {
+            alert()->warning('Tu dois être webmaster pour effectuer cette action');
+	        return redirect()->back();
         }
-
-        $tagline->line = request('slogan');
-
-        $tagline->save();
-
-        alert()->toast('Modification enregistrée !','success')->width('20rem');
-
-        return redirect()->route('carousel.index');
     }
     /*
     /Fin partie Slogan
@@ -57,6 +72,12 @@ class CarouselController extends Controller
      */
     public function create()
     {
+                if (Gate::allows('webmaster-power')) {
+            
+        } else {
+            alert()->warning('Tu dois être webmaster pour effectuer cette action');
+	    return redirect()->back();
+        }
         return view('admin.carousel.create');
     }
 
@@ -68,19 +89,25 @@ class CarouselController extends Controller
      */
     public function store(Request $request)
     {
-        $carousel = new Carousel();
+        if (Gate::allows('webmaster-power')) {
+            $carousel = new Carousel();
 
-        $request->validate([
-            'image'=>'required|image',
-        ]);
+            $request->validate([
+                'image'=>'required|image',
+            ]);
 
-        $carousel->img_path = request('image')->store('img');
+            $carousel->img_path = request('image')->store('img');
 
-        $carousel->save();
+            $carousel->save();
 
-        alert()->toast('Image ajoutée !','success')->width('20rem');
+            alert()->toast('Image ajoutée !','success')->width('20rem');
 
-        return redirect()->route('carousel.index');
+            return redirect()->route('carousel.index');            
+        } else {
+            alert()->warning('Tu dois être webmaster pour effectuer cette action');
+	        return redirect()->back();
+        }
+
     }
 
     /**
@@ -91,9 +118,15 @@ class CarouselController extends Controller
      */
     public function edit($id)
     {
-        $image = Carousel::find($id);
+        if (Gate::allows('webmaster-power')) {
+            $image = Carousel::find($id);
 
-        return view('admin.carousel.edit', compact('image'));
+            return view('admin.carousel.edit', compact('image'));            
+        } else {
+            alert()->warning('Tu dois être webmaster pour effectuer cette action');
+	        return redirect()->back();
+        }
+
     }
 
     /**
@@ -105,23 +138,29 @@ class CarouselController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $carousel = Carousel::find($id);
+        if (Gate::allows('webmaster-power')) {
+            $carousel = Carousel::find($id);
 
-        if(request('image')){
+            if(request('image')){
 
-            $request->validate([
-                'image'=>'required|image',
-            ]);
+                $request->validate([
+                    'image'=>'required|image',
+                ]);
 
-            Storage::delete($carousel->img_path);
-            $carousel->img_path = request('image')->store('img');
+                Storage::delete($carousel->img_path);
+                $carousel->img_path = request('image')->store('img');
+            }
+
+            $carousel->save();
+
+            alert()->toast('Modification enregistrée !','success')->width('20rem');
+            
+            return redirect()->route('carousel.index');            
+        } else {
+            alert()->warning('Tu dois être webmaster pour effectuer cette action');
+	    return redirect()->back();
         }
 
-        $carousel->save();
-
-        alert()->toast('Modification enregistrée !','success')->width('20rem');
-        
-        return redirect()->route('carousel.index');
     }
 
     /**
@@ -132,14 +171,20 @@ class CarouselController extends Controller
      */
     public function destroy($id)
     {
-        $carousel = Carousel::find($id);
+        if (Gate::allows('webmaster-power')) {
+            $carousel = Carousel::find($id);
 
-        Storage::delete($carousel->img_path);
+            Storage::delete($carousel->img_path);
 
-        $carousel->delete();
+            $carousel->delete();
 
-        alert()->toast('Image supprimée !','error')->width('20rem');
+            alert()->toast('Image supprimée !','error')->width('20rem');
 
-        return redirect()->route('carousel.index');
+            return redirect()->route('carousel.index');            
+        } else {
+            alert()->warning('Tu dois être webmaster pour effectuer cette action');
+	        return redirect()->back();
+        }
+
     }
 }

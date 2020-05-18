@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\TestiTitle;
 use App\Testimonial;
+use Illuminate\Support\Facades\Auth;
+use Gate;
 
 class TestimonialController extends Controller
 {
@@ -18,10 +20,6 @@ class TestimonialController extends Controller
     {
         $this->middleware('auth');
     }
-    protected function redirectTo($request)
-    {
-        return route('login');
-    }
     
     /**
      * Display a listing of the resource.
@@ -30,34 +28,45 @@ class TestimonialController extends Controller
      */
     public function index()
     {
-        $title = TestiTitle::find(1);
-        $testimonials = Testimonial::all();
+        if (Gate::allows('webmaster-power')) {
+            $title = TestiTitle::find(1);
+            $testimonials = Testimonial::all();
 
-        return view('admin.testimonials.index', compact('title','testimonials'));
+            return view('admin.testimonials.index', compact('title','testimonials'));            
+        } else {
+            alert()->warning('Tu dois être webmaster pour effectuer cette action');
+	    return redirect()->back();
+        }
+
     }
 
     /*
     / Partie Titre
     */
     public function titleUpdate(Request $request) {
+        if (Gate::allows('webmaster-power')) {
+            $title = TestiTitle::find(1);
 
-        $title = TestiTitle::find(1);
+            $request->validate([
+                'titre'=>'required|string',
+            ]);
 
-        $request->validate([
-            'titre'=>'required|string',
-        ]);
+            if (!$title) {
+                $title = new TestiTitle;
+            }
 
-        if (!$title) {
-            $title = new TestiTitle;
+            $title->title = request('titre');
+
+            $title->save();
+
+            alert()->toast('Modification enregistrée !','success')->width('20rem');
+
+            return redirect()->route('testimonials.index');            
+        } else {
+            alert()->warning('Tu dois être webmaster pour effectuer cette action');
+	        return redirect()->back();
         }
 
-        $title->title = request('titre');
-
-        $title->save();
-
-        alert()->toast('Modification enregistrée !','success')->width('20rem');
-
-        return redirect()->route('testimonials.index');
     }
     /*
     /Fin partie Titre
@@ -71,27 +80,33 @@ class TestimonialController extends Controller
      */
     public function store(Request $request)
     {
-        $testimonial = new Testimonial;
+        if (Gate::allows('webmaster-power')) {
+            $testimonial = new Testimonial;
 
-        $request->validate([
-            'photo'=>'required|image',
-            'prénom'=>'required|string',
-        	'nom'=>'required|string',
-        	'profession'=>'required|string',
-        	'témoignage'=>'required',
-        ]);
+            $request->validate([
+                'photo'=>'required|image',
+                'prénom'=>'required|string',
+                'nom'=>'required|string',
+                'profession'=>'required|string',
+                'témoignage'=>'required',
+            ]);
 
-        $testimonial->profile_picture_path = request('photo')->store('img');
-        $testimonial->first_name = request('prénom');
-        $testimonial->last_name = request('nom');
-        $testimonial->job_title = request('profession');
-        $testimonial->testimony = request('témoignage');
+            $testimonial->profile_picture_path = request('photo')->store('img');
+            $testimonial->first_name = request('prénom');
+            $testimonial->last_name = request('nom');
+            $testimonial->job_title = request('profession');
+            $testimonial->testimony = request('témoignage');
 
-        $testimonial->save();
+            $testimonial->save();
 
-        alert()->toast('Témoignage ajouté !','success')->width('20rem');
+            alert()->toast('Témoignage ajouté !','success')->width('20rem');
 
-        return redirect()->route('testimonials.index');
+            return redirect()->route('testimonials.index');            
+        } else {
+            alert()->warning('Tu dois être webmaster pour effectuer cette action');
+	        return redirect()->back();
+        }
+
     }
 
     /**
@@ -102,9 +117,15 @@ class TestimonialController extends Controller
      */
     public function edit($id)
     {
-        $testimonial = Testimonial::find($id);
+        if (Gate::allows('webmaster-power')) {
+            $testimonial = Testimonial::find($id);
 
-        return view('admin.testimonials.edit',compact('testimonial'));
+            return view('admin.testimonials.edit',compact('testimonial'));            
+        } else {
+            alert()->warning('Tu dois être webmaster pour effectuer cette action');
+	    return redirect()->back();
+        }
+
     }
 
     /**
@@ -116,32 +137,38 @@ class TestimonialController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $testimonial = Testimonial::find($id);
+        if (Gate::allows('webmaster-power')) {
+            $testimonial = Testimonial::find($id);
 
-        $request->validate([
-            'prénom'=>'required|string',
-        	'nom'=>'required|string',
-        	'profession'=>'required|string',
-        	'témoignage'=>'required',
-        ]);
-
-        if (request('photo')) {
             $request->validate([
-                'photo'=>'required|image',
+                'prénom'=>'required|string',
+                'nom'=>'required|string',
+                'profession'=>'required|string',
+                'témoignage'=>'required',
             ]);
-            Storage::delete($testimonial->profile_picture_path);
-            $testimonial->profile_picture_path = request('photo')->store('img');
-        };
-        $testimonial->first_name = request('prénom');
-        $testimonial->last_name = request('nom');
-        $testimonial->job_title = request('profession');
-        $testimonial->testimony = request('témoignage');
 
-        $testimonial->save();
+            if (request('photo')) {
+                $request->validate([
+                    'photo'=>'required|image',
+                ]);
+                Storage::delete($testimonial->profile_picture_path);
+                $testimonial->profile_picture_path = request('photo')->store('img');
+            };
+            $testimonial->first_name = request('prénom');
+            $testimonial->last_name = request('nom');
+            $testimonial->job_title = request('profession');
+            $testimonial->testimony = request('témoignage');
 
-        alert()->toast('Modification enregistrée !','success')->width('20rem');
+            $testimonial->save();
 
-        return redirect()->route('testimonials.index');
+            alert()->toast('Modification enregistrée !','success')->width('20rem');
+
+            return redirect()->route('testimonials.index');            
+        } else {
+            alert()->warning('Tu dois être webmaster pour effectuer cette action');
+	    return redirect()->back();
+        }
+
     }
 
     /**
@@ -152,14 +179,20 @@ class TestimonialController extends Controller
      */
     public function destroy($id)
     {
-        $testimonial = Testimonial::find($id);
+        if (Gate::allows('webmaster-power')) {
+            $testimonial = Testimonial::find($id);
 
-        Storage::delete($testimonial->profile_picture_path);
+            Storage::delete($testimonial->profile_picture_path);
 
-        $testimonial->delete();
+            $testimonial->delete();
 
-        alert()->toast('Témoignage supprimé !','error')->width('20rem');
+            alert()->toast('Témoignage supprimé !','error')->width('20rem');
 
-        return redirect()->route('testimonials.index');
+            return redirect()->route('testimonials.index');            
+        } else {
+            alert()->warning('Tu dois être webmaster pour effectuer cette action');
+	        return redirect()->back();
+        }
+
     }
 }

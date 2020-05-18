@@ -22,10 +22,7 @@ class ArticleController extends Controller
 
         $this->middleware('auth');
     }
-    // protected function redirectTo($request)
-    // {
-    //     return route('login');
-    // }
+
     /**
      * Display a listing of the resource.
      *
@@ -33,8 +30,13 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $articles = Article::all();
-        return view('admin.blog.articles.index',compact('articles'));
+        if (Gate::allows('webmaster-power')) {
+            $articles = Article::all();
+            return view('admin.blog.articles.index',compact('articles'));            
+        } else {
+            alert()->warning('Tu dois être webmaster pour effectuer cette action');
+            return redirect()->back();
+        }
     }
 
     /**
@@ -44,10 +46,15 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        $categories = Category::all();
-        $tags = Tag::all();
+        if (Gate::allows('writing-power')) {
+            $categories = Category::all();
+            $tags = Tag::all();
 
-        return view('admin.blog.articles.create',compact('categories','tags'));
+            return view('admin.blog.articles.create',compact('categories','tags'));
+        } else {
+            alert()->warning('Tu dois être rédacteur pour effectuer cette action');
+            return redirect()->back();
+        }
     }
 
     /**
@@ -58,39 +65,46 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-        $article = new Article;
-        // dd(Auth::user()->id);
 
-        $request->validate([
-            'image'=>'required|image',
-            'titre'=>'required|string',
-            'catégorie'=>'required',
-            'contenu'=>'required',
-            'tags'=>'required',
-        ]);
-        $article->img_path = request('image')->store('img');
-        $article->title = request('titre');
-        $article->user_id = Auth::user()->id;
-        $article->category_id = request('catégorie');
-        $article->content = request('contenu');
-        
-        $article->save();
+        if (Gate::allows('writing-power')) {
+            $article = new Article;
+            // dd(Auth::user()->id);
 
-        $newtags = collect(request('tags'))->whereNotNull()->diff(Tag::all()->pluck('id'));
-        $tags = Tag::find(request('tags'));
+            $request->validate([
+                'image'=>'required|image',
+                'titre'=>'required|string',
+                'catégorie'=>'required',
+                'contenu'=>'required',
+                'tags'=>'required',
+            ]);
+            $article->img_path = request('image')->store('img');
+            $article->title = request('titre');
+            $article->user_id = Auth::user()->id;
+            $article->category_id = request('catégorie');
+            $article->content = request('contenu');
+            
+            $article->save();
 
-        foreach ($newtags as $newtag) {
-            $tag = new Tag;
-            $tag->name = $newtag;
-            $tag->save();
-            $tags->push($tag);
+            $newtags = collect(request('tags'))->whereNotNull()->diff(Tag::all()->pluck('id'));
+            $tags = Tag::find(request('tags'));
+
+            foreach ($newtags as $newtag) {
+                $tag = new Tag;
+                $tag->name = $newtag;
+                $tag->save();
+                $tags->push($tag);
+            }
+
+            $article->tags()->attach($tags);
+
+            alert()->toast('Article enregistrée !','success')->width('20rem');
+
+            return redirect()->route('articles.index');            
+        } else {
+            alert()->warning('Tu dois être rédacteur pour effectuer cette action');
+            return redirect()->back();            
         }
 
-        $article->tags()->attach($tags);
-
-        alert()->toast('Article enregistrée !','success')->width('20rem');
-
-        return redirect()->route('articles.index');
     }
 
     /**
@@ -101,16 +115,22 @@ class ArticleController extends Controller
      */
     public function show($id)
     {
-        $article = Article::find($id);
+        if (Gate::allows('webmaster-power')) {
+            $article = Article::find($id);
 
-        $tags = Article::find($id)
-        ->tags()
-        ->inRandomOrder()
-        ->limit(3)
-        ->get()
-        ->implode('name', ', ');
+            $tags = Article::find($id)
+            ->tags()
+            ->inRandomOrder()
+            ->limit(3)
+            ->get()
+            ->implode('name', ', ');
 
-        return view('admin.blog.articles.show',compact('article','tags'));
+            return view('admin.blog.articles.show',compact('article','tags'));            
+        } else {
+            alert()->warning('Tu dois être webmaster pour effectuer cette action');
+	        return redirect()->back();
+        }
+
     }
 
     /**
@@ -121,11 +141,16 @@ class ArticleController extends Controller
      */
     public function edit($id)
     {
-        $article = Article::find($id);
-        $categories = Category::all();
-        $tags = Tag::all();
+        if (Gate::allows('webmaster-power')) {
+            $article = Article::find($id);
+            $categories = Category::all();
+            $tags = Tag::all();
 
-        return view('admin.blog.articles.edit',compact('article','categories','tags'));
+            return view('admin.blog.articles.edit',compact('article','categories','tags'));            
+        } else {
+            alert()->warning('Tu dois être webmaster pour effectuer cette action');
+	        return redirect()->back();
+        }
     }
 
     /**
@@ -137,7 +162,8 @@ class ArticleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $article = Article::find($id);
+        if (Gate::allows('webmaster-power')) {
+            $article = Article::find($id);
 
 
             $request->validate([
@@ -178,8 +204,13 @@ class ArticleController extends Controller
 
             alert()->toast('Article modifié !','success')->width('20rem');
 
-        
-        return redirect()->route('articles.index');
+            
+            return redirect()->route('articles.index');            
+        } else {
+            alert()->warning('Tu dois être webmaster pour effectuer cette action');
+	        return redirect()->back();
+        }
+
     }
 
     /**
@@ -190,17 +221,22 @@ class ArticleController extends Controller
      */
     public function destroy($id)
     {
-        $article = Article::find($id);
+        if (Gate::allows('webmaster-power')) {
+            $article = Article::find($id);
 
-        Storage::delete($article->pic_path);
+            Storage::delete($article->pic_path);
 
-        $article->tags()->detach();
+            $article->tags()->detach();
 
-        $article->delete();
+            $article->delete();
 
-        alert()->toast('Article supprimé !','error')->width('20rem');
+            alert()->toast('Article supprimé !','error')->width('20rem');
 
-        return redirect()->route('articles.index');
+            return redirect()->route('articles.index');            
+        } else {
+            alert()->warning('Tu dois être webmaster pour effectuer cette action');
+	    return redirect()->back();
+        }
     }
 
     /**
@@ -208,7 +244,7 @@ class ArticleController extends Controller
      */
     public function approve($id)
     {
-        if (Gate::allows('approve-article')) {
+        if (Gate::allows('webmaster-power')) {
             $article = Article::find($id);
 
             $article->approved = !$article->approved;
@@ -236,8 +272,13 @@ class ArticleController extends Controller
      */
     public function comments($id)
     {
-        $article = Article::find($id);
+        if (Gate::allows('webmaster-power')) {
+            $article = Article::find($id);
 
-        return view('admin.blog.articles.comments',compact('article'));
+            return view('admin.blog.articles.comments',compact('article'));  
+        } else {
+            alert()->warning('Tu dois être webmaster pour effectuer cette action');
+	        return redirect()->back();
+        }
     }
 }

@@ -42,15 +42,12 @@ class ProfilController extends Controller
         $request->validate([
             'nom'=>'required|string',
             'email'=>'required|email',
-            'description'=>'required',
         ]);
 
         $user->name = request('nom');
         $user->email = request('email');
         if (request('photo')) {
             $user->photo_path = request('photo')->store('img');
-        } else {
-            $user->photo_path = request('photo');
         }
         $user->description = request('description');
 

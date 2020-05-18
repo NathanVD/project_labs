@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Gate;
 use App\Mail\Contact;
 use App\Mail\Contact_Preview;
 use App\Mail\Newsletter;
@@ -20,9 +22,17 @@ class MessageController extends Controller
    */
   public function index()
   {
-    $messages = Message::all();
+    $this->middleware('auth');
 
-    return view('admin.inbox.index', compact('messages'));
+    if (Gate::allows('webmaster-power')) {
+      $messages = Message::all();
+
+      return view('admin.inbox.index', compact('messages'));      
+    } else {
+      alert()->warning('Tu dois être webmaster pour effectuer cette action');
+      return redirect()->back();
+    }
+ 
   }
 
   /**
@@ -49,7 +59,7 @@ class MessageController extends Controller
       ->position('top-end')
       ->autoClose(2000)
       ->animation('animate__heartBeat', 'animate__fadeOut')
-      ->timerProgressBar();
+      ->timerProgressBar();          
 
     return redirect()->back();
   }
@@ -62,12 +72,20 @@ class MessageController extends Controller
    */
   public function show($id)
   {
-    $message = Message::find($id);
+    $this->middleware('auth');
 
-    $previous = Message::where('id', '<', $id)->max('id');
-    $next = Message::where('id', '>', $id)->min('id');
+    if (Gate::allows('webmaster-power')) {
+      $message = Message::find($id);
 
-    return view('admin.inbox.show', compact('message', 'previous', 'next'));
+      $previous = Message::where('id', '<', $id)->max('id');
+      $next = Message::where('id', '>', $id)->min('id');
+
+      return view('admin.inbox.show', compact('message', 'previous', 'next'));            
+    } else {
+      alert()->warning('Tu dois être webmaster pour effectuer cette action');
+	    return redirect()->back();
+    }
+
   }
 
   /**
@@ -78,9 +96,16 @@ class MessageController extends Controller
    */
   public function destroy($id)
   {
-    Message::find($id)->delete();
+    $this->middleware('auth');
+    if (Gate::allows('webmaster-power')) {
+      Message::find($id)->delete();
 
-    return redirect()->route('inbox.index');
+      return redirect()->route('inbox.index');            
+    } else {
+      alert()->warning('Tu dois être webmaster pour effectuer cette action');
+	    return redirect()->back();
+    }
+
   }
 
   /**
@@ -98,78 +123,152 @@ class MessageController extends Controller
 
   public function messageEmail()
   {
-    $message = Message_Confirmation_Mail::find(1);
+    if (Gate::allows('webmaster-power')) {
+      $message = Message_Confirmation_Mail::find(1);
 
-    return view('admin.inbox.message_email', compact('message'));
+      return view('admin.inbox.message_email', compact('message'));          
+    } else {
+      alert()->warning('Tu dois être webmaster pour effectuer cette action');
+      return redirect()->back();
+    }
+
   }
 
   public function messageEmailUpdate(Request $request)
   {
-    $message = Message_Confirmation_Mail::find(1);
+    if (Gate::allows('webmaster-power')) {
+      $message = Message_Confirmation_Mail::find(1);
 
-    if (!$message) {
-      $message = new Message_Confirmation_Mail;
+      if (!$message) {
+        $message = new Message_Confirmation_Mail;
+      }
+
+      $message->name = request('name');
+      $message->email = request('email');
+      $message->subject = request('subject');
+      $message->message = request('message');
+
+      $message->save();
+
+      return redirect()->route('inbox.message_email');        
+    } else {
+      alert()->warning('Tu dois être webmaster pour effectuer cette action');
+      return redirect()->back();
     }
 
-    $message->name = request('name');
-    $message->email = request('email');
-    $message->subject = request('subject');
-    $message->message = request('message');
-
-    $message->save();
-
-    return redirect()->route('inbox.message_email');
   }
 
   // (2) Abonnement à la newsletter
     public function newsletterEmail()
   {
-    $message = Newsletter_Mail::find(1);
+    if (Gate::allows('webmaster-power')) {
+      $message = Newsletter_Mail::find(1);
 
-    return view('admin.inbox.newsletter_email', compact('message'));
+      return view('admin.inbox.newsletter_email', compact('message'));            
+    } else {
+      alert()->warning('Tu dois être webmaster pour effectuer cette action');
+	    return redirect()->back();
+    }
+
   }
 
   public function newsletterEmailUpdate(Request $request)
   {
-    $message = Newsletter_Mail::find(1);
+    if (Gate::allows('webmaster-power')) {
+      $message = Newsletter_Mail::find(1);
 
-    if (!$message) {
-      $message = new Newsletter_Mail;
+      if (!$message) {
+        $message = new Newsletter_Mail;
+      }
+
+      $message->name = request('name');
+      $message->email = request('email');
+      $message->subject = request('subject');
+      $message->message = request('message');
+
+      $message->save();
+
+      return redirect()->route('inbox.newsletter_email');            
+    } else {
+      alert()->warning('Tu dois être webmaster pour effectuer cette action');
+	    return redirect()->back();
     }
 
-    $message->name = request('name');
-    $message->email = request('email');
-    $message->subject = request('subject');
-    $message->message = request('message');
-
-    $message->save();
-
-    return redirect()->route('inbox.newsletter_email');
   }
 
   // (3) Nouvel article
     public function blogPostEmail()
   {
-    $message = Message_Confirmation_Mail::find(1);
+    if (Gate::allows('webmaster-power')) {
+      $message = Message_Confirmation_Mail::find(1);
 
-    return view('admin.inbox.blogpost_email', compact('message'));
+      return view('admin.inbox.blogpost_email', compact('message'));            
+    } else {
+      alert()->warning('Tu dois être webmaster pour effectuer cette action');
+	    return redirect()->back();
+    }
+
   }
 
   public function blogPostEmailUpdate(Request $request)
   {
-    $message = Message_Confirmation_Mail::find(1);
+    if (Gate::allows('webmaster-power')) {
+      $message = Message_Confirmation_Mail::find(1);
 
-    if (!$message) {
-      $message = new Message_Confirmation_Mail;
+      if (!$message) {
+        $message = new Message_Confirmation_Mail;
+      }
+
+      $message->name = request('name');
+      $message->email = request('email');
+      $message->subject = request('subject');
+      $message->message = request('message');
+
+      $message->save();
+
+      return redirect()->route('inbox.blogPost_email');            
+    } else {
+      alert()->warning('Tu dois être webmaster pour effectuer cette action');
+	    return redirect()->back();
     }
 
-    $message->name = request('name');
-    $message->email = request('email');
-    $message->subject = request('subject');
-    $message->message = request('message');
-
-    $message->save();
-
-    return redirect()->route('inbox.blogPost_email');
   }
+
+    // (4) Inscription
+  //   public function Registe()
+  // {
+  //   if (Gate::allows('webmaster-power')) {
+  //     $message = Message_Confirmation_Mail::find(1);
+
+  //     return view('admin.inbox.blogpost_email', compact('message'));            
+  //   } else {
+  //     alert()->warning('Tu dois être webmaster pour effectuer cette action');
+	//     return redirect()->back();
+  //   }
+
+  // }
+
+  // public function blogPostEmailUpdate(Request $request)
+  // {
+  //   if (Gate::allows('webmaster-power')) {
+  //     $message = Message_Confirmation_Mail::find(1);
+
+  //     if (!$message) {
+  //       $message = new Message_Confirmation_Mail;
+  //     }
+
+  //     $message->name = request('name');
+  //     $message->email = request('email');
+  //     $message->subject = request('subject');
+  //     $message->message = request('message');
+
+  //     $message->save();
+
+  //     return redirect()->route('inbox.blogPost_email');            
+  //   } else {
+  //     alert()->warning('Tu dois être webmaster pour effectuer cette action');
+	//     return redirect()->back();
+  //   }
+
+  // }
 }

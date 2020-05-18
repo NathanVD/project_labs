@@ -18,7 +18,7 @@ class ContactpageController extends Controller
      */
     public function __construct()
     {
-
+        //
     }
 
     /**

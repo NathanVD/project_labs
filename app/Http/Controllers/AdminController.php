@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Gate;
 use App\Navlinks;use App\Logo;use App\Footer;use App\Carousel;use App\Tagline;
 use App\About;use App\Video;use App\Testimonial;use App\TestiTitle;use App\Ready;
 use App\Contact;use App\Team;use App\Team_Title;use App\Starred;use App\Service;
@@ -28,9 +30,14 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $testimonials_count = Testimonial::count();
-        $last_testimonial = Testimonial::latest('created_at')->first();
+        if (Gate::allows('webmaster-power')) {
+            $testimonials_count = Testimonial::count();
+            $last_testimonial = Testimonial::latest('created_at')->first();
 
-        return view('admin.index', compact('testimonials_count','last_testimonial'));
+            return view('admin.index', compact('testimonials_count','last_testimonial'));            
+        } else {
+            alert()->warning('Tu dois être webmaster pour effectuer cette action');
+	        return redirect()->back();
+        }
     }
 }

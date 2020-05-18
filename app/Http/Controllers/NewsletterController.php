@@ -7,15 +7,23 @@ use App\Mail\Newsletter as Newsletter_mail;
 use App\Newsletter;
 use Mail;
 use Alert;
+use Illuminate\Support\Facades\Auth;
+use Gate;
 
 class NewsletterController extends Controller
 {
 
   public function subscribers()
   {
-    $subscribers = Newsletter::all();
+    if (Gate::allows('webmaster-power')) {
+      $subscribers = Newsletter::all();
 
-    return view('admin.blog.subscribers', compact('subscribers'));
+      return view('admin.blog.subscribers', compact('subscribers'));        
+    } else {
+      alert()->warning('Tu dois être webmaster pour effectuer cette action');
+      return redirect()->back();
+    }
+
   }
 
   public function subscribe(Request $request)
@@ -42,9 +50,15 @@ class NewsletterController extends Controller
 
   public function unsubscribe($email)
   {
-    Newsletter::where('email',$email)->delete();
+    if (Gate::allows('webmaster-power')) {
+      Newsletter::where('email',$email)->delete();
 
-    return redirect()->back();
+      return redirect()->back();        
+    } else {
+      alert()->warning('Tu dois être webmaster pour effectuer cette action');
+      return redirect()->back();
+    }
+
   }
 
 }

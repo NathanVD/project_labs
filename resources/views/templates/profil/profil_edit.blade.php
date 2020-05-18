@@ -22,16 +22,16 @@
           @csrf
           <div class="row">
             <div class="col-sm-6">
-              <input type="text" name="nom" placeholder="Nom">
+              <input type="text" name="nom" placeholder="Nom" value="{{$user->name}}">
             </div>
             <div class="col-sm-6">
-              <input type="text" name="email" placeholder="Email">
+              <input type="text" name="email" placeholder="Email" value="{{$user->email}}">
             </div>
             <div class="form-group">
               <input type="file" name="photo" placeholder="photo">
             </div>
             <div class="col-sm-12 mt60">
-              <textarea name="description" placeholder="À propos de moi"></textarea>
+              <textarea name="description" placeholder="À propos de moi">{{$user->description}}</textarea>
               <button class="site-btn">Confirmer</button>
             </div>
           </div>

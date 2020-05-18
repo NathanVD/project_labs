@@ -18,7 +18,7 @@ class ServicespageController extends Controller
      */
     public function __construct()
     {
-        
+        //
     }
 
     /**

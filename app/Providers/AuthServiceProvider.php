@@ -28,8 +28,16 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
+        Gate::define('writing-power', function ($user) {
+            return ($user->isEditor());
+        });
+
         Gate::define('webmaster-power', function ($user) {
-            return ($user->isAdmin() || $user->isWebmaster());
+            return ($user->isWebmaster());
+        });
+
+        Gate::define('ultimate-power', function ($user) {
+            return ($user->isAdmin());
         });
     }
 }

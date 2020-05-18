@@ -11,29 +11,32 @@ class UserController extends Controller
     {
         $this->middleware('auth');
     }
-    protected function redirectTo($request)
-    {
-        return route('login');
-    }
 
     public function index()
     {
-        $users = User::All();
+        if (Gate::allows('ultimate-power')) {
+            $users = User::All();
 
-        return view('admin.users.index', compact('users'));
+            return view('admin.users.index', compact('users'));
+        } else {
+            alert()->warning('Tu dois être admin pour effectuer cette action');
+	        return redirect()->back();
+        }
     }
 
-    public function titleUpdate(Request $request) {
+    public function edit(Request $request,$id) {
+        if (Gate::allows('ultimate-power')) {
+            $user = User::find($id);
 
-        $title = TestiTitle::find(1);
+            $user->roles->attach(request('roles'));
 
+            alert()->toast('Modification enregistrée !','success')->width('20rem');
 
-        $title->title = request('titre');
-
-        $title->save();
-
-        alert()->toast('Modification enregistrée !','success')->width('20rem');
-
-        return redirect()->route('testimonials.index');
+            return redirect()->route('admin.users.index');            
+        } else {
+            alert()->warning('Tu dois être admin pour effectuer cette action');
+	        return redirect()->back();
+        }
+ 
     }
 }

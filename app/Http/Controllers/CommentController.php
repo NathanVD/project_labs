@@ -17,27 +17,33 @@ class CommentController extends Controller
      */
     public function addComment(Request $request,$id)
     {
-        $article = Article::find($id);
+        if (Auth::check()) {
 
-        $comment = new Comment;
+            $article = Article::find($id);
 
-        $request->validate([
-            'nom'=>'required|string',
-            'email'=>'required|email',
-            'contenu'=>'required',
-        ]);
+            $comment = new Comment;
 
-        $comment->name = request('nom');
-        $comment->email = request('email');
-        $comment->content = request('contenu');
+            $request->validate([
+                'nom'=>'required|string',
+                'email'=>'required|email',
+                'contenu'=>'required',
+            ]);
 
-        $article->comments()->save($comment);
+            $comment->name = request('nom');
+            $comment->email = request('email');
+            $comment->content = request('contenu');
 
-        Alert::success('Commentaire envoyé !')
-        ->position('top-end')
-        ->autoClose(2000)
-        ->animation('animate__heartBeat','animate__fadeOut')
-        ->timerProgressBar();
+            $article->comments()->save($comment);
+
+            Alert::success('Commentaire envoyé !')
+            ->position('top-end')
+            ->autoClose(2000)
+            ->animation('animate__heartBeat','animate__fadeOut')
+            ->timerProgressBar();
+
+        } else {
+            alert()->error('Tu dois être connecté pour commenter !');
+        }
 
         return redirect()->back();
     }
