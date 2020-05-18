@@ -74,7 +74,7 @@
           </thead>
 
           <tbody>
-            @if (!$starred)
+            @if (!$starred || $starred->isEmpty())
                 <tr>
                   <td colspan="6" class="text-center text-nowrap"><b>Aucun équipier en vedette</b></td>
                 </tr>
@@ -135,7 +135,7 @@
           </thead>
 
           <tbody>
-            @if ($team->isEmpty())
+            @if (!$team || $team->isEmpty())
                 <tr>
                   <td colspan="6" class="text-center text-nowrap"><b>Aucun membre dans l'équipe</b></td>
                 </tr>

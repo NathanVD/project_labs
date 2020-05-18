@@ -18,13 +18,7 @@ class UsersSeeder extends Seeder
         User::truncate();
         Role_User::truncate();
 
-        factory(User::class,10)->create();
-
         $roles = Role::all();
-        $little_roles = $roles->where('name','Member');
-        App\User::all()->each(function ($user) use ($little_roles) { 
-            $user->roles()->attach($little_roles->pluck('id')->toArray()); 
-        });
 
         DB::table('users')->insert([
             'name' => 'Nathan Van Dyck',
@@ -43,8 +37,13 @@ class UsersSeeder extends Seeder
         $nathan = User::where('name','Nathan Van Dyck')->first();
         $nathan->roles()->attach($roles->pluck('id')->toArray());
         $WS = User::where('name','William Shakespeare')->first();
-        $WS->roles()->attach($roles->where('name','Member')->pluck('id')->toArray());
-        $WS->roles()->attach($roles->where('name','Editor')->pluck('id')->toArray());
+        $WS->roles()->attach($roles->whereIn('name',['Member','Teammate','Editor'])->pluck('id')->toArray());
 
+        factory(User::class,10)->create();
+
+        $little_roles = $roles->where('name','Member');
+        App\User::all()->each(function ($user) use ($little_roles) { 
+            $user->roles()->attach($little_roles->pluck('id')->toArray()); 
+        });
     }
 }

@@ -27,6 +27,10 @@ class RolesSeeder extends Seeder
         ]);
 
         DB::table('roles')->insert([
+            'name' => 'Teammate',
+        ]);
+
+        DB::table('roles')->insert([
             'name' => 'Member',
         ]);
     }

@@ -120,7 +120,7 @@ Route::resource('admin/inbox', 'MessageController');
 
 //Users
 Route::get('/admin/users', 'UserController@index')->name('users');
-Route::post('/admin/users/update', 'UserController@update')->name('users.update');
+Route::post('/admin/users/{id}/update', 'UserController@update')->name('users.update');
 /*
 | End admin
 */

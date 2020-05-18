@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Team_Title;
 use App\Team;
+
+use App\User;
 use App\Starred;
 use Illuminate\Support\Facades\Auth;
 use Gate;
@@ -32,6 +34,7 @@ class TeamController extends Controller
         if (Gate::allows('webmaster-power')) {
             $team_title = Team_Title::find(1);
             $team = Team::all();
+            // $team = User::where('role','Teammate');
             $starred = Starred::find(1);
 
             return view('admin.team.index', compact('team_title','team','starred'));            
