@@ -1,19 +1,9 @@
-// Fonts
-@import url("https://fonts.googleapis.com/css?family=Oswald:300,400,500,700|Roboto:300,400,700");
-
-// Modules
-@import "~@fortawesome/fontawesome-free/scss/fontawesome";
-@import "~@fortawesome/fontawesome-free/scss/solid";
-@import "~@fortawesome/fontawesome-free/scss/regular";
-@import "~@fortawesome/fontawesome-free/scss/brands";
-
+@import "~@fortawesome/fontawesome-free/scss/fontawesome.scss";
+@import "~@fortawesome/fontawesome-free/scss/solid.scss";
+@import "~@fortawesome/fontawesome-free/scss/regular.scss";
+@import "~@fortawesome/fontawesome-free/scss/brands.scss";
+// require("@fortawesome/fontawesome-free/js/all.js");
 @import "~animate.css/animate.min.css";
 
-// @import "~owl.carousel/src/scss/owl.carousel";
-// @import "~owl.carousel/src/scss/owl.theme.green";
-
-// @import "~bootstrap/scss/bootstrap";
-
-// Custom
-@import "./_style";
+// @import "./_style.css";
 @import "./_custom.sass";

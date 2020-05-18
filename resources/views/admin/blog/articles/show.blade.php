@@ -77,7 +77,7 @@
         <p>{{$article->category ? $article->category->name : "Supprimée"}}</p>
         <hr>
         <strong>Auteur</strong>
-        <p>{{$article->author ? $article->author->name : "Supprimé"}}</p>
+        <p>{{$article->user ? $article->user->name : "Supprimé"}}</p>
       </div>
     </div>
 
@@ -86,7 +86,7 @@
     <div class="card card-cyan card-outline">
 
       <div class="card-header">
-        <h3 class="card-title">"{{$article->title}}" <span>par</span> {{$article->author ? $article->author->name : "L'auteur n'existe plus"}}</h3>
+        <h3 class="card-title">"{{$article->title}}" <span>par</span> {{$article->user ? $article->user->name : "L'auteur n'existe plus"}}</h3>
       </div>
 
       <div class="card-body">
@@ -114,11 +114,11 @@
           <!-- Post Author -->
           <div class="author">
             <div class="avatar">
-              <img src="{{substr( $article->author->img_path, 0, 4 ) === "http" ? $article->author->img_path : asset('storage/'.$article->author->img_path)}}" alt="">
+              <img src="{{asset('storage/'.$article->user->photo_path)}}" alt="">
             </div>
             <div class="author-info">
-              <h2>{{$article->author ? $article->author->name : "L'auteur n'existe plus"}}, <span>Auteur</span></h2>
-              <p>{{$article->author->description}}</p>
+              <h2>{{$article->user ? $article->user->name : "L'auteur n'existe plus"}}, <span>Auteur</span></h2>
+              <p>{{$article->user->description}}</p>
             </div>
           </div>
         </div>

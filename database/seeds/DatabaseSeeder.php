@@ -17,14 +17,17 @@ class DatabaseSeeder extends Seeder
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
 
         // $this->call(CarouselSeeder::class);
+        // $this->call(TeamSeeder::class);
 
-        $this->call(TestimonialSeeder::class);
-        $this->call(TeamSeeder::class);
-        $this->call(ServiceSeeder::class);
+        // $this->call(TestimonialSeeder::class);
+        // $this->call(ServiceSeeder::class);
         $this->call(CategorySeeder::class);
-        $this->call(TagSeeder::class);
+        // $this->call(TagSeeder::class);
 
-        $this->call(AuthorSeeder::class);
+        // $this->call(AuthorSeeder::class);
+
+        $this->call(RolesSeeder::class);
+        $this->call(UsersSeeder::class);
 
         // supposed to only apply to a single connection and reset it's self
 		// but I like to explicitly undo what I've done for clarity

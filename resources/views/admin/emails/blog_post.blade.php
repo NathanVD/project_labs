@@ -7,7 +7,7 @@
 @component('mail::panel')
 ![alt]({{asset('storage/'.$article->img_path)}})
 ## {{$article->title}}
-  par *{{$article->author->name}}*
+  par *{{$article->user->name}}*
 
 - {{$article->category->name}}
 - @foreach ($article->tags as $tag)

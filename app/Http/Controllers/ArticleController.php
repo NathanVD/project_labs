@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Auth\Access\Response;
+use Illuminate\Support\Facades\Auth;
+use Gate;
+
 use App\Article;use App\Author;use App\Category;use App\Comment;
 use App\Tag;use App\Test;use App\Article_Tag;use App\Newsletter;
 use App\Mail\Blog_Post;
@@ -12,6 +16,16 @@ Use Alert;
 
 class ArticleController extends Controller
 {
+
+    public function __construct()
+    {
+
+        $this->middleware('auth');
+    }
+    // protected function redirectTo($request)
+    // {
+    //     return route('login');
+    // }
     /**
      * Display a listing of the resource.
      *
@@ -45,6 +59,7 @@ class ArticleController extends Controller
     public function store(Request $request)
     {
         $article = new Article;
+        // dd(Auth::user()->id);
 
         $request->validate([
             'image'=>'required|image',
@@ -53,10 +68,9 @@ class ArticleController extends Controller
             'contenu'=>'required',
             'tags'=>'required',
         ]);
-
         $article->img_path = request('image')->store('img');
         $article->title = request('titre');
-        $article->author_id = Author::all()->shuffle()->first()->id;
+        $article->user_id = Auth::user()->id;
         $article->category_id = request('catégorie');
         $article->content = request('contenu');
         
@@ -125,44 +139,46 @@ class ArticleController extends Controller
     {
         $article = Article::find($id);
 
-        $request->validate([
-            'titre'=>'required|string',
-            'catégorie'=>'required',
-            'contenu'=>'required',
-            'tags'=>'required',
-        ]);
 
-        if (request('img')) {
-            $request->validate(['image'=>'required|image',]);
-            Storage::delete($article->img_path);
-            $article->img_path = request('image')->store('img');
-        };
-        $article->title = request('titre');
-        $article->category_id = request('catégorie');
-        $article->content = request('contenu');
+            $request->validate([
+                'titre'=>'required|string',
+                'catégorie'=>'required',
+                'contenu'=>'required',
+                'tags'=>'required',
+            ]);
+
+            if (request('img')) {
+                $request->validate(['image'=>'required|image',]);
+                Storage::delete($article->img_path);
+                $article->img_path = request('image')->store('img');
+            };
+            $article->title = request('titre');
+            $article->category_id = request('catégorie');
+            $article->content = request('contenu');
+            
+            $article->save();
+
+            // Tags supplémentaires
+            // On retire tous les tags 
+            $article->tags()->detach();
+            // et on prend les nouveaux
+            // Qui n'existent pas encore
+            $newtags = collect(request('tags'))->whereNotNull()->diff(Tag::all()->pluck('id'));
+            // Qui existent déjà
+            $tags = Tag::find(request('tags'));
+
+            foreach ($newtags as $newtag) {
+                $tag = new Tag;
+                $tag->name = $newtag;
+                $tag->save();
+                $tags->push($tag);
+            }
+
+            $article->tags()->attach($tags);
+
+            alert()->toast('Article modifié !','success')->width('20rem');
+
         
-        $article->save();
-
-        // Tags supplémentaires
-        // On retire tous les tags 
-        $article->tags()->detach();
-        // et on prend les nouveaux
-        // Qui n'existent pas encore
-        $newtags = collect(request('tags'))->whereNotNull()->diff(Tag::all()->pluck('id'));
-        // Qui existent déjà
-        $tags = Tag::find(request('tags'));
-
-        foreach ($newtags as $newtag) {
-            $tag = new Tag;
-            $tag->name = $newtag;
-            $tag->save();
-            $tags->push($tag);
-        }
-
-        $article->tags()->attach($tags);
-
-        alert()->toast('Article modifié !','success')->width('20rem');
-
         return redirect()->route('articles.index');
     }
 
@@ -192,23 +208,26 @@ class ArticleController extends Controller
      */
     public function approve($id)
     {
-        $article = Article::find($id);
+        if (Gate::allows('approve-article')) {
+            $article = Article::find($id);
 
-        $article->approved = !$article->approved;
+            $article->approved = !$article->approved;
 
-        if ($article->approved) {
-            alert()->toast('Article approuvé !','warning')->width('20rem');
-            $subscribers = Newsletter::all()->pluck('email')->toArray();
-            // foreach ($subscribers as $subscriber) {
-            //     Mail::to($subscriber->email)->send(new Blog_Post($article));
-            // }
-            Mail::to($subscribers)->send(new Blog_Post($article));
+            if ($article->approved) {
+                alert()->toast('Article approuvé !','warning')->width('20rem');
+                $subscribers = Newsletter::all()->pluck('email')->toArray();
+                // foreach ($subscribers as $subscriber) {
+                //     Mail::to($subscriber->email)->send(new Blog_Post($article));
+                // }
+                Mail::to($subscribers)->send(new Blog_Post($article));
+            } else {
+                alert()->toast('Article retiré.','warning')->width('20rem');
+            }
+
+            $article->save();
         } else {
-            alert()->toast('Article retiré.','warning')->width('20rem');
+            alert()->warning('Tu dois être webmaster pour effectuer cette action');
         }
-
-        $article->save();
-
         return redirect()->back();
     }
 

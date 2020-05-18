@@ -8,6 +8,20 @@ use App\Video;
 
 class VideoController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    protected function redirectTo($request)
+    {
+        return route('login');
+    }
+    
     public function edit() {
 
         $video = Video::find(1);

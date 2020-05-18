@@ -341,6 +341,13 @@ return [
             'url' => '/admin/inbox',
             'icon' => 'fas fa-envelope'
         ],
+
+        ['header' => 'Utilisateurs'],
+        [
+            'text' => 'Voir les utilisateurs inscrits',
+            'url' => '/admin/users',
+            'icon' => 'fas fa-users'
+        ],
     ],
 
     /*

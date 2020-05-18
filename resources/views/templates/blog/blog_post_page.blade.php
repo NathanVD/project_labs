@@ -29,11 +29,11 @@
           <!-- Post Author -->
           <div class="author">
             <div class="avatar">
-              <img src="{{asset('storage/'.$article->author->img_path)}}" alt="">
+              <img src="{{asset('storage/'.$article->user->photo_path)}}" alt="">
             </div>
             <div class="author-info">
-              <h2>{{$article->author ? $article->author->name : "L'auteur n'existe plus"}}, <span>Auteur</span></h2>
-              <p>{{$article->author->description}}</p>
+              <h2>{{$article->user ? $article->user->name : "L'auteur n'existe plus"}}, <span>Auteur</span></h2>
+              <p>{{$article->user->description}}</p>
             </div>
           </div>
           <!-- Post Comments -->
@@ -54,27 +54,33 @@
               @endforeach
             </ul>
           </div>
-          <!-- Commert Form -->
-          <div class="row">
-            <div class="col-md-9 comment-from">
-              <h2>Laissez un commentaire</h2>
-              <form class="form-class" action="{{route('comments.addComment',$article->id)}}" method="POST">
-                @csrf
-                <div class="row">
-                  <div class="col-sm-6">
-                    <input type="text" name="nom" placeholder="Votre nom" class="{{($errors->isNotEmpty() ? $errors->first('nom') ? " is-invalid" : " is-valid" : "")}}">
+          @if (Auth::check())
+            <!-- Commert Form -->
+            <div class="row">
+              <div class="col-md-9 comment-from">
+                <h2>Laissez un commentaire</h2>
+                <form class="form-class" action="{{route('comments.addComment',$article->id)}}" method="POST">
+                  @csrf
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <input type="text" name="nom" placeholder="Votre nom" class="{{($errors->isNotEmpty() ? $errors->first('nom') ? " is-invalid" : " is-valid" : "")}}">
+                    </div>
+                    <div class="col-sm-6">
+                      <input type="text" name="email" placeholder="Votre email" class="{{($errors->isNotEmpty() ? $errors->first('email') ? " is-invalid" : " is-valid" : "")}}">
+                    </div>
+                    <div class="col-sm-12">
+                      <textarea name="contenu" placeholder="Message" class="{{($errors->isNotEmpty() ? $errors->first('contenu') ? " is-invalid" : " is-valid" : "")}}"></textarea>
+                      <button class="site-btn">Envoyer</button>
+                    </div>
                   </div>
-                  <div class="col-sm-6">
-                    <input type="email" name="email" placeholder="Votre email" class="{{($errors->isNotEmpty() ? $errors->first('email') ? " is-invalid" : " is-valid" : "")}}">
-                  </div>
-                  <div class="col-sm-12">
-                    <textarea name="contenu" placeholder="Message" class="{{($errors->isNotEmpty() ? $errors->first('contenu') ? " is-invalid" : " is-valid" : "")}}"></textarea>
-                    <button class="site-btn">Envoyer</button>
-                  </div>
-                </div>
-              </form>
+                </form>
+              </div>
             </div>
-          </div>
+          @else
+            <div class="row text-center">
+              <p><strong>Connectez-vous pour laisser un commentaire.</strong></p>
+            </div>
+          @endif
         </div>
       </div>
       <!-- Sidebar area -->

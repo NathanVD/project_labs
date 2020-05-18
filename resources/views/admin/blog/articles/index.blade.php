@@ -41,7 +41,7 @@
                 <tr>
                   <td class="text-center text-nowrap">{{$article->title}}</td>
                   <td class="text-center">{{$article->category ? $article->category->name : "Pas de catégorie"}}</td>
-                  <td class="text-center">{{$article->author ? $article->author->name : "Auteur supprimé"}}</td>
+                  <td class="text-center">{{$article->user ? $article->user->name : "Auteur supprimé"}}</td>
                   <td class="text-center text-nowrap">{{$article->comments->count()}}</td>
                   <td class="text-center text-nowrap">{{$article->created_at->format('d M Y')}}</td>
                   {{-- <td class="text-center text-nowrap">
@@ -106,7 +106,7 @@
                 <tr>
                   <td class="text-center text-nowrap">{{$article->title}}</td>
                   <td class="text-center">{{$article->category ? $article->category->name : "Supprimée"}}</td>
-                  <td class="text-center">{{$article->author ? $article->author->name : "Supprimé"}}</td>
+                  <td class="text-center">{{$article->user ? $article->user->name : "Supprimé"}}</td>
                   <td class="text-center text-nowrap">{{$article->created_at->format('d M Y')}}</td>
                   <td class="text-center text-nowrap">
                     <form action="{{route('article.approve',$article->id)}}" method="POST" class="d-inline-block">

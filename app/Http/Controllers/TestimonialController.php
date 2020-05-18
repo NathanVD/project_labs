@@ -9,6 +9,20 @@ use App\Testimonial;
 
 class TestimonialController extends Controller
 {
+        /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    protected function redirectTo($request)
+    {
+        return route('login');
+    }
+    
     /**
      * Display a listing of the resource.
      *

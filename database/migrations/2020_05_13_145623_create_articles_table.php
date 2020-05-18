@@ -17,7 +17,7 @@ class CreateArticlesTable extends Migration
             $table->id();
             $table->string('img_path');
             $table->string('title');
-            $table->foreignId('author_id')->nullable()->constrained()->onDelete('set null')->onUpdate('cascade');
+            $table->foreignId('user_id')->nullable()->constrained()->onDelete('set null')->onUpdate('cascade');
             $table->foreignId('category_id')->nullable()->constrained()->onDelete('set null')->onUpdate('cascade');
             $table->text('content');
             $table->boolean('approved')->default(false);

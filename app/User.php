@@ -36,4 +36,33 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * The roles that belongs to the users.
+     */
+    public function roles()
+    {
+        return $this->belongsToMany('App\Role');
+    }
+
+    /**
+     * Get the articles written by this user.
+     */
+    public function articles()
+    {
+        return $this->hasMany('App\Article');
+    }
+
+    /**
+     * Verify if the user has a role
+     */
+    public function isAdmin() {
+        return $this->roles()->where('name', 'Administrator')->exists();
+    }
+    public function isWebmaster() {
+        return $this->roles()->where('name', 'Webmaster')->exists();
+    }
+    public function isEditor() {
+        return $this->roles()->where('name', 'Editor')->exists();
+    }
 }

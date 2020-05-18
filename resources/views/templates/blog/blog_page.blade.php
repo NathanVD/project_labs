@@ -20,7 +20,7 @@
                 <a href="">2 Comments</a>
               </div>
               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur leo est, feugiat nec elementum id, suscipit id nulla. Phasellus vestibulum, quam tincidunt venenatis ultrices, est libero mattis ante, ac consectetur diam neque eget quam. Etiam feugiat augue et varius blandit. Praesent mattis, eros a sodales commodo.</p>
-              <a href="blog-post.html" class="read-more">Read More</a>
+              <a href="#" class="read-more">Read More</a>
             </div>
           </div>
           <!-- Post item -->
@@ -40,7 +40,7 @@
                 <a href="">2 Comments</a>
               </div>
               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur leo est, feugiat nec elementum id, suscipit id nulla. Phasellus vestibulum, quam tincidunt venenatis ultrices, est libero mattis ante, ac consectetur diam neque eget quam. Etiam feugiat augue et varius blandit. Praesent mattis, eros a sodales commodo.</p>
-              <a href="blog-post.html" class="read-more">Read More</a>
+              <a href="#" class="read-more">Read More</a>
             </div>
           </div>
           <!-- Post item -->
@@ -60,7 +60,7 @@
                 <a href="">2 Comments</a>
               </div>
               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur leo est, feugiat nec elementum id, suscipit id nulla. Phasellus vestibulum, quam tincidunt venenatis ultrices, est libero mattis ante, ac consectetur diam neque eget quam. Etiam feugiat augue et varius blandit. Praesent mattis, eros a sodales commodo.</p>
-              <a href="blog-post.html" class="read-more">Read More</a>
+              <a href="#" class="read-more">Read More</a>
             </div>
           </div>
           <!-- Pagination -->

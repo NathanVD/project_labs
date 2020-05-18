@@ -2,11 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use \Illuminate\Support\Str;
-use App\Navlinks;use App\Logo;use App\Footer;use App\Carousel;use App\Tagline;
-use App\About;use App\Video;use App\Testimonial;use App\TestiTitle;use App\Ready;
-use App\Contact;use App\Team;use App\Team_Title;use App\Starred;use App\Service;
-use App\Services_Title;use App\Primed_Services;use App\Article;use App\Category;
-use App\Tag;use App\Map;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -28,55 +24,12 @@ Auth::routes();
  * Home
 */
 Route::get('/home', 'HomeController@index')->name('home');
-
-Route::get('/services', function () {
-
-    $navlinks = Navlinks::find(1);
-    $logo = Logo::find(1);
-    $footer = Footer::find(1);
-    $contact = Contact::find(1);
-    $services_chunks = Service::all()->sortByDesc('created_at')->chunk(9);
-    $services_title = Services_Title::find(1);
-    $primed_services = Service::all()->sortByDesc('created_at')->chunk(6)->first();
-    $primed_services_title = Primed_Services::find(1);
-    $articles = Article::all()->where('approved',true)->sortByDesc('updated_at')->chunk(3)->first();
-
-    return view('services',compact('navlinks','logo','footer','contact',
-    'services_chunks','services_title','primed_services','primed_services_title','articles'));
-})->name('services');
-Route::get('/blog', function () {
-
-    $navlinks = Navlinks::find(1);
-    $logo = Logo::find(1);
-    $footer = Footer::find(1);
-    $articles = Article::where('approved',true)->orderBy('updated_at','desc')->paginate(3);
-    // $articles->content = Str::limit($articles->content,315);
-    $categories = Category::all()->shuffle()->chunk(6)->first();
-    $tags = Tag::all()->shuffle()->chunk(9)->first();
-
-    return view('blog',compact('navlinks','logo','footer','articles','categories','tags'));
-})->name('blog');
-Route::get('/blog_post/{id}', function ($id) {
-
-    $navlinks = Navlinks::find(1);
-    $logo = Logo::find(1);
-    $footer = Footer::find(1);
-    $article = Article::find($id);
-    $categories = Category::all()->shuffle()->chunk(6)->first();
-    $tags = Tag::all()->shuffle()->chunk(9)->first();
-
-    return view('blog_post',compact('navlinks','logo','footer','article','categories','tags'));
-})->name('blog_post');
-Route::get('/contact', function () {
-
-    $navlinks = Navlinks::find(1);
-    $logo = Logo::find(1);
-    $footer = Footer::find(1);
-    $contact = Contact::find(1);
-    $map = Map::find(1);
-
-    return view('contact',compact('navlinks','logo','footer','contact','map'));
-})->name('contact');
+Route::get('/services', 'ServicespageController@index')->name('services');
+Route::get('/blog', 'BlogpageController@index')->name('blog');
+Route::get('/blog_post/{id}', 'BlogPostpageController@index')->name('blog_post');
+Route::get('/contact', 'ContactpageController@index')->name('contact');
+Route::get('/profil_page/{id}', 'ProfilController@index')->name('profil_page');
+Route::post('/profil_page/{id}/update', 'ProfilController@update')->name('profil_page.update');
 /* 
 | End page publiques
 */
@@ -84,12 +37,7 @@ Route::get('/contact', function () {
 /*
 | Admin
 */
-Route::get('/admin', function () {
-    $testimonials_count = Testimonial::count();
-    $last_testimonial = Testimonial::latest('created_at')->first();
-
-    return view('admin.index', compact('testimonials_count','last_testimonial'));
-})->name('admin');
+Route::get('/admin', 'AdminController@index')->name('admin');
 
 //Nav 
 Route::get('/admin/nav', 'NavlinksController@edit')->name('nav');
@@ -170,6 +118,9 @@ Route::get('/admin/inbox/blogPost_email', 'MessageController@blogPostEmail')->na
 Route::post('/admin/inbox/blogPost_email/update', 'MessageController@blogPostEmailUpdate')->name('inbox.blogPost_email.update');
 Route::resource('admin/inbox', 'MessageController');
 
+//Users
+Route::get('/admin/users', 'UserController@index')->name('users');
+Route::post('/admin/users/update', 'UserController@update')->name('users.update');
 /*
 | End admin
 */
