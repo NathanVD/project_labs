@@ -6,11 +6,6 @@
           <div class="container">
             <img src="{{asset('storage/img/VIDE.jpg')}}" alt="">
             <p><b>C'est vide ici.</b></p>
-            @if (Auth::check() && Auth::user()->roles->where('name', 'Editor')->isNotEmpty())
-              <a href="{{route('articles.create')}}" class="btn btn-lg btn-success text-white mb-4">
-                <i class="fas fa-feather-alt"></i> Rédiger un article
-              </a>
-            @endif
           </div>
         @else
           @foreach ($articles as $article)
@@ -39,6 +34,13 @@
       </div>
       <!-- Sidebar area -->
       <div class="col-md-4 col-sm-5 sidebar">
+        @if (Auth::check() && Auth::user()->roles->where('name', 'Editor')->isNotEmpty())
+          <div class="widget-item">
+            <a href="{{route('articles.create')}}" class="btn btn-lg btn-success text-white mb-4">
+              <i class="fas fa-feather-alt"></i> Rédiger un article
+            </a>
+          </div>
+        @endif
         <!-- Single widget -->
         <div class="widget-item">
           <form action="#" class="search-form">

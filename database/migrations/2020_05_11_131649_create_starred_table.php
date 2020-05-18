@@ -16,9 +16,8 @@ class CreateStarredTable extends Migration
         Schema::create('starred', function (Blueprint $table) {
             $table->id();
             $table->string('pic_path');
-            $table->string('first_name');
-            $table->string('last_name');
-            $table->string('role')->nullable();
+            $table->string('name');
+            $table->string('roles');
             $table->foreignId('member_id');
             $table->timestamps();
         });

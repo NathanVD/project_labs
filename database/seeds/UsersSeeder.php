@@ -39,7 +39,7 @@ class UsersSeeder extends Seeder
         $WS = User::where('name','William Shakespeare')->first();
         $WS->roles()->attach($roles->whereIn('name',['Member','Teammate','Editor'])->pluck('id')->toArray());
 
-        factory(User::class,10)->create();
+        factory(User::class,25)->create();
 
         $little_roles = $roles->where('name','Member');
         App\User::all()->each(function ($user) use ($little_roles) { 

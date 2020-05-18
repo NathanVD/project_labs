@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Navlinks;use App\Logo;use App\Footer;use App\Carousel;use App\Tagline;
 use App\About;use App\Video;use App\Testimonial;use App\TestiTitle;use App\Ready;
-use App\Contact;use App\Team;use App\Team_Title;use App\Starred;use App\Service;
+use App\Contact;use App\Role;use App\Team_Title;use App\Starred;use App\Service;
 use App\Services_Title;use App\Primed_Services;use App\Article;use App\Category;
 use App\Tag;use App\Map;
 
@@ -42,7 +42,8 @@ class HomeController extends Controller
         $ready = Ready::find(1);
         $contact = Contact::find(1);
         $starred = Starred::find(1);
-        $team1 = Team::all()->where('role');
+        // $team1 = Team::all()->where('role');
+        $team1 = Role::where('name','Teammate')->first()->users()->get();
         if ($starred && $team1->count() <= 1) {
             $team  = $team1->replace([0 => $starred]);
         } else if ($starred) {

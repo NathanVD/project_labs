@@ -66,44 +66,29 @@
             <tr>
               <th class="text-center text-nowrap">Photo</th>
               <th class="text-center text-nowrap">Nom</th>
-              <th class="text-center text-nowrap">Prénom</th>
-              <th class="text-center text-nowrap">Poste</th>
+              <th class="text-center text-nowrap">Role</th>
               <th class="text-center text-nowrap">Vedette</th>
-              <th class="text-center text-nowrap">Actions</th>
             </tr>
           </thead>
 
           <tbody>
             @if (!$starred || $starred->isEmpty())
                 <tr>
-                  <td colspan="6" class="text-center text-nowrap"><b>Aucun équipier en vedette</b></td>
+                  <td colspan="4" class="text-center text-nowrap"><b>Aucun équipier en vedette</b></td>
                 </tr>
             @else 
               <tr>
                 <td class="text-center text-nowrap">
-                  <img src="{{substr( $starred->pic_path, 0, 4 ) === "http" ? $starred->pic_path : asset('storage/'.$starred->pic_path)}}" class="mini rounded-circle" alt="img">
+                  <img src="{{asset('storage/'.$starred->pic_path)}}" class="mini rounded-circle" alt="img">
                 </td>
-                <td class="text-center text-nowrap">{{$starred->last_name}}</td>
-                <td class="text-center text-nowrap">{{$starred->first_name}}</td>
-                <td class="text-center text-nowrap">{{$starred->role}}</td>
+                <td class="text-center text-nowrap">{{$starred->name}}</td>
+                <td class="text-center text-nowrap">{{$starred->roles()->get()->implode('name', ', ')}}</td>
                 <td class="text-center text-nowrap">
                   <form action="{{route('team.starred_member.remove')}}" method="POST" class="d-inline-block">
                     @csrf
                     @method('delete')
                     <button class="btn btn-outline-warning border-0">
                       <i class="fas fa-star"></i>
-                    </button>
-                  </form>
-                </td>
-                <td class="text-center text-nowrap">
-                  <a href="{{route('team.edit',$starred->member_id)}}" class="btn btn-warning">
-                    <i class="fas fa-edit"></i>
-                  </a>
-                  <form action="{{route('team.destroy',$starred->member_id)}}" method="POST" class="d-inline-block">
-                    @csrf
-                    @method('delete')
-                    <button class="btn btn-danger">
-                      <i class="fas fa-trash-alt"></i>
                     </button>
                   </form>
                 </td>
@@ -118,7 +103,7 @@
   {{-- Index --}}
     <div class="card card-primary">
       <div class="card-header">
-        <h3 class="card-title">Liste des membres de l'équipe <a href="{{route('team.create')}}" class="badge bg-success align-top ml-3">Nouveau <i class="fas fa-plus"></i></a></h3>
+        <h3 class="card-title">Liste des membres de l'équipe</h3>
       </div>
 
       <div class="card-body table-responsive">
@@ -127,27 +112,24 @@
             <tr>
               <th class="text-center text-nowrap">Photo</th>
               <th class="text-center text-nowrap">Nom</th>
-              <th class="text-center text-nowrap">Prénom</th>
-              <th class="text-center text-nowrap">Poste</th>
+              <th class="text-center text-nowrap">Role</th>
               <th class="text-center text-nowrap">Vedette ?</th>
-              <th class="text-center text-nowrap">Actions</th>
             </tr>
           </thead>
 
           <tbody>
             @if (!$team || $team->isEmpty())
                 <tr>
-                  <td colspan="6" class="text-center text-nowrap"><b>Aucun membre dans l'équipe</b></td>
+                  <td colspan="4" class="text-center text-nowrap"><b>Aucun membre dans l'équipe</b></td>
                 </tr>
             @else 
-              @foreach ($team->sortBy('last_name') as $team_member)
+              @foreach ($team->sortBy('name') as $team_member)
                 <tr>
                   <td class="text-center text-nowrap">
-                    <img src="{{substr( $team_member->pic_path, 0, 4 ) === "http" ? $team_member->pic_path : asset('storage/'.$team_member->pic_path)}}" class="mini rounded-circle" alt="img">
+                    <img src="{{asset('storage/'.$team_member->photo_path)}}" class="mini rounded-circle" alt="img">
                   </td>
-                  <td class="text-center text-nowrap">{{$team_member->last_name}}</td>
-                  <td class="text-center text-nowrap">{{$team_member->first_name}}</td>
-                  <td class="text-center text-nowrap">{{$team_member->role}}</td>
+                  <td class="text-center text-nowrap">{{$team_member->name}}</td>
+                  <td class="text-center text-nowrap">{{$team_member->roles()->get()->implode('name', ', ')}}</td>
                   <td class="text-center text-nowrap">
                     @if ($starred && $team_member->id === $starred->member_id)
                       <form action="{{route('team.starred_member.remove')}}" method="POST" class="d-inline-block">
@@ -165,18 +147,6 @@
                         </button>
                       </form>
                     @endif
-                  </td>
-                  <td class="text-center text-nowrap">
-                    <a href="{{route('team.edit',$team_member->id)}}" class="btn btn-warning">
-                      <i class="fas fa-edit"></i>
-                    </a>
-                    <form action="{{route('team.destroy',$team_member->id)}}" method="POST" class="d-inline-block">
-                      @csrf
-                      @method('delete')
-                      <button class="btn btn-danger">
-                        <i class="fas fa-trash-alt"></i>
-                      </button>
-                    </form>
                   </td>
                 </tr>
               @endforeach

@@ -99,6 +99,12 @@ class ArticleController extends Controller
 
             alert()->toast('Article enregistrée !','success')->width('20rem');
 
+
+            if (Gate::allows('webmaster-power')) {
+                return redirect()->route('articles.index');            
+            } else {
+	            return redirect()->route('blog');
+            }
             return redirect()->route('articles.index');            
         } else {
             alert()->warning('Tu dois être rédacteur pour effectuer cette action');

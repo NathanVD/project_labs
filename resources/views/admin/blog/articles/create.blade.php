@@ -65,7 +65,11 @@
         <div class="card-footer">
           <div class="btn-group">
             <button type="submit" class="btn btn-success">Valider</button>
-            <a href="{{route('articles.index')}}" class="btn btn-secondary">Annuler</a>
+            @if (Auth::check() && Auth::user()->roles->where('name', 'Editor')->isNotEmpty())
+              <a href="/blog" class="btn btn-secondary">Annuler</a>
+            @else
+              <a href="{{route('articles.index')}}" class="btn btn-secondary">Annuler</a>
+            @endif
           </div>
         </div>
 

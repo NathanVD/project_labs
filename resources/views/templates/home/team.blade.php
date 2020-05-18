@@ -42,9 +42,9 @@
         @foreach ($team as $team_member)
           <div class="col-sm-4">
             <div class="member">
-              <img src="{{substr( $team_member->pic_path, 0, 4 ) === "http" ? $team_member->pic_path : asset('storage/'.$team_member->pic_path)}}" alt="">
-              <h2>{{$team_member->first_name}} {{$team_member->last_name}}</h2>
-              <h3>{{$team_member->role}}</h3>
+              <img src="{{asset('storage/'.$team_member->photo_path)}}" alt="">
+              <h2>{{$team_member->name}}</h2>
+              <h3>{{$team_member->roles()->get()->implode('name', ', ')}}</h3>
             </div>
           </div>
         @endforeach

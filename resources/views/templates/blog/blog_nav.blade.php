@@ -33,7 +33,7 @@
       <li><a href="{{ route('login') }}" class="nav-link">Se connecter</a></li>
       <li><a href="{{ route('register') }}" class="nav-link">S'enregistrer</a></li>
       @endif
-      @if (Auth::check() && Auth::user()->roles->whereIn('name', ['Admin','Webmaster'])->isNotEmpty())
+      @if (Auth::check() && Auth::user()->roles->whereIn('name',['Webmaster'])->isNotEmpty())
         <li><a href="/admin">Backoffice</a></li>
       @endif
     </ul>

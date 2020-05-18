@@ -34,6 +34,8 @@ class UserController extends Controller
             $request->validate([
                 'roles'=>'required',
             ]);
+            $user->roles()->detach();
+
             $user->roles()->attach(request('roles'));
 
             alert()->toast('Modification enregistrée !','success')->width('20rem');
