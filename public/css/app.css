@@ -6125,3 +6125,28 @@ readers do not read off random characters that represent icons */
   color: #337ab7 !important;
 }
 
+.label-file {
+  width: 100%;
+  margin-bottom: 26px;
+  border: none;
+  background: #f6edfb;
+  padding: 17px 20px;
+}
+
+.service,
+.icon-box {
+  display: block !important;
+}
+
+.icon-box.left .icon {
+  margin-left: 0;
+}
+
+body {
+  overflow-wrap: break-word;
+}
+
+.site-btn {
+  overflow-wrap: normal;
+}
+

@@ -43,6 +43,13 @@ class MessageController extends Controller
    */
   public function store(Request $request)
   {
+    $request->validate([
+      'name'=>'required|string',
+      'email'=>'required|email',
+      'subject'=>'required|string',
+      'message'=>'required'
+
+    ]);
     $message = new Message;
 
     $message->name = request('name');

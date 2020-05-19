@@ -73,6 +73,22 @@ class TestimonialController extends Controller
     */
 
     /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        if (Gate::allows('webmaster-power')) {
+            return view('admin.testimonials.create');            
+        } else {
+            alert()->warning('Tu dois être webmaster pour effectuer cette action');
+	    return redirect()->back();
+        }
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -106,7 +122,6 @@ class TestimonialController extends Controller
             alert()->warning('Tu dois être webmaster pour effectuer cette action');
 	        return redirect()->back();
         }
-
     }
 
     /**
@@ -125,7 +140,6 @@ class TestimonialController extends Controller
             alert()->warning('Tu dois être webmaster pour effectuer cette action');
 	    return redirect()->back();
         }
-
     }
 
     /**

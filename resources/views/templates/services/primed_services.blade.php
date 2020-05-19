@@ -88,12 +88,18 @@
         <div class="col-md-4 col-sm-4 features">
           @foreach ($primed_services->chunk(3)->first() as $primed_service)
             <div class="icon-box light left">
-              <div class="service-text">
-                <h2>{{$primed_service->title}}</h2>
-                <p>{{$primed_service->description}}</p>
-              </div>
-              <div class="icon">
-                <i class="{{$primed_service->icon}}"></i>
+              <div class="row">
+                <div class="col-md-10">
+                  <div class="service-text">
+                    <h2>{{$primed_service->title}}</h2>
+                    <p>{{$primed_service->description}}</p>
+                  </div>                  
+                </div>
+                <div class="col-md-2">
+                  <div class="icon">
+                    <i class="{{$primed_service->icon}}"></i>
+                  </div>
+                </div>
               </div>
             </div> 
           @endforeach
@@ -109,12 +115,18 @@
         <div class="col-md-4 col-sm-4 features">
           @foreach ($primed_services->chunk(3)->last() as $primed_service)
             <div class="icon-box light">
-              <div class="icon">
-                <i class="{{$primed_service->icon}}"></i>
-              </div>
-              <div class="service-text">
-                <h2>{{$primed_service->title}}</h2>
-                <p>{{$primed_service->description}}</p>
+              <div class="row">
+                <div class="col-md-2">
+                  <div class="icon">
+                    <i class="{{$primed_service->icon}}"></i>
+                  </div>                  
+                </div>
+                <div class="col-md-10">
+                  <div class="service-text">
+                    <h2>{{$primed_service->title}}</h2>
+                    <p>{{$primed_service->description}}</p>
+                  </div>
+                </div>
               </div>
             </div>
           @endforeach

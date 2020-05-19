@@ -130,13 +130,19 @@
                 <div class="row d-flex justify-content-center">
                   @foreach ($services as $service)
                     <div class="col-md-4 col-sm-6">
-                      <div class="service justify-content-center">
-                        <div class="icon">
-                          <i class="{{$service->icon}}"></i>
-                        </div>
-                        <div class="service-text">
-                          <h2>{{$service->title}}</h2>
-                          <p>{{$service->description}}</p>
+                      <div class="service">
+                        <div class="row">
+                          <div class="col-md-2">
+                            <div class="icon">
+                              <i class="{{$service->icon}}"></i>
+                            </div>                            
+                          </div>
+                          <div class="col-md-10">
+                            <div class="service-text">
+                              <h2>{{$service->title}}</h2>
+                              <p>{{$service->description}}</p>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>

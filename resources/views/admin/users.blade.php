@@ -31,7 +31,7 @@
                 <td colspan="5" class="text-center text-nowrap"><b>Aucun utilisateur inscrit</b></td>
               </tr>
           @else 
-            @foreach ($users->sortBy('created_at') as $user)
+            @foreach ($users->sortByDesc('created_at') as $user)
               <tr>
                 <th class="text-center text-nowrap">
                   <img src="{{asset('storage/'.$user->photo_path)}}" class="mini rounded-circle" alt="img">
@@ -43,7 +43,7 @@
                     @csrf
                     @foreach ($roles as $role)
                       <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="input-{{$user->id.$role->id}}" name='roles[]' value="{{$role->id}}" {{$user->roles()->find($role->id) ? 'checked' : ''}}>
+                        <input class="form-check-input" type="checkbox" id="input-{{$user->id.$role->id}}" name='roles[]' value="{{$role->id}}" {{$user->roles()->find($role->id) ? 'checked' : ''}}  {{$role->name === 'Admin' && $admin && $admin->id !== $user->id ? 'disabled' : ''}}>
                         <label class="form-check-label" for="input-{{$user->id.$role->id}}">{{$role->name}}</label>
                       </div>
                     @endforeach

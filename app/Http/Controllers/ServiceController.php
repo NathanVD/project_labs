@@ -93,8 +93,8 @@ class ServiceController extends Controller
         if (Gate::allows('webmaster-power')) {
             $request->validate([
                 'icone'=>'required',
-                'nom'=>'required|string',
-                'description'=>'required|string',
+                'nom'=>'required|string|max:25',
+                'description'=>'required|string|max:190',
             ]);
 
             $service = new Service;
@@ -146,8 +146,8 @@ class ServiceController extends Controller
             $service = Service::find($id);
 
             $request->validate([
-                'nom'=>'required|string',
-                'description'=>'required|string',
+                'nom'=>'required|string|max:25',
+                'description'=>'required|string|max:190',
             ]);
 
             if (request('icon')) {

@@ -48,7 +48,7 @@ class HomeController extends Controller
         if ($starred && $team1->count() <= 1) {
             $team  = $team1->replace([0 => $starred]);
         } else if ($starred) {
-            $team = $team1->whereNotIn('id',$starred->member_id)->shuffle();
+            $team = $team1->whereNotIn('id',$starred->id)->shuffle();
             $team_2 = $team[1];
             $team = $team->replace([1 => $starred])->push($team_2)->chunk(3)->first();
         } else {

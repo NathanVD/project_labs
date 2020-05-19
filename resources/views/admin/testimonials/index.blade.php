@@ -64,7 +64,7 @@
                   <td colspan="6" class="text-center text-nowrap"><b>Aucun témoignage enregistré</b></td>
                 </tr>
             @else 
-              @foreach ($testimonials as $testimonial)
+              @foreach ($testimonials->sortByDesc('created_at') as $testimonial)
                 <tr>
                   <td class="text-center text-nowrap">
                     <img src="{{substr( $testimonial->profile_picture_path, 0, 4 ) === "http" ? $testimonial->profile_picture_path : asset('storage/'.$testimonial->profile_picture_path)}}" class="mini rounded-circle" alt="img">

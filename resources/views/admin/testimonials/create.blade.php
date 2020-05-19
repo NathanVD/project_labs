@@ -37,8 +37,8 @@
           </div>
 
           <div class="form-group">
-            <label for="testimony">Témoignage :</label>
-            <textarea name="testimony" id="testimony" class="form-control" rows="4" maxlength="175"></textarea>
+            <label for="témoignage">Témoignage :</label>
+            <textarea name="témoignage" id="témoignage" class="form-control" rows="4" maxlength="175"></textarea>
           </div>
 
         </div>

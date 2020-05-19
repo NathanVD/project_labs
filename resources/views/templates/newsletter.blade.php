@@ -6,7 +6,7 @@
       </div>
       <div class="col-md-9">
         <!-- newsletter form -->
-        <form class="nl-form" action="{{route('newsletter.subscribe')}}" method="POST">
+        <form class="nl-form d-flex" action="{{route('newsletter.subscribe')}}" method="POST">
           @csrf
           <input type="text" id="email" name="email" placeholder="Entrez votre e-mail ici">
           <button class="site-btn btn-2">Newsletter</button>
