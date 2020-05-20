@@ -32,11 +32,108 @@ class BlogpageController extends Controller
         $navlinks = Navlinks::find(1);
         $logo = Logo::find(1);
         $footer = Footer::find(1);
+        $categories = Category::whereHas('articles',function($q) {
+            $q->where('approved',true);
+        })->get()->shuffle()->chunk(6)->first();
+        $tags = Tag::whereHas('articles',function($q) {
+            $q->where('approved',true);
+        })->get()->shuffle()->chunk(9)->first();
+        
         $articles = Article::where('approved',true)->orderBy('updated_at','desc')->paginate(3);
-        // $articles->content = Str::limit($articles->content,315);
-        $categories = Category::all()->shuffle()->chunk(6)->first();
-        $tags = Tag::all()->shuffle()->chunk(9)->first();
 
         return view('blog',compact('navlinks','logo','footer','articles','categories','tags'));
+    }
+
+    public function show($id)
+    {
+        $navlinks = Navlinks::find(1);
+        $logo = Logo::find(1);
+        $footer = Footer::find(1);
+        $categories = Category::whereHas('articles',function($q) {
+            $q->where('approved',true);
+        })->get()->shuffle()->chunk(6)->first();
+        $tags = Tag::whereHas('articles',function($q) {
+            $q->where('approved',true);
+        })->get()->shuffle()->chunk(9)->first();
+        
+        $article = Article::find($id);
+
+        return view('blog_post',compact('navlinks','logo','footer','article','categories','tags'));
+    }
+
+    public function search(Request $request)
+    {
+        $navlinks = Navlinks::find(1);
+        $logo = Logo::find(1);
+        $footer = Footer::find(1);
+        $categories = Category::whereHas('articles',function($q) {
+            $q->where('approved',true);
+        })->get()->shuffle()->chunk(6)->first();
+        $tags = Tag::whereHas('articles',function($q) {
+            $q->where('approved',true);
+        })->get()->shuffle()->chunk(9)->first();
+
+        $search = request('recherche');
+
+        $articles = Article::where('approved',true)->where('title','LIKE',"%{$search}%")->paginate(3);
+          
+        return view('blog_search',compact('navlinks','logo','footer','articles','categories','tags','search'));
+    }
+
+    public function cat_search($search)
+    {
+        $navlinks = Navlinks::find(1);
+        $logo = Logo::find(1);
+        $footer = Footer::find(1);
+        $categories = Category::whereHas('articles',function($q) {
+            $q->where('approved',true);
+        })->get()->shuffle()->chunk(6)->first();
+        $tags = Tag::whereHas('articles',function($q) {
+            $q->where('approved',true);
+        })->get()->shuffle()->chunk(9)->first();
+
+        $cat = Category::where('name',$search)->first()->id;
+
+        $articles = Article::where('approved',true)->where('category_id',$cat)->paginate(3);
+          
+        return view('blog_search',compact('navlinks','logo','footer','articles','categories','tags','search'));
+    }
+
+    public function tag_search($search)
+    {
+        $navlinks = Navlinks::find(1);
+        $logo = Logo::find(1);
+        $footer = Footer::find(1);
+        $categories = Category::whereHas('articles',function($q) {
+            $q->where('approved',true);
+        })->get()->shuffle()->chunk(6)->first();
+        $tags = Tag::whereHas('articles',function($q) {
+            $q->where('approved',true);
+        })->get()->shuffle()->chunk(9)->first();
+
+        $articles = Article::where('approved',true)->whereHas('tags',function($q) use($search){
+            $q->where('name',$search);
+        })->paginate(3);
+          
+        return view('blog_search',compact('navlinks','logo','footer','articles','categories','tags','search'));
+    }
+
+    public function author_search($search)
+    {
+        $navlinks = Navlinks::find(1);
+        $logo = Logo::find(1);
+        $footer = Footer::find(1);
+        $categories = Category::whereHas('articles',function($q) {
+            $q->where('approved',true);
+        })->get()->shuffle()->chunk(6)->first();
+        $tags = Tag::whereHas('articles',function($q) {
+            $q->where('approved',true);
+        })->get()->shuffle()->chunk(9)->first();
+
+        $articles = Article::where('approved',true)->whereHas('user',function($q) use($search){
+            $q->where('name',$search);
+        })->paginate(3);
+          
+        return view('blog_search',compact('navlinks','logo','footer','articles','categories','tags','search'));
     }
 }

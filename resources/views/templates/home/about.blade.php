@@ -41,7 +41,7 @@
           </div>
         @else
           @foreach ($services_chunks->first()->chunk(3)->first() as $quick_service)
-            <div class="col-md-4 col-sm-12">
+            <div class="col-md-4 {{$loop->last ? "col-sm-12" : "col-sm-6"}}">
               <div class="lab-card">
                 <div class="icon">
                   <i class="{{$quick_service->icon}}"></i>

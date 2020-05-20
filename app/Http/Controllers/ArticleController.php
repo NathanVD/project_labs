@@ -68,15 +68,15 @@ class ArticleController extends Controller
 
         if (Gate::allows('writing-power')) {
             $article = new Article;
-            // dd(Auth::user()->id);
 
             $request->validate([
                 'image'=>'required|image',
                 'titre'=>'required|string',
                 'catégorie'=>'required',
                 'contenu'=>'required',
-                'tags'=>'required',
+                'tags'=>'required|unique:tags,name',
             ]);
+
             $article->img_path = request('image')->store('img');
             $article->title = request('titre');
             $article->user_id = Auth::user()->id;
@@ -86,6 +86,7 @@ class ArticleController extends Controller
             $article->save();
 
             $newtags = collect(request('tags'))->whereNotNull()->diff(Tag::all()->pluck('id'));
+
             $tags = Tag::find(request('tags'));
 
             foreach ($newtags as $newtag) {
@@ -176,7 +177,7 @@ class ArticleController extends Controller
                 'titre'=>'required|string',
                 'catégorie'=>'required',
                 'contenu'=>'required',
-                'tags'=>'required',
+                'tags'=>'required|unique:tags,name',
             ]);
 
             if (request('img')) {
@@ -191,9 +192,7 @@ class ArticleController extends Controller
             $article->save();
 
             // Tags supplémentaires
-            // On retire tous les tags 
-            $article->tags()->detach();
-            // et on prend les nouveaux
+            // On prend les nouveaux
             // Qui n'existent pas encore
             $newtags = collect(request('tags'))->whereNotNull()->diff(Tag::all()->pluck('id'));
             // Qui existent déjà
@@ -206,7 +205,7 @@ class ArticleController extends Controller
                 $tags->push($tag);
             }
 
-            $article->tags()->attach($tags);
+            $article->tags()->sync($tags);
 
             alert()->toast('Article modifié !','success')->width('20rem');
 

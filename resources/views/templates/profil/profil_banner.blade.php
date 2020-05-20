@@ -5,11 +5,11 @@
 
     <div class="page-info d-flex flex-column">
 
-      <h2 class="text-capitalize">{{$navlinks ? $navlinks->link_2 : 'services'}}</h2>
+      <h2 class="text-capitalize">profil</h2>
 
       <div class="page-links">
         <a href="/home" class="text-capitalize">{{$navlinks ? $navlinks->link_1 : 'home'}}</a>
-        <span class="text-capitalize">{{$navlinks ? $navlinks->link_2 : 'services'}}</span>
+        <span class="text-capitalize">profil</span>
       </div>
 
     </div>

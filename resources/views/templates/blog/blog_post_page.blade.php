@@ -20,7 +20,7 @@
           <div class="post-content">
             <h2 class="post-title">{{$article->title}}</h2>
             <div class="post-meta">
-              <a href="">{{$article->category ? $article->category->name : "Pas de catégorie"}}</a>
+              <a href="{{route('cat_search',$article->category->name)}}">{{$article->category ? $article->category->name : "Pas de catégorie"}}</a>
               <a href="">{{$article->tags->isNotEmpty() ? $article->tags()->inRandomOrder()->limit(3)->get()->implode('name', ', ') : "Aucun tag"}}</a>
               <a href="">{{$article->comments->count()}} Commentaires</a>
             </div>
@@ -32,7 +32,7 @@
               <img src="{{asset('storage/'.$article->user->photo_path)}}" alt="">
             </div>
             <div class="author-info">
-              <h2>{{$article->user ? $article->user->name : "L'auteur n'existe plus"}}, <span>Auteur</span></h2>
+              <h2><a href="{{route('author_search',$article->user->name)}}">{{$article->user ? $article->user->name : "L'auteur n'existe plus"}}</a>, <span>Auteur</span></h2>
               <p>{{$article->user->description}}</p>
             </div>
           </div>
@@ -87,8 +87,9 @@
       <div class="col-md-4 col-sm-5 sidebar">
         <!-- Single widget -->
         <div class="widget-item">
-          <form action="#" class="search-form">
-            <input type="text" placeholder="Search">
+          <form action="{{route('blog_search')}}" method="GET" class="search-form">
+            @csrf
+            <input type="text" name="recherche" placeholder="Rechercher">
             <button class="search-btn"><i class="flaticon-026-search"></i></button>
           </form>
         </div>
@@ -97,15 +98,10 @@
           <h2 class="widget-title">Categories</h2>
           <ul>
             @if (!$categories || $categories->isEmpty())
-              <li><a href="#">Vestibulum maximus</a></li>
-              <li><a href="#">Nisi eu lobortis pharetra</a></li>
-              <li><a href="#">Orci quam accumsan </a></li>
-              <li><a href="#">Auguen pharetra massa</a></li>
-              <li><a href="#">Tellus ut nulla</a></li>
-              <li><a href="#">Etiam egestas viverra </a></li>
+              <p>Aucune catégorie</p>
             @else
               @foreach ($categories as $category)
-                <li><a href="#">{{$category->name}}</a></li>
+                <li><a href="{{route('cat_search',$category->name)}}">{{$category->name}}</a></li>
               @endforeach
             @endif
           </ul>
@@ -127,16 +123,10 @@
           <h2 class="widget-title">Tags</h2>
           <ul class="tag">
             @if (!$tags || $tags->isEmpty())
-              <li><a href="">branding</a></li>
-              <li><a href="">identity</a></li>
-              <li><a href="">video</a></li>
-              <li><a href="">design</a></li>
-              <li><a href="">inspiration</a></li>
-              <li><a href="">web design</a></li>
-              <li><a href="">photography</a></li>
+              <p>Aucun tag</p>
             @else
               @foreach ($tags as $tag)
-                <li><a href="">{{$tag->name}}</a></li>
+                <li><a href="{{route('tag_search',$tag->name)}}">{{$tag->name}}</a></li>
               @endforeach
             @endif
           </ul>

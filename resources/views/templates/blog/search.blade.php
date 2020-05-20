@@ -2,10 +2,13 @@
   <div class="container">
     <div class="row">
       <div class="col-md-8 col-sm-7 blog-posts">
+        <div class="section-title dark">
+          <h2>Résultats pour <span>{{$search}}</span></h2>
+        </div>
         @if (!$articles || $articles->isEmpty())
           <div class="container">
             <img src="{{asset('storage/img/VIDE.jpg')}}" alt="">
-            <p><b>C'est vide ici.</b></p>
+            <p><b>Cette recherche n'a rien donné...</b></p>
           </div>
         @else
           @foreach ($articles as $article)
@@ -21,19 +24,11 @@
                 <h2 class="post-title">{{$article->title}}</h2>
                 <div class="post-meta">
                   <a href="{{route('cat_search',$article->category->name)}}">{{$article->category ? $article->category->name : "Pas de catégorie"}}</a>
-                  @if ($article->tags)
-                    <a href="">
-                      @foreach ($article->tags()->inRandomOrder()->limit(3)->get() as $tag)
-                        {{$tag->name}}{{$loop->last ? '' : ','}}
-                      @endforeach
-                    </a>
-                  @else
-                    <a href="">{{"Aucun tag"}}</a>
-                  @endif
+                  <a href="">{{$article->tags ? $article->tags()->inRandomOrder()->limit(3)->get()->implode('name', ', ') : "Aucun tag"}}</a>
                   <a href="">{{$article->comments->count()}} Commentaires</a>
                 </div>
                 <p>{{\Illuminate\Support\Str::limit($article->content,315)}}</p>
-                <a href="blog_post/{{$article->id}}" class="read-more">Lire la suite</a>
+                <a href="/blog_post/{{$article->id}}" class="read-more">Lire la suite</a>
               </div>
             </div>
           @endforeach
@@ -74,12 +69,12 @@
         <div class="widget-item">
           <h2 class="widget-title">Instagram</h2>
           <ul class="instagram">
-            <li><img src="img/instagram/1.jpg" alt=""></li>
-            <li><img src="img/instagram/2.jpg" alt=""></li>
-            <li><img src="img/instagram/3.jpg" alt=""></li>
-            <li><img src="img/instagram/4.jpg" alt=""></li>
-            <li><img src="img/instagram/5.jpg" alt=""></li>
-            <li><img src="img/instagram/6.jpg" alt=""></li>
+            <li><img src="{{asset('img/instagram/1.jpg')}}" alt=""></li>
+            <li><img src="{{asset('img/instagram/2.jpg')}}" alt=""></li>
+            <li><img src="{{asset('img/instagram/3.jpg')}}" alt=""></li>
+            <li><img src="{{asset('img/instagram/4.jpg')}}" alt=""></li>
+            <li><img src="{{asset('img/instagram/5.jpg')}}" alt=""></li>
+            <li><img src="{{asset('img/instagram/6.jpg')}}" alt=""></li>
           </ul>
         </div>
         <!-- Single widget -->
@@ -107,7 +102,7 @@
         <div class="widget-item">
           <h2 class="widget-title">Ad</h2>
           <div class="add">
-            <a href=""><img src="img/add.jpg" alt=""></a>
+            <a href=""><img src="{{asset('img/add.jpg')}}" alt=""></a>
           </div>
         </div>
       </div>

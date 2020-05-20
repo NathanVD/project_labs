@@ -1,4 +1,4 @@
-
+@import url(https://fonts.googleapis.com/css?family=Oswald:300,400,500,700|Roboto:300,400,700);
 @charset "UTF-8";
 /*!
  * animate.css - https://animate.style/
@@ -6148,5 +6148,12 @@ body {
 
 .site-btn {
   overflow-wrap: normal;
+}
+
+.intro-video > .row > .col-md-8 > img {
+  height: 405px !important;
+  width: 100%;
+  -o-object-fit: cover !important;
+     object-fit: cover !important;
 }
 

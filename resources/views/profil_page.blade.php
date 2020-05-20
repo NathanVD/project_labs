@@ -4,7 +4,7 @@
 
   @include('templates.preloader')
 
-  @include('templates.profil.ready')
+  @include('templates.profil.profil_banner')
 
   @include('templates.profil.profil_nav')
 

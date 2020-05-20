@@ -9,7 +9,7 @@
       <li><a href="/home" class="text-capitalize">{{$navlinks ? $navlinks->link_1 : 'home'}}</a></li>
       <li><a href="/services" class="text-capitalize">{{$navlinks ? $navlinks->link_2 : 'services'}}</a></li>
       <li><a href="/blog" class="text-capitalize">{{$navlinks ? $navlinks->link_3 : 'blog'}}</a></li>
-      <li class="active"><a href="#" class="text-capitalize">{{$navlinks ? $navlinks->link_4 : 'contact'}}</a></li>
+      <li class="active"><a href="/contact" class="text-capitalize">{{$navlinks ? $navlinks->link_4 : 'contact'}}</a></li>
       <li class="dropdown">
       @if (Auth::check())
         <li class="dropdown">

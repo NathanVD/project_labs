@@ -5,6 +5,7 @@
 
       <!-- contact info -->
       <div class="col-md-5 col-md-offset-1 contact-info col-push text-center">
+        <div class="overlay"></div>
         <div class="member">
           <h2>{{$user->name}}</h2>
           <h3>{{$user->roles->implode('name', ', ')}}</h3>

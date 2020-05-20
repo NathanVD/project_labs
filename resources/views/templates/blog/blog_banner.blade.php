@@ -8,7 +8,7 @@
       <h2 class="text-capitalize">{{$navlinks ? $navlinks->link_3 : 'blog'}}</h2>
 
       <div class="page-links">
-        <a href="/" class="text-capitalize">{{$navlinks ? $navlinks->link_1 : 'home'}}</a>
+        <a href="/home" class="text-capitalize">{{$navlinks ? $navlinks->link_1 : 'home'}}</a>
         <span class="text-capitalize">{{$navlinks ? $navlinks->link_3 : 'blog'}}</span>
       </div>
 
